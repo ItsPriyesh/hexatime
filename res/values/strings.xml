@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HexaTime</string>
+    <string name="description">HexaTime displays time along with the corresponding hexadecimal color.</string>
+            
+</resources>
