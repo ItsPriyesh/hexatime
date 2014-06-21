@@ -1,95 +1,96 @@
 package com.priyesh.hexatime;
 
+import java.util.Calendar;
+
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
-import android.util.Log;
 import android.view.SurfaceHolder;
 
 public class HexatimeService extends WallpaperService {
 
-    private static final String TAG = "Wallpaper";
+	private static final String TAG = "Wallpaper";
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.d(TAG, "onCreate");
-    }
+	public int oneSecond = 1000;
+	
+	public int hour, min, sec;
+	public Calendar cal;
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy");
+	@Override
+	public Engine onCreateEngine() {
+		return new DemoWallpaperEngine();
+	}
+	private class DemoWallpaperEngine extends Engine {
+		private boolean mVisible = false;
+		private final Handler mHandler = new Handler();
+		private final Runnable mUpdateDisplay = new Runnable() {
+			@Override
+			public void run() {
+				draw();
+			}};
+			private void draw() {
+				cal = Calendar.getInstance();
+				hour = cal.get(Calendar.HOUR_OF_DAY);
+				min = cal.get(Calendar.MINUTE);
+				sec = cal.get(Calendar.SECOND);
+				SurfaceHolder holder = getSurfaceHolder();
+				Canvas c = null;
+				try {
+					c = holder.lockCanvas();
+					if (c != null) {
+						Paint p = new Paint();
+						p.setTextSize(90);
+						p.setTypeface(Typeface.createFromAsset(getAssets(), "LatoLight.ttf"));
+						p.setAntiAlias(true);
+						
+						String text = String.format("#%02d%02d%02d", hour, min, sec );
+						
+						float d = p.measureText(text, 0, text.length());
+						int offset = (int) d / 2;
+						int w = c.getWidth();
+						int h = c.getHeight();
+						p.setColor(Color.argb(255, hour, min, sec));
+						c.drawRect(0, 0, w, h, p);
+						p.setColor(Color.WHITE);
+						c.drawText(text, w/2- offset, h/2, p);
 
-    }
-
-    @Override
-    public Engine onCreateEngine() {
-        return new WallpaperEngine();
-    }
-
-    class WallpaperEngine extends Engine {
-
-        private static final String TAG = "WallpaperEngine";
-
-        private AnimationThread animationThread;
-        private Wallpaper wall;
-
-        @Override
-        public void onCreate(SurfaceHolder surfaceHolder) {
-            super.onCreate(surfaceHolder);
-
-            Log.d(TAG, "onCreate");
-
-            // create the scene
-            wall = new Wallpaper();
-            
-            // start animation thread; thread starts paused
-            // will run onVisibilityChanged
-            animationThread = new AnimationThread(surfaceHolder, wall);
-            animationThread.start();
-
-        }
-
-        @Override
-        public void onDestroy() {
-            Log.d(TAG, "onDestroy");
-
-            animationThread.stopThread();
-            joinThread(animationThread);
-            animationThread = null;
-
-            super.onDestroy();
-        }
-
-        @Override
-        public void onVisibilityChanged(boolean visible) {
-            Log.d(TAG, "onVisibilityChanged: " + (visible ? "visible" : "invisible"));
-            if (visible) {
-                animationThread.resumeThread();
-            } else {
-                animationThread.pauseThread();
-            }
-        }
-
-        @Override
-        public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            super.onSurfaceChanged(holder, format, width, height);
-            Log.d(TAG, "onSurfaceChanged: width: " + width + ", height: " + height);
-
-            wall.updateSize(width, height);
-
-        }
-
-        private void joinThread(Thread thread) {
-            boolean retry = true;
-            while (retry) {
-                try {
-                    thread.join();
-                    retry = false;
-                } catch (InterruptedException e) {
-                }
-            }
-        }
-
-    }
-
+					}
+				} finally {
+					if (c != null)
+						holder.unlockCanvasAndPost(c);
+				}
+				mHandler.removeCallbacks(mUpdateDisplay);
+				if (mVisible) {
+					mHandler.postDelayed(mUpdateDisplay, oneSecond);
+				}
+			}
+			@Override
+			public void onVisibilityChanged(boolean visible) {
+				mVisible = visible;
+				if (visible) {
+					draw();
+				} else {
+					mHandler.removeCallbacks(mUpdateDisplay);
+				}
+			}
+			@Override
+			public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+				draw();
+			}
+			@Override
+			public void onSurfaceDestroyed(SurfaceHolder holder) {
+				super.onSurfaceDestroyed(holder);
+				mVisible = false;
+				mHandler.removeCallbacks(mUpdateDisplay);
+			}
+			@Override
+			public void onDestroy() {
+				super.onDestroy();
+				mVisible = false;
+				mHandler.removeCallbacks(mUpdateDisplay);
+			}
+	}
 }
