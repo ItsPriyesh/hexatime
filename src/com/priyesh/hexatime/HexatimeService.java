@@ -33,6 +33,9 @@ public class HexatimeService extends WallpaperService {
 		private final Handler mHandler = new Handler();
 		private GestureDetector mGestureDetector;
 
+		private Canvas c;
+		private Paint hexClock, bg;
+		
 		private final Runnable mUpdateDisplay = new Runnable() {
 
 			@Override
@@ -48,12 +51,12 @@ public class HexatimeService extends WallpaperService {
 				twelveHour = cal.get(Calendar.HOUR);
 				
 				SurfaceHolder holder = getSurfaceHolder();
-				Canvas c = null;
+				c = null;
 				try {
 					c = holder.lockCanvas();
 					if (c != null) {
-						Paint hexClock = new Paint();
-						Paint bg = new Paint();
+						hexClock = new Paint();
+						bg = new Paint();
 						
 						hexClock.setTextSize(90);
 						hexClock.setTypeface(Typeface.createFromAsset(getAssets(), "LatoLight.ttf"));
