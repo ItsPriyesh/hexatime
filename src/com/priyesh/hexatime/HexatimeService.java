@@ -2,46 +2,64 @@ package com.priyesh.hexatime;
 
 import java.util.Calendar;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.widget.Toast;
 
-public class HexatimeService extends WallpaperService {
+public class HexatimeService extends WallpaperService{
 
 	private static final String TAG = "Wallpaper";
+
+	public static final String SHARED_PREFS_NAME="hexatime_settings";
 
 	public int oneSecond = 1000;
 
 	public int hour, min, sec, twelveHour;
 	public Calendar cal;
 
+	private SharedPreferences mPrefs = null;
+
+	private int fontStyle = 1; // 0 is regular, 1 is light
+	private Typeface selectedFont;
+
 	@Override
 	public Engine onCreateEngine() {
-		return new DemoWallpaperEngine();
+		return new HexatimeEngine(this);
 	}
 
-	private class DemoWallpaperEngine extends Engine {
+	private class HexatimeEngine extends Engine implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 		private boolean mVisible = false;
 		private final Handler mHandler = new Handler();
-		private GestureDetector mGestureDetector;
 
 		private Canvas c;
 		private Paint hexClock, bg;
-		
+
 		private final Runnable mUpdateDisplay = new Runnable() {
+
+
 
 			@Override
 			public void run() {
 				draw();
 			}};
+
+			HexatimeEngine(WallpaperService ws) {
+
+				mPrefs = HexatimeService.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
+				mPrefs.registerOnSharedPreferenceChangeListener(this);
+				onSharedPreferenceChanged(mPrefs, null);
+			}
 
 			private void draw() {
 				cal = Calendar.getInstance();
@@ -49,7 +67,7 @@ public class HexatimeService extends WallpaperService {
 				min = cal.get(Calendar.MINUTE);
 				sec = cal.get(Calendar.SECOND);
 				twelveHour = cal.get(Calendar.HOUR);
-				
+
 				SurfaceHolder holder = getSurfaceHolder();
 				c = null;
 				try {
@@ -57,22 +75,21 @@ public class HexatimeService extends WallpaperService {
 					if (c != null) {
 						hexClock = new Paint();
 						bg = new Paint();
-						
+
 						hexClock.setTextSize(90);
-						hexClock.setTypeface(Typeface.createFromAsset(getAssets(), "LatoLight.ttf"));
+						hexClock.setTypeface(selectedFont);
 						hexClock.setAntiAlias(true);
 
 						String hexTime = String.format("#%02d%02d%02d", hour, min, sec ); // 24 hour hex triplet time
-						String time = String.format("%d:%02d:%02d", twelveHour, min, sec); // 12 hour clock time
-						
+
 						float d = hexClock.measureText(hexTime, 0, hexTime.length());
 						int offset = (int) d / 2;
 						int w = c.getWidth();
 						int h = c.getHeight();
-						
+
 						bg.setColor(Color.argb(255, hour, min, sec));
 						c.drawRect(0, 0, w, h, bg);
-						
+
 						hexClock.setColor(Color.WHITE);
 						c.drawText(hexTime, w/2- offset, h/2, hexClock);
 
@@ -98,13 +115,6 @@ public class HexatimeService extends WallpaperService {
 			}
 
 			@Override
-			public void onCreate(SurfaceHolder holder) {
-				super.onCreate(holder);
-				mGestureDetector = new GestureDetector(HexatimeService.this, mGestureListener);
-				setTouchEventsEnabled(true);
-			}
-
-			@Override
 			public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 				draw();
 			}
@@ -123,21 +133,28 @@ public class HexatimeService extends WallpaperService {
 				mHandler.removeCallbacks(mUpdateDisplay);
 			}
 
-			@Override 
-			public void onTouchEvent(MotionEvent event) {
-				super.onTouchEvent(event);
-				mGestureDetector.onTouchEvent(event);
-
+			@Override
+			public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+				if(key != null){
+					if(key.equals("FONT_STYLE")){
+						changeFontStyle(prefs.getString("FONT_STYLE", "1"));
+					}
+				}
+				else {	                        
+					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
+				}
+				return;
 			}
 
-			private GestureDetector.OnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
-				@Override
-				public boolean onDoubleTap(MotionEvent e) {
-					Toast.makeText(getApplicationContext(), "You have double tapped",
-							Toast.LENGTH_SHORT).show();
-					
-					return true;
+			private void changeFontStyle(String value){
+				fontStyle = Integer.parseInt(value);
+				if(fontStyle == 0){ // regular
+					selectedFont = Typeface.createFromAsset(getAssets(), "Lato.ttf");
 				}
-			};
+				else if (fontStyle == 1){ // light
+					selectedFont = Typeface.createFromAsset(getAssets(), "LatoLight.ttf");                    
+				}
+				return;
+			}
 	}
 }
