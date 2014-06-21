@@ -19,7 +19,7 @@ public class HexatimeService extends WallpaperService {
 
 	public int oneSecond = 1000;
 
-	public int hour, min, sec;
+	public int hour, min, sec, twelveHour;
 	public Calendar cal;
 
 	@Override
@@ -45,26 +45,33 @@ public class HexatimeService extends WallpaperService {
 				hour = cal.get(Calendar.HOUR_OF_DAY);
 				min = cal.get(Calendar.MINUTE);
 				sec = cal.get(Calendar.SECOND);
+				twelveHour = cal.get(Calendar.HOUR);
+				
 				SurfaceHolder holder = getSurfaceHolder();
 				Canvas c = null;
 				try {
 					c = holder.lockCanvas();
 					if (c != null) {
-						Paint p = new Paint();
-						p.setTextSize(90);
-						p.setTypeface(Typeface.createFromAsset(getAssets(), "LatoLight.ttf"));
-						p.setAntiAlias(true);
+						Paint hexClock = new Paint();
+						Paint bg = new Paint();
+						
+						hexClock.setTextSize(90);
+						hexClock.setTypeface(Typeface.createFromAsset(getAssets(), "LatoLight.ttf"));
+						hexClock.setAntiAlias(true);
 
-						String text = String.format("#%02d%02d%02d", hour, min, sec );
-
-						float d = p.measureText(text, 0, text.length());
+						String hexTime = String.format("#%02d%02d%02d", hour, min, sec ); // 24 hour hex triplet time
+						String time = String.format("%d:%02d:%02d", twelveHour, min, sec); // 12 hour clock time
+						
+						float d = hexClock.measureText(hexTime, 0, hexTime.length());
 						int offset = (int) d / 2;
 						int w = c.getWidth();
 						int h = c.getHeight();
-						p.setColor(Color.argb(255, hour, min, sec));
-						c.drawRect(0, 0, w, h, p);
-						p.setColor(Color.WHITE);
-						c.drawText(text, w/2- offset, h/2, p);
+						
+						bg.setColor(Color.argb(255, hour, min, sec));
+						c.drawRect(0, 0, w, h, bg);
+						
+						hexClock.setColor(Color.WHITE);
+						c.drawText(hexTime, w/2- offset, h/2, hexClock);
 
 					}
 				} finally {
