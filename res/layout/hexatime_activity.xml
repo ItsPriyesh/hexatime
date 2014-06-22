@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/wallpaper_activity_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="6dp" >
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:r="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.priyesh.hexatime.HexatimeActivity" >
 
-    <Button
-        android:id="@+id/btn_set_wallpaper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Activate" />
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-</LinearLayout>
+        <com.priyesh.hexatime.IntroView
+            android:id="@+id/intro"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="32dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            r:duration="4000"
+            r:fadeFactor="10.0"
+            r:phase="1.0"
+            r:strokeColor="#ffffffff"
+            r:strokeWidth="2.0"
+            r:waitRadius="25dp" />
+
+        <ImageButton
+            android:id="@+id/activateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+        
+    </LinearLayout>
+
+</merge>

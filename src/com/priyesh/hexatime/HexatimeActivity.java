@@ -4,37 +4,51 @@ import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 public class HexatimeActivity extends Activity {
 
-    private Button setWallpaperButton;
+	private ImageButton activateButton;
+	LinearLayout layout;
+    private IntroView mIntroView;
+	 
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState); 
+		setContentView(R.layout.hexatime_activity);
+ 
+		layout =(LinearLayout)findViewById(R.id.linearlayout);
+		
+		mIntroView = (IntroView) findViewById(R.id.intro);
+	    mIntroView.setSvgResource(R.raw.hexatime);
+	    
+	    layout.setBackgroundDrawable(new ColorDrawable (getResources().getColor(R.color.c1)));
+	    
+        
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+			Window win = getWindow();
+			win.setFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+			win.setFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		}
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+		activateButton = (ImageButton) findViewById(R.id.activateButton);
+		activateButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v){
+				startActivity(new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
+				.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(HexatimeActivity.this, HexatimeService.class))
+				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
-        setContentView(R.layout.hexatime_activity);
-
-        setWallpaperButton = (Button) findViewById(R.id.btn_set_wallpaper);
-        setWallpaperButton.setOnClickListener(setWallpaperListener);  
-
-    } 
-
-    private View.OnClickListener setWallpaperListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            
-            startActivity(new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
-            .putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(HexatimeActivity.this, HexatimeService.class))
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            
-            finish();
-
-        }
-    };
+				finish();
+			}
+		});
+	}
 
 }

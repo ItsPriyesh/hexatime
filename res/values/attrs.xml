@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IntroView">
+        <attr name="strokeWidth" format="float" />
+        <attr name="strokeColor" format="color|reference" />
+        <attr name="phase" format="float" />
+        <attr name="duration" format="integer" />
+        <attr name="fadeFactor" format="float" />
+        <attr name="waitRadius" format="dimension" />
+    </declare-styleable>
+</resources>
