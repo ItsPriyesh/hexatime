@@ -1,24 +1,20 @@
 package com.priyesh.hexatime;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 public class HexatimeSettings extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
 
-	private static final String TAG = "com.priyesh.hexatime.HexatimeSettings";
-
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-
-		// tell the preference API what file name should be used
+		overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
 		getPreferenceManager().setSharedPreferencesName(HexatimeService.SHARED_PREFS_NAME); 
-
-		// load the preferences from an XML resource
 		addPreferencesFromResource(R.xml.hexatime_settings);
-
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
 	}
@@ -39,4 +35,5 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
             return;
     }
+
 }

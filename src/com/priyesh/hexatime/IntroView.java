@@ -20,6 +20,7 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -64,7 +65,7 @@ public class IntroView extends View{
 	Rect bounds, subbounds;
 	GestureDetector gestureDetector;
 	Context mContext;  
-	
+
 	public IntroView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
@@ -72,7 +73,6 @@ public class IntroView extends View{
 		super(context, attrs, defStyle);
 		mContext= context;
 		gestureDetector = new GestureDetector(context, new GestureListener());
-
 
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.IntroView, defStyle, 0);
 		try {
@@ -102,7 +102,6 @@ public class IntroView extends View{
 			@Override 
 			public void onAnimationEnd(Animator animation) {
 				stopWaitAnimation();
-
 			}
 			@Override
 			public void onAnimationStart(Animator animation) {				
@@ -166,11 +165,8 @@ public class IntroView extends View{
 			final int count = mPaths.size();
 			for (int i = 0; i < count; i++) {
 				SvgHelper.SvgPath svgPath = mPaths.get(i);
-
-				// We use the fade factor to speed up the alpha animation
 				int alpha = (int) (Math.min((1.0f - mPhase) * mFadeFactor, 1.0f) * 255.0f);
 				svgPath.paint.setAlpha(alpha);
-
 				canvas.drawPath(svgPath.path, svgPath.paint);
 			}
 			canvas.restore();
@@ -207,7 +203,7 @@ public class IntroView extends View{
 
 			float xsubText = button.centerX() - (subbounds.width()/2f);
 			float ysubText = button.centerY() + (subbounds.height()*8);		
-			
+
 			canvas.drawText(activate, xText, yText, text);
 			canvas.drawText(settings, xsubText, ysubText, subtext);
 
@@ -304,6 +300,7 @@ public class IntroView extends View{
 		return new DashPathEffect(new float[] { pathLength, pathLength },
 				Math.max(phase * pathLength, offset));
 	}
+	
 	private PathEffect createArrowPathEffect(float pathLength, float phase, float offset) {
 		return new PathDashPathEffect(makeArrow(mArrowLength, mArrowHeight), pathLength,
 				Math.max(phase * pathLength, offset), PathDashPathEffect.Style.ROTATE);
@@ -333,18 +330,23 @@ public class IntroView extends View{
 	private class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
 		@Override
-		public boolean onDown(MotionEvent e) {
+		public boolean onSingleTapConfirmed(MotionEvent e) {
 			float x = e.getX();
 			float y = e.getY();
-			//if (x > 130 && x < 380 && y > 500 && y < 575)				
-				mContext.startActivity(new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
-				.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(getContext(), HexatimeService.class))
-				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			mContext.startActivity(new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
+			.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(getContext(), HexatimeService.class))
+			.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			mContext.startActivity(new Intent (getContext(), HexatimeSettings.class));
+			((Activity) mContext).overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+			return true;
+		}
+		@Override
+		public boolean onDown(MotionEvent e) {
 			return true;
 		}
 		@Override
 		public boolean onDoubleTap(MotionEvent e) {
-				mContext.startActivity(new Intent (getContext(), HexatimeSettings.class));
+			mContext.startActivity(new Intent (getContext(), HexatimeSettings.class));				
 			return true;
 		}
 	}

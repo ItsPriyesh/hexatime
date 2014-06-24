@@ -19,16 +19,11 @@ import android.widget.Toast;
 public class HexatimeService extends WallpaperService{
 
 	private static final String TAG = "Wallpaper";
-
 	public static final String SHARED_PREFS_NAME="hexatime_settings";
-
 	public int oneSecond = 1000;
-
 	public int hour, min, sec, twelveHour;
 	public Calendar cal;
-
 	private SharedPreferences mPrefs = null;
-
 	private int fontStyle = 1; // 0 is regular, 1 is light
 	private Typeface selectedFont;
 
@@ -46,8 +41,6 @@ public class HexatimeService extends WallpaperService{
 		private Paint hexClock, bg;
 
 		private final Runnable mUpdateDisplay = new Runnable() {
-
-
 
 			@Override
 			public void run() {

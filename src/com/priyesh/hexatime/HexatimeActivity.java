@@ -1,32 +1,21 @@
 package com.priyesh.hexatime;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
-import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
-import android.app.WallpaperManager;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 public class HexatimeActivity extends Activity implements Handler.Callback{
 
 	private Handler mHandler = new Handler(this);
 
-    private int mDelay = 1500; // Delay in milliseconds.
+    private int mDelay = 1500;
     
 	LinearLayout layout;
 	private IntroView mIntroView;
@@ -41,8 +30,6 @@ public class HexatimeActivity extends Activity implements Handler.Callback{
 
 		mIntroView = (IntroView) findViewById(R.id.intro);
 		mIntroView.setSvgResource(R.raw.hexatime);
-
-	//	layout.setBackgroundDrawable(new ColorDrawable (getResources().getColor(R.color.c1)));
 
 		ColorDrawable c1 = new ColorDrawable(getResources().getColor(R.color.c1));
 		ColorDrawable c2 = new ColorDrawable(getResources().getColor(R.color.c2));
@@ -80,6 +67,4 @@ public class HexatimeActivity extends Activity implements Handler.Callback{
     public void stop() {
         mHandler.removeCallbacks(mEvent);
     }
-
-
 }
