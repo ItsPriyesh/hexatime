@@ -20,13 +20,18 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.WallpaperManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.*;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.animation.LinearInterpolator;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -56,15 +61,19 @@ public class IntroView extends View{
 	private float mDrag;
 	static RectF button;
 	String colorAlpha = "00";
-	Rect bounds;
-
+	Rect bounds, subbounds;
+	GestureDetector gestureDetector;
+	Context mContext;  
+	
 	public IntroView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
-
 	}
 	public IntroView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		
+		mContext= context;
+		gestureDetector = new GestureDetector(context, new GestureListener());
+
+
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.IntroView, defStyle, 0);
 		try {
 			if (a != null) {
@@ -179,17 +188,28 @@ public class IntroView extends View{
 			text.setColor(Color.parseColor("#" + colorAlpha + "FFFFFF"));
 			text.setTextSize(40);
 			text.setAntiAlias(true);
-
+			text.setTypeface(Typeface.createFromAsset(getContext().getAssets(),"LatoLight.ttf"));
 			String activate = "Activate";
-
 			bounds = new Rect();
 			text.getTextBounds(activate, 0, 8, bounds);
 
 			float xText = button.centerX() - (bounds.width()/2.25f);
-			float yText = button.centerY()+(bounds.height()/2.25f);
+			float yText = button.centerY() + (bounds.height()/2.25f);			
 
-			text.setTypeface(Typeface.createFromAsset(getContext().getAssets(),"LatoLight.ttf"));
-			canvas.drawText(activate,xText, yText ,  text);
+			Paint subtext = new Paint();
+			subtext.setColor(Color.parseColor("#" + colorAlpha + "FFFFFF"));
+			subtext.setTextSize(22);
+			subtext.setAntiAlias(true);
+			subtext.setTypeface(Typeface.createFromAsset(getContext().getAssets(),"Lato.ttf"));
+			String settings = "DOUBLE TAP FOR SETTINGS";
+			subbounds = new Rect(); 
+			subtext.getTextBounds(settings, 0, 23, subbounds);
+
+			float xsubText = button.centerX() - (subbounds.width()/2f);
+			float ysubText = button.centerY() + (subbounds.height()*8);		
+			
+			canvas.drawText(activate, xText, yText, text);
+			canvas.drawText(settings, xsubText, ysubText, subtext);
 
 			int colorValue = Integer.parseInt(colorAlpha, 16);
 			colorValue += 20;
@@ -200,8 +220,8 @@ public class IntroView extends View{
 		}
 		canvas.restore();
 	}
-	
-	
+
+
 	@Override
 	protected void onSizeChanged(final int w, final int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
@@ -288,7 +308,7 @@ public class IntroView extends View{
 		return new PathDashPathEffect(makeArrow(mArrowLength, mArrowHeight), pathLength,
 				Math.max(phase * pathLength, offset), PathDashPathEffect.Style.ROTATE);
 	}
-	
+
 	private static Path makeArrow(float length, float height) {
 		Path p = new Path();
 		p.moveTo(-2.0f, -height / 2.0f);
@@ -304,5 +324,29 @@ public class IntroView extends View{
 		p.addRoundRect(button, 5f, 5f, Path.Direction.CW);
 		return p;
 	}
-	
+
+	@Override
+	public boolean onTouchEvent(MotionEvent e) {
+		return gestureDetector.onTouchEvent(e);
+	}
+
+	private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+		@Override
+		public boolean onDown(MotionEvent e) {
+			float x = e.getX();
+			float y = e.getY();
+			//if (x > 130 && x < 380 && y > 500 && y < 575)				
+				mContext.startActivity(new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
+				.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(getContext(), HexatimeService.class))
+				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			return true;
+		}
+		@Override
+		public boolean onDoubleTap(MotionEvent e) {
+				mContext.startActivity(new Intent (getContext(), HexatimeSettings.class));
+			return true;
+		}
+	}
+
 }
