@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 
 public class HexatimeActivity extends Activity {
 
-	private ImageButton activateButton;
 	LinearLayout layout;
     private IntroView mIntroView;
 	 
@@ -38,17 +37,6 @@ public class HexatimeActivity extends Activity {
 			win.setFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 			win.setFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 		}
-
-		activateButton = (ImageButton) findViewById(R.id.activateButton);
-		activateButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v){
-				startActivity(new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
-				.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(HexatimeActivity.this, HexatimeService.class))
-				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-
-				finish();
-			}
-		});
 	}
 
 }

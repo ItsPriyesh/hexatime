@@ -7,5 +7,7 @@
         <attr name="duration" format="integer" />
         <attr name="fadeFactor" format="float" />
         <attr name="waitRadius" format="dimension" />
+        <attr name="arrowLength" format="dimension" />
+        <attr name="arrowHeight" format="dimension" />
     </declare-styleable>
 </resources>
