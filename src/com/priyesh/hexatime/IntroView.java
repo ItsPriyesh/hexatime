@@ -28,13 +28,10 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.*;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.animation.LinearInterpolator;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 

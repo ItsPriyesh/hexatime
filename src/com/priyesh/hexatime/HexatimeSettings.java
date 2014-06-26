@@ -3,6 +3,7 @@ package com.priyesh.hexatime;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
@@ -16,6 +17,8 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 		getPreferenceManager().setSharedPreferencesName(HexatimeService.SHARED_PREFS_NAME); 
 		addPreferencesFromResource(R.xml.hexatime_settings);
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        getListView().setBackgroundColor(getResources().getColor(R.color.c1));
+        getListView().setTextColor
 
 	}
 
