@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:key="hexatime_settings"
-    android:fitsSystemWindows="true" >
+    android:key="hexatime_settings" >
 
-        <com.priyesh.hexatime.NoTitleListPref
-            android:key="FONT_STYLE"
-            android:title="Font style"
-            android:defaultValue="1"
-            android:summary="Change clock typeface"
-            android:entries="@array/font_styles"
-            android:entryValues="@array/font_values" />
+    <com.priyesh.hexatime.NoTitleListPref
+        android:defaultValue="1"
+        android:entries="@array/font_styles"
+        android:entryValues="@array/font_values"
+        android:key="FONT_STYLE"
+        android:summary="Change clock typeface"
+        android:title="Font style" />
+
+    <PreferenceCategory android:title="About" >
+        <Preference
+            android:summary="This app is written by Priyesh Patel."
+            android:title="Developer" >
+        </Preference>
+        <Preference
+            android:key="contact"
+            android:summary="Send me an email."
+            android:title="Contact" >
+        </Preference>
+        <Preference
+            android:key="source"
+            android:summary="View the apps code via GitHub."
+            android:title="Source" >
+        </Preference>
+        <Preference
+            android:key="donate"
+            android:summary="Buy me a cookie."
+            android:title="Donate" >
+        </Preference>
+    </PreferenceCategory>
 
 </PreferenceScreen>
