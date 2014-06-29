@@ -28,7 +28,9 @@
         <activity
             android:name=".HexatimeSettings"
             android:exported="true"
-            android:label="@string/app_name" >
+            android:label="Settings"
+            android:icon="@drawable/ic_action_settings"
+            android:parentActivityName="com.priyesh.hexatime.HexatimeActivity"  >
         </activity>
 
         <service

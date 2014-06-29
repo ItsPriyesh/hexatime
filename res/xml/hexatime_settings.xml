@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:key="hexatime_settings" >
+    android:key="hexatime_settings"
+    android:fitsSystemWindows="true" >
 
-    <PreferenceCategory android:title="Appearance" >
-        <ListPreference
+        <com.priyesh.hexatime.NoTitleListPref
             android:key="FONT_STYLE"
             android:title="Font style"
             android:defaultValue="1"
             android:summary="Change clock typeface"
             android:entries="@array/font_styles"
             android:entryValues="@array/font_values" />
-    </PreferenceCategory>
 
 </PreferenceScreen>
