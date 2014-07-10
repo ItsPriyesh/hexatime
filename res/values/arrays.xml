@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string-array name="font_styles">
         <item>"Regular"</item>
         <item>"Light (Default)"</item>
     </string-array>
-
     <string-array name="font_values">
         <item>0</item>
         <item>1</item>
+    </string-array>
+    
+    <string-array name="clock_size_names">
+        <item>"Small"</item>
+        <item>"Medium (Default)"</item>
+        <item>"Large"</item>
+    </string-array>
+    <string-array name="clock_size_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
 </resources>

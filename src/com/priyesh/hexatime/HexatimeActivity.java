@@ -19,6 +19,14 @@ public class HexatimeActivity extends Activity implements Handler.Callback{
 	private IntroView mIntroView;
 	TransitionDrawable trans;
 
+	/* TODO
+	 * Test on different size devices
+	 * Cleanup code (remove unused stuff)
+	 * Clock alignment option
+	 * Hide hashtag option
+	 * Add in app donation purchase
+	 */
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); 

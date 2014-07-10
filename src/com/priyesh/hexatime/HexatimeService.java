@@ -24,8 +24,11 @@ public class HexatimeService extends WallpaperService{
 	public int hour, min, sec, twelveHour;
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
+	
 	private int fontStyle = 1; // 0 is regular, 1 is light
 	private Typeface selectedFont;
+	private int clockSizeValue = 1; // 0 = small, 1 = medium, 2 = large
+	private int clockSize;
 
 	@Override
 	public Engine onCreateEngine() {
@@ -68,8 +71,8 @@ public class HexatimeService extends WallpaperService{
 					if (c != null) {
 						hexClock = new Paint();
 						bg = new Paint();
-
-						hexClock.setTextSize(90);
+						
+						hexClock.setTextSize(clockSize);
 						hexClock.setTypeface(selectedFont);
 						hexClock.setAntiAlias(true);
 
@@ -132,9 +135,13 @@ public class HexatimeService extends WallpaperService{
 					if(key.equals("FONT_STYLE")){
 						changeFontStyle(prefs.getString("FONT_STYLE", "1"));
 					}
+					else if(key.equals("CLOCK_SIZE")){
+						changeClockSize(prefs.getString("CLOCK_SIZE", "1"));
+					}
 				}
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
+					changeClockSize(prefs.getString("CLOCK_SIZE", "1"));
 				}
 				return;
 			}
@@ -146,6 +153,20 @@ public class HexatimeService extends WallpaperService{
 				}
 				else if (fontStyle == 1){ // light
 					selectedFont = Typeface.createFromAsset(getAssets(), "LatoLight.ttf");                    
+				}
+				return;
+			}
+			
+			private void changeClockSize(String value){
+				clockSizeValue = Integer.parseInt(value);
+				if(clockSizeValue == 0){ // small
+					clockSize = (getResources().getDimensionPixelSize(R.dimen.clockFontSizeSmall));
+				}
+				else if (clockSizeValue == 1){ // medium
+					clockSize = (getResources().getDimensionPixelSize(R.dimen.clockFontSizeMed));
+				}
+				else if (clockSizeValue == 2){ //large
+					clockSize = (getResources().getDimensionPixelSize(R.dimen.clockFontSizeLarge));
 				}
 				return;
 			}

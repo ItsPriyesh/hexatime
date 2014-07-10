@@ -17,7 +17,7 @@
             android:paddingBottom="32dp"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            r:duration="4000"
+            r:duration="3000"
             r:fadeFactor="10.0"
             r:phase="1.0"
             r:strokeColor="#ffffffff"

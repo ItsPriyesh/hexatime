@@ -27,11 +27,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.*;
+import android.graphics.Paint.Align;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -174,24 +176,24 @@ public class IntroView extends View{
 			canvas.translate(getWidth() / 2.0f - mRadius * 3.0f, mRadius);
 		} else {
 			canvas.translate((getWidth() - mDragPath.bounds.width()) / 2.0f, 0.0f);
-			canvas.drawPath(mDragPath.path, mDragPath.paint);
-			canvas.drawPath(mDragPath.path, mArrowPaint);
-
+		//	canvas.drawPath(mDragPath.path, mDragPath.paint);
+		//	canvas.drawPath(mDragPath.path, mArrowPaint);
 			Paint text = new Paint();
 			text.setColor(Color.parseColor("#" + colorAlpha + "FFFFFF"));
-			text.setTextSize(40);
+			//text.setTextSize(40);
+			text.setTextSize((getResources().getDimensionPixelSize(R.dimen.activateFontSize)));
 			text.setAntiAlias(true);
 			text.setTypeface(Typeface.createFromAsset(getContext().getAssets(),"LatoLight.ttf"));
 			String activate = "Activate";
 			bounds = new Rect();
 			text.getTextBounds(activate, 0, 8, bounds);
-
 			float xText = button.centerX() - (bounds.width()/2.25f);
-			float yText = button.centerY() + (bounds.height()/2.25f);			
-
+			float yText = button.centerY() + (bounds.height()/2.25f);	
+			 
 			Paint subtext = new Paint();
 			subtext.setColor(Color.parseColor("#" + colorAlpha + "FFFFFF"));
-			subtext.setTextSize(22);
+			//subtext.setTextSize(22);
+			subtext.setTextSize((getResources().getDimensionPixelSize(R.dimen.settingsFontSize)));
 			subtext.setAntiAlias(true);
 			subtext.setTypeface(Typeface.createFromAsset(getContext().getAssets(),"Lato.ttf"));
 			String settings = "DOUBLE TAP FOR SETTINGS";
@@ -201,8 +203,15 @@ public class IntroView extends View{
 			float xsubText = button.centerX() - (subbounds.width()/2f);
 			float ysubText = button.centerY() + (subbounds.height()*8);		
 
-			canvas.drawText(activate, xText, yText, text);
-			canvas.drawText(settings, xsubText, ysubText, subtext);
+		//	canvas.drawText(activate, xText, yText, text);
+			canvas.restore();
+			Paint buttonBG = new Paint();
+			buttonBG.setStyle(Paint.Style.STROKE);
+			buttonBG.setColor(Color.WHITE);
+			canvas.drawRect(((canvas.getWidth()/2)-text.measureText(activate)/2) - 20, (float) (canvas.getHeight() - (canvas.getHeight()*0.25)) - text.getTextSize(), ((canvas.getWidth()/2) + text.measureText(activate)/2) + 20, ((float) (canvas.getHeight() - (canvas.getHeight()*0.25))) + 20, buttonBG);
+			canvas.drawText(activate, (canvas.getWidth()/2) - (bounds.width()/2), (float) (canvas.getHeight() - (canvas.getHeight()*0.25)), text);		
+		//	canvas.drawText(settings, xsubText, ysubText, subtext);
+			canvas.drawText(settings, (canvas.getWidth()/2) - (subbounds.width()/2), (float) (canvas.getHeight() - (canvas.getHeight()*0.15)), subtext);
 
 			int colorValue = Integer.parseInt(colorAlpha, 16);
 			colorValue += 20;
@@ -213,7 +222,6 @@ public class IntroView extends View{
 		}
 		canvas.restore();
 	}
-
 
 	@Override
 	protected void onSizeChanged(final int w, final int h, int oldw, int oldh) {
@@ -328,8 +336,6 @@ public class IntroView extends View{
 
 		@Override
 		public boolean onSingleTapConfirmed(MotionEvent e) {
-			float x = e.getX();
-			float y = e.getY();
 			mContext.startActivity(new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
 			.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(getContext(), HexatimeService.class))
 			.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
