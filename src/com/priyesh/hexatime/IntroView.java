@@ -1,11 +1,11 @@
-/**
- * Copyright 2013 Romain Guy
+/*
+ * Copyright (C) 2014 Priyesh Patel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -176,41 +176,32 @@ public class IntroView extends View{
 			canvas.translate(getWidth() / 2.0f - mRadius * 3.0f, mRadius);
 		} else {
 			canvas.translate((getWidth() - mDragPath.bounds.width()) / 2.0f, 0.0f);
-		//	canvas.drawPath(mDragPath.path, mDragPath.paint);
-		//	canvas.drawPath(mDragPath.path, mArrowPaint);
 			Paint text = new Paint();
 			text.setColor(Color.parseColor("#" + colorAlpha + "FFFFFF"));
-			//text.setTextSize(40);
 			text.setTextSize((getResources().getDimensionPixelSize(R.dimen.activateFontSize)));
 			text.setAntiAlias(true);
 			text.setTypeface(Typeface.createFromAsset(getContext().getAssets(),"LatoLight.ttf"));
 			String activate = "Activate";
 			bounds = new Rect();
-			text.getTextBounds(activate, 0, 8, bounds);
-			float xText = button.centerX() - (bounds.width()/2.25f);
-			float yText = button.centerY() + (bounds.height()/2.25f);	
+			text.getTextBounds(activate, 0, 8, bounds);	
 			 
 			Paint subtext = new Paint();
 			subtext.setColor(Color.parseColor("#" + colorAlpha + "FFFFFF"));
-			//subtext.setTextSize(22);
 			subtext.setTextSize((getResources().getDimensionPixelSize(R.dimen.settingsFontSize)));
 			subtext.setAntiAlias(true);
 			subtext.setTypeface(Typeface.createFromAsset(getContext().getAssets(),"Lato.ttf"));
 			String settings = "DOUBLE TAP FOR SETTINGS";
 			subbounds = new Rect(); 
-			subtext.getTextBounds(settings, 0, 23, subbounds);
+			subtext.getTextBounds(settings, 0, 23, subbounds);	
 
-			float xsubText = button.centerX() - (subbounds.width()/2f);
-			float ysubText = button.centerY() + (subbounds.height()*8);		
-
-		//	canvas.drawText(activate, xText, yText, text);
 			canvas.restore();
+			
 			Paint buttonBG = new Paint();
 			buttonBG.setStyle(Paint.Style.STROKE);
 			buttonBG.setColor(Color.WHITE);
 			canvas.drawRect(((canvas.getWidth()/2)-text.measureText(activate)/2) - 20, (float) (canvas.getHeight() - (canvas.getHeight()*0.25)) - text.getTextSize(), ((canvas.getWidth()/2) + text.measureText(activate)/2) + 20, ((float) (canvas.getHeight() - (canvas.getHeight()*0.25))) + 20, buttonBG);
+			
 			canvas.drawText(activate, (canvas.getWidth()/2) - (bounds.width()/2), (float) (canvas.getHeight() - (canvas.getHeight()*0.25)), text);		
-		//	canvas.drawText(settings, xsubText, ysubText, subtext);
 			canvas.drawText(settings, (canvas.getWidth()/2) - (subbounds.width()/2), (float) (canvas.getHeight() - (canvas.getHeight()*0.15)), subtext);
 
 			int colorValue = Integer.parseInt(colorAlpha, 16);
