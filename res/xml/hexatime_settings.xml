@@ -16,6 +16,13 @@
         android:key="CLOCK_SIZE"
         android:summary="Adjust dimensions of clock."
         android:title="Clock size" />
+    <com.priyesh.hexatime.NoTitleListPref
+        android:defaultValue="1"
+        android:entries="@array/clock_alignment_names"
+        android:entryValues="@array/clock_alignment_values"
+        android:key="CLOCK_ALIGNMENT"
+        android:summary="Choose where the clock is positioned."
+        android:title="Clock alignment" />
 </PreferenceCategory>
     <PreferenceCategory android:title="About" >
         <Preference

@@ -18,18 +18,22 @@ package com.priyesh.hexatime;
 
 import java.util.Calendar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class HexatimeService extends WallpaperService{
@@ -45,6 +49,8 @@ public class HexatimeService extends WallpaperService{
 	private Typeface selectedFont;
 	private int clockSizeValue = 1; // 0 = small, 1 = medium, 2 = large
 	private int clockSize;
+	private int clockAlignmentValue = 1; // 0 = top, 1 = center, 2 = bottom
+	private float clockAlignment;
 
 	@Override
 	public Engine onCreateEngine() {
@@ -103,7 +109,8 @@ public class HexatimeService extends WallpaperService{
 						c.drawRect(0, 0, w, h, bg);
 
 						hexClock.setColor(Color.WHITE);
-						c.drawText(hexTime, w/2- offset, h/2, hexClock);
+					//	c.drawText(hexTime, w/2- offset, h/2, hexClock);
+						c.drawText(hexTime, w/2- offset, clockAlignment, hexClock);
 
 					}
 				} finally {
@@ -154,10 +161,14 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("CLOCK_SIZE")){
 						changeClockSize(prefs.getString("CLOCK_SIZE", "1"));
 					}
+					else if(key.equals("CLOCK_ALIGNMENT")){
+						changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
+					}
 				}
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
 					changeClockSize(prefs.getString("CLOCK_SIZE", "1"));
+					changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
 				}
 				return;
 			}
@@ -183,6 +194,27 @@ public class HexatimeService extends WallpaperService{
 				}
 				else if (clockSizeValue == 2){ //large
 					clockSize = (getResources().getDimensionPixelSize(R.dimen.clockFontSizeLarge));
+				}
+				return;
+			}
+			
+			private void changeClockAlignment(String value){
+				clockAlignmentValue = Integer.parseInt(value);
+				
+				WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+				Display display = wm.getDefaultDisplay();
+				Point size = new Point();
+				display.getSize(size);
+				int h = size.y;
+				
+				if(clockAlignmentValue == 0){ // top
+					clockAlignment = (float) (h - (h*0.65));
+				}
+				else if (clockAlignmentValue == 1){ // center
+					clockAlignment = (float) (h - (h*0.50));
+				}
+				else if (clockAlignmentValue == 2){ //bottom
+					clockAlignment = (float) (h - (h*0.35));
 				}
 				return;
 			}

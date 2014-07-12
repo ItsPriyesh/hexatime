@@ -151,8 +151,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 
 	IabHelper.QueryInventoryFinishedListener mReceivedInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
 		public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-			if (result.isFailure()) {
-				// Handle failure				
+			if (result.isFailure()) {			
 			}
 			Purchase donate = inventory.getPurchase(ITEM_SKU);
 
@@ -165,9 +164,8 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 	IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
 		public void onConsumeFinished(Purchase purchase, IabResult result) {
 			if (result.isSuccess()) {		    	 
-				Toast.makeText(HexatimeSettings.this, "Thanks.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(HexatimeSettings.this, "Thanks :)", Toast.LENGTH_SHORT).show();
 			} else {
-				// handle error
 			}
 		}
 	};
