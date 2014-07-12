@@ -37,7 +37,6 @@ import android.view.animation.LinearInterpolator;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings({"ForLoopReplaceableByForEach", "UnusedDeclaration"})
 public class IntroView extends View{
 
 	private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -283,7 +282,6 @@ public class IntroView extends View{
 		mDrag = drag;
 
 		mDragPath.paint.setPathEffect(createPathEffect(mDragPath.length, mDrag, mArrowLength));
-		mArrowPaint.setPathEffect(createArrowPathEffect(mDragPath.length, mDrag, mArrowLength));
 
 		int alpha = (int) (Math.min((1.0f - mDrag) * mFadeFactor, 1.0f) * 255.0f);
 		mDragPath.paint.setAlpha(alpha);
@@ -295,19 +293,6 @@ public class IntroView extends View{
 	private static PathEffect createPathEffect(float pathLength, float phase, float offset) {
 		return new DashPathEffect(new float[] { pathLength, pathLength },
 				Math.max(phase * pathLength, offset));
-	}
-	
-	private PathEffect createArrowPathEffect(float pathLength, float phase, float offset) {
-		return new PathDashPathEffect(makeArrow(mArrowLength, mArrowHeight), pathLength,
-				Math.max(phase * pathLength, offset), PathDashPathEffect.Style.ROTATE);
-	}
-
-	private static Path makeArrow(float length, float height) {
-		Path p = new Path();
-		p.moveTo(-2.0f, -height / 2.0f);
-		p.lineTo(length, 0.0f);
-		p.close();
-		return p;
 	}
 
 	private static Path makeDragPath(int radius) {

@@ -45,12 +45,17 @@ public class HexatimeService extends WallpaperService{
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
 	
-	private int fontStyle = 1; // 0 is regular, 1 is light
-	private Typeface selectedFont;
+	private int fontStyleValue = 1; // 0 is regular, 1 is light
+	private Typeface fontStyle;
+	
 	private int clockSizeValue = 1; // 0 = small, 1 = medium, 2 = large
 	private int clockSize;
+	
 	private int clockAlignmentValue = 1; // 0 = top, 1 = center, 2 = bottom
 	private float clockAlignment;
+	
+	private int clockStyleValue = 1;
+	private String clockStyle;
 
 	@Override
 	public Engine onCreateEngine() {
@@ -95,11 +100,11 @@ public class HexatimeService extends WallpaperService{
 						bg = new Paint();
 						
 						hexClock.setTextSize(clockSize);
-						hexClock.setTypeface(selectedFont);
+						hexClock.setTypeface(fontStyle);
 						hexClock.setAntiAlias(true);
-
-						String hexTime = String.format("#%02d%02d%02d", hour, min, sec ); // 24 hour hex triplet time
-
+						
+						String hexTime = String.format(clockStyle, hour, min, sec ); // 24 hour hex triplet time
+						
 						float d = hexClock.measureText(hexTime, 0, hexTime.length());
 						int offset = (int) d / 2;
 						int w = c.getWidth();
@@ -109,7 +114,6 @@ public class HexatimeService extends WallpaperService{
 						c.drawRect(0, 0, w, h, bg);
 
 						hexClock.setColor(Color.WHITE);
-					//	c.drawText(hexTime, w/2- offset, h/2, hexClock);
 						c.drawText(hexTime, w/2- offset, clockAlignment, hexClock);
 
 					}
@@ -164,22 +168,26 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("CLOCK_ALIGNMENT")){
 						changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
 					}
+					else if(key.equals("CLOCK_STYLE")){
+						changeClockStyle(prefs.getString("CLOCK_STYLE", "1"));
+					}
 				}
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
 					changeClockSize(prefs.getString("CLOCK_SIZE", "1"));
 					changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
+					changeClockStyle(prefs.getString("CLOCK_STYLE", "1"));
 				}
 				return;
 			}
 
 			private void changeFontStyle(String value){
-				fontStyle = Integer.parseInt(value);
-				if(fontStyle == 0){ // regular
-					selectedFont = Typeface.createFromAsset(getAssets(), "Lato.ttf");
+				fontStyleValue = Integer.parseInt(value);
+				if(fontStyleValue == 0){ // regular
+					fontStyle = Typeface.createFromAsset(getAssets(), "Lato.ttf");
 				}
-				else if (fontStyle == 1){ // light
-					selectedFont = Typeface.createFromAsset(getAssets(), "LatoLight.ttf");                    
+				else if (fontStyleValue == 1){ // light
+					fontStyle = Typeface.createFromAsset(getAssets(), "LatoLight.ttf");                    
 				}
 				return;
 			}
@@ -199,8 +207,7 @@ public class HexatimeService extends WallpaperService{
 			}
 			
 			private void changeClockAlignment(String value){
-				clockAlignmentValue = Integer.parseInt(value);
-				
+				clockAlignmentValue = Integer.parseInt(value);				
 				WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
 				Display display = wm.getDefaultDisplay();
 				Point size = new Point();
@@ -215,6 +222,17 @@ public class HexatimeService extends WallpaperService{
 				}
 				else if (clockAlignmentValue == 2){ //bottom
 					clockAlignment = (float) (h - (h*0.35));
+				}
+				return;
+			}
+			
+			private void changeClockStyle(String value){
+				clockStyleValue = Integer.parseInt(value);
+				if(clockStyleValue == 0){ // Hide #
+					clockStyle = "%02d%02d%02d";
+				}
+				else if (clockStyleValue == 1){ // Show #
+					clockStyle = "#%02d%02d%02d";              
 				}
 				return;
 			}

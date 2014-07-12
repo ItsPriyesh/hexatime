@@ -23,6 +23,13 @@
         android:key="CLOCK_ALIGNMENT"
         android:summary="Choose where the clock is positioned."
         android:title="Clock alignment" />
+    <com.priyesh.hexatime.NoTitleListPref
+        android:defaultValue="1"
+        android:entries="@array/clock_style_names"
+        android:entryValues="@array/clock_style_values"
+        android:key="CLOCK_STYLE"
+        android:summary="Show or hide the number sign (#)"
+        android:title="Clock style" />
 </PreferenceCategory>
     <PreferenceCategory android:title="About" >
         <Preference

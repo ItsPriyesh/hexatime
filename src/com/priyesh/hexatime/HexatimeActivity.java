@@ -36,9 +36,6 @@ public class HexatimeActivity extends Activity implements Handler.Callback{
 	TransitionDrawable trans;
 
 	/* TODO
-	 * Cleanup code (remove unused stuff)
-	 * Clock alignment option
-	 * Hide hashtag option
 	 * Add in app donation purchase
 	 */
 	
