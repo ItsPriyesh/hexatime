@@ -163,8 +163,9 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 
 	IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
 		public void onConsumeFinished(Purchase purchase, IabResult result) {
-			if (result.isSuccess()) {		    	 
-				Toast.makeText(HexatimeSettings.this, "Thanks :)", Toast.LENGTH_SHORT).show();
+			if (result.isSuccess()) {	
+				String thanks = getResources().getString(R.string.thanks);
+				Toast.makeText(HexatimeSettings.this, thanks, Toast.LENGTH_SHORT).show();
 			} else {
 			}
 		}

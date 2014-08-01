@@ -1,55 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="hexatime_settings" >
- <PreferenceCategory android:title="Appearance" >
+ <PreferenceCategory android:title="@string/appearance" >
     <com.priyesh.hexatime.NoTitleListPref
         android:defaultValue="1"
         android:entries="@array/font_styles"
         android:entryValues="@array/font_values"
         android:key="FONT_STYLE"
-        android:summary="Change clock typeface."
-        android:title="Font style" />
+        android:summary="@string/clock_typeface_summary"
+        android:title="@string/clock_typeface_title" />
     <com.priyesh.hexatime.NoTitleListPref
         android:defaultValue="1"
         android:entries="@array/clock_size_names"
         android:entryValues="@array/clock_size_values"
         android:key="CLOCK_SIZE"
-        android:summary="Adjust dimensions of clock."
-        android:title="Clock size" />
+        android:summary="@string/clock_dimens_summary"
+        android:title="@string/clock_dimens_title" />
     <com.priyesh.hexatime.NoTitleListPref
         android:defaultValue="1"
         android:entries="@array/clock_alignment_names"
         android:entryValues="@array/clock_alignment_values"
         android:key="CLOCK_ALIGNMENT"
-        android:summary="Choose where the clock is positioned."
-        android:title="Clock alignment" />
+        android:summary="@string/clock_align_summary"
+        android:title="@string/clock_align_title" />
     <com.priyesh.hexatime.NoTitleListPref
         android:defaultValue="1"
         android:entries="@array/clock_style_names"
         android:entryValues="@array/clock_style_values"
         android:key="CLOCK_STYLE"
-        android:summary="Show or hide the number sign (#)"
-        android:title="Clock style" />
+        android:summary="@string/clock_style_summary"
+        android:title="@string/clock_style_title"/>
+    <CheckBoxPreference 
+        android:key="CLOCK_HIDE"
+        android:summary="@string/clock_hide_summary"
+        android:title="@string/clock_hide_title" />
 </PreferenceCategory>
-    <PreferenceCategory android:title="About" >
+    <PreferenceCategory android:title="@string/about" >
         <Preference
-            android:summary="This app is written by Priyesh Patel."
-            android:title="Developer" >
+            android:summary="@string/about_developer_summary"
+            android:title="@string/about_developer_title" >
         </Preference>
         <Preference
             android:key="contact"
-            android:summary="Send me an email."
-            android:title="Contact" >
+            android:summary="@string/about_contact_summary"
+            android:title="@string/about_contact_summary" >
         </Preference>
         <Preference
             android:key="source"
-            android:summary="View the apps code via GitHub."
-            android:title="Source" >
+            android:summary="@string/about_source_summary"
+            android:title="@string/about_source_title" >
         </Preference>
         <Preference
             android:key="donate"
-            android:summary="Buy me a cookie."
-            android:title="Donate" >
+            android:summary="@string/about_donate_summary"
+            android:title="@string/about_donate_title" >
         </Preference>
     </PreferenceCategory>
 
