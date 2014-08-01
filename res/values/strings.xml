@@ -3,5 +3,37 @@
 
     <string name="app_name">HexaTime</string>
     <string name="description">HexaTime displays time along with the corresponding hexadecimal color.</string>
-            
+    
+    <string name="appearance">Appearance</string>
+    <string name="clock_typeface_summary">Change clock typeface.</string>
+    <string name="clock_typeface_title">Font style</string>
+    <string name="clock_dimens_summary">Adjust dimensions of clock.</string>
+    <string name="clock_dimens_title">Clock size</string>
+    <string name="clock_align_summary">Choose where the clock is positioned.</string>
+    <string name="clock_align_title">Clock alignment</string>
+    <string name="clock_style_summary">Show or hide the number sign (#)</string>
+    <string name="clock_style_title">Clock style</string>
+    
+    <string name="about"></string>
+    <string name="about_developer_summary">This app is written by Priyesh Patel.</string>
+    <string name="about_developer_title">Developer</string>
+    <string name="about_contact_summary">Send me an email.</string>
+    <string name="about_contact_title">Contact</string>
+    <string name="about_source_summary">View the apps code via GitHub.</string>
+    <string name="about_source_title">Source</string>
+    <string name="about_donate_summary">Buy me a cookie.</string>
+    <string name="about_donate_title">Donate</string>
+    
+    <string name="regular">Regular</string>
+    <string name="light">Light</string>
+    <string name="large">Large</string>
+    <string name="medium">Medium</string>
+    <string name="small">Small</string>
+    <string name="top">Top</string>
+    <string name="center">Center</string>
+    <string name="bottom">Bottom</string>
+    <string name="hide">Hide</string>
+    <string name="show">Show</string>
+    
+    <string name="thanks">Thanks :)</string>
 </resources>

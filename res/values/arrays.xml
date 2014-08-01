@@ -2,8 +2,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string-array name="font_styles">
-        <item>"Regular"</item>
-        <item>"Light"</item>
+        <item>@string/regular</item>
+        <item>@string/light</item>
     </string-array>
     <string-array name="font_values">
         <item>0</item>
@@ -11,9 +11,9 @@
     </string-array>
     
     <string-array name="clock_size_names">
-        <item>"Small"</item>
-        <item>"Medium"</item>
-        <item>"Large"</item>
+        <item>@string/small</item>
+        <item>@string/medium</item>
+        <item>@string/large</item>
     </string-array>
     <string-array name="clock_size_values">
         <item>0</item>
@@ -23,9 +23,9 @@
     </string-array>
 
     <string-array name="clock_alignment_names">
-        <item>"Top"</item>
-        <item>"Center"</item>
-        <item>"Bottom"</item>
+        <item>@string/top</item>
+        <item>@string/center</item>
+        <item>"@string/bottom</item>
     </string-array>
     <string-array name="clock_alignment_values">
         <item>0</item>
@@ -34,8 +34,8 @@
     </string-array>
     
     <string-array name="clock_style_names">
-        <item>"Hide"</item>
-        <item>"Show"</item>
+        <item>@string/hide</item>
+        <item>@string/show</item>
     </string-array>
     <string-array name="clock_style_values">
         <item>0</item>
