@@ -29,7 +29,11 @@
         android:entryValues="@array/clock_style_values"
         android:key="CLOCK_STYLE"
         android:summary="@string/clock_style_summary"
-        android:title="@string/clock_style_title" />
+        android:title="@string/clock_style_title"/>
+    <CheckBoxPreference 
+        android:key="CLOCK_HIDE"
+        android:summary="@string/clock_hide_summary"
+        android:title="@string/clock_hide_title" />
 </PreferenceCategory>
     <PreferenceCategory android:title="@string/about" >
         <Preference

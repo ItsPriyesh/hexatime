@@ -56,6 +56,8 @@ public class HexatimeService extends WallpaperService{
 	
 	private int clockStyleValue = 1;
 	private String clockStyle;
+	
+	private boolean clockHideValue = false;
 
 	@Override
 	public Engine onCreateEngine() {
@@ -113,7 +115,12 @@ public class HexatimeService extends WallpaperService{
 						bg.setColor(Color.argb(255, hour, min, sec));
 						c.drawRect(0, 0, w, h, bg);
 
-						hexClock.setColor(Color.WHITE);
+						if(!clockHideValue){
+							hexClock.setColor(Color.WHITE);
+						}
+						else {
+							hexClock.setColor(Color.TRANSPARENT);
+						}
 						c.drawText(hexTime, w/2- offset, clockAlignment, hexClock);
 
 					}
@@ -171,12 +178,16 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("CLOCK_STYLE")){
 						changeClockStyle(prefs.getString("CLOCK_STYLE", "1"));
 					}
+					else if(key.equals("CLOCK_HIDE")){
+						changeClockHide(prefs.getBoolean("CLOCK_HIDE", false));
+					}
 				}
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
 					changeClockSize(prefs.getString("CLOCK_SIZE", "1"));
 					changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
 					changeClockStyle(prefs.getString("CLOCK_STYLE", "1"));
+					changeClockHide(prefs.getBoolean("CLOCK_HIDE", false));
 				}
 				return;
 			}
@@ -235,6 +246,10 @@ public class HexatimeService extends WallpaperService{
 					clockStyle = "#%02d%02d%02d";              
 				}
 				return;
+			}
+			
+			private void changeClockHide(boolean value){
+				clockHideValue = value;
 			}
 	}
 }
