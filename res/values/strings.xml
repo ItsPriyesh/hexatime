@@ -13,8 +13,10 @@
     <string name="clock_align_title">Clock alignment</string>
     <string name="clock_style_summary">Show or hide the number sign (#)</string>
     <string name="clock_style_title">Clock style</string>
+    <string name="clock_hide_summary">Hide the clock display, just show the colored wallpaper</string>
+    <string name="clock_hide_title">Hide clock</string>
     
-    <string name="about"></string>
+    <string name="about">About</string>
     <string name="about_developer_summary">This app is written by Priyesh Patel.</string>
     <string name="about_developer_title">Developer</string>
     <string name="about_contact_summary">Send me an email.</string>
