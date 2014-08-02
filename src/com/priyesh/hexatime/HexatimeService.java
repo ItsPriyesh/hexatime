@@ -103,6 +103,7 @@ public class HexatimeService extends WallpaperService{
 						
 						hexClock.setTextSize(clockSize);
 						hexClock.setTypeface(fontStyle);
+						hexClock.setColor(Color.WHITE);
 						hexClock.setAntiAlias(true);
 						
 						String hexTime = String.format(clockStyle, hour, min, sec ); // 24 hour hex triplet time
@@ -114,14 +115,10 @@ public class HexatimeService extends WallpaperService{
 
 						bg.setColor(Color.argb(255, hour, min, sec));
 						c.drawRect(0, 0, w, h, bg);
-
+						
 						if(!clockHideValue){
-							hexClock.setColor(Color.WHITE);
-						}
-						else {
-							hexClock.setColor(Color.TRANSPARENT);
-						}
 						c.drawText(hexTime, w/2- offset, clockAlignment, hexClock);
+						}
 
 					}
 				} finally {
