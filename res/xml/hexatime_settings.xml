@@ -34,6 +34,13 @@
         android:key="CLOCK_HIDE"
         android:summary="@string/clock_hide_summary"
         android:title="@string/clock_hide_title" />
+    <com.priyesh.hexatime.NoTitleListPref
+        android:defaultValue="0"
+        android:entries="@array/clock_cycle_names"
+        android:entryValues="@array/clock_cycle_values"
+        android:key="CLOCK_CYCLE"
+        android:summary="@string/clock_cycle_summary"
+        android:title="@string/clock_cycle_title"/>
 </PreferenceCategory>
     <PreferenceCategory android:title="@string/about" >
         <Preference

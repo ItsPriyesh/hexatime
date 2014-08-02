@@ -15,6 +15,8 @@
     <string name="clock_style_title">Clock style</string>
     <string name="clock_hide_summary">Hide the clock display, just show the colored wallpaper</string>
     <string name="clock_hide_title">Hide clock</string>
+    <string name="clock_cycle_summary">Used mode of time.</string>
+    <string name="clock_cycle_title">Clock mode</string>
     
     <string name="about">About</string>
     <string name="about_developer_summary">This app is written by Priyesh Patel.</string>
@@ -36,6 +38,8 @@
     <string name="bottom">Bottom</string>
     <string name="hide">Hide</string>
     <string name="show">Show</string>
+    <string name="cycleday">Use realtime.</string>
+    <string name="cycleyear">Cycle by year.</string>
     
     <string name="thanks">Thanks :)</string>
 </resources>
