@@ -17,7 +17,9 @@
     <string name="clock_hide_title">Hide clock</string>
     <string name="time_format_summary">Switch between 24 and 12 hour.</string>
     <string name="time_format_title">Time format</string>    
-    
+    <string name="color_range_summary">Incorporate date to stretch color spectrum.</string>
+    <string name="color_range_title">Color range</string>
+ 
     <string name="about">About</string>
     <string name="about_developer_summary">This app is written by Priyesh Patel.</string>
     <string name="about_developer_title">Developer</string>
@@ -41,10 +43,10 @@
     <string name="top">Top</string>
     <string name="center">Center</string>
     <string name="bottom">Bottom</string>
-    <string name="hide">Hide</string>
-    <string name="show">Show</string>
     <string name="twelve_hour">12 hour</string>
     <string name="twenty_four_hour">24 hour</string>
+    <string name="small_color_range">Small color range</string>
+    <string name="large_color_range">Large color range</string>
        
     <string name="thanks">Thanks :)</string>
 </resources>

@@ -48,4 +48,13 @@
         <item>0</item>
         <item>1</item>
     </string-array>
+    
+    <string-array name="color_range_names">
+        <item>@string/small_color_range</item>
+        <item>@string/large_color_range</item>
+    </string-array>
+    <string-array name="color_range_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
 </resources>

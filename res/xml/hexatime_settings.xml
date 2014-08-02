@@ -32,6 +32,13 @@
         android:summary="@string/clock_hide_summary"
         android:title="@string/clock_hide_title" />
     <com.priyesh.hexatime.NoTitleListPref
+        android:defaultValue="0"
+        android:entries="@array/color_range_names"
+        android:entryValues="@array/color_range_values"
+        android:key="COLOR_RANGE"
+        android:summary="@string/color_range_summary"
+        android:title="@string/color_range_title"/>
+    <com.priyesh.hexatime.NoTitleListPref
         android:defaultValue="1"
         android:entries="@array/time_format_names"
         android:entryValues="@array/time_format_values"

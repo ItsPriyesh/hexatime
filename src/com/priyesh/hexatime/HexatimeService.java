@@ -41,7 +41,7 @@ public class HexatimeService extends WallpaperService{
 	private static final String TAG = "Wallpaper";
 	public static final String SHARED_PREFS_NAME="hexatime_settings";
 	public int oneSecond = 1000;
-	public int hour, min, sec, twelveHour;
+	public int day, hour, min, sec, twelveHour;
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
 	
@@ -61,6 +61,9 @@ public class HexatimeService extends WallpaperService{
 	
 	private int timeFormatValue = 1;
 	private int timeFormat;
+	
+	private int colorRangeValue = 0; // 0 = day, 1 = year
+
 
 	@Override
 	public Engine onCreateEngine() {
@@ -90,6 +93,7 @@ public class HexatimeService extends WallpaperService{
 
 			private void draw() {
 				cal = Calendar.getInstance();
+				day = cal.get(Calendar.DAY_OF_YEAR) - 1;
 				hour = cal.get(Calendar.HOUR_OF_DAY);
 				min = cal.get(Calendar.MINUTE);
 				sec = cal.get(Calendar.SECOND);
@@ -108,13 +112,26 @@ public class HexatimeService extends WallpaperService{
 						hexClock.setAntiAlias(true);
 						
 						String hexTime = String.format(hideNumberSign, timeFormat, min, sec ); // 24 hour hex triplet time
-						
+						String hexValue;
+						int red=0, green=0, blue=0;
 						float d = hexClock.measureText(hexTime, 0, hexTime.length());
 						int offset = (int) d / 2;
 						int w = c.getWidth();
 						int h = c.getHeight();
 
-						bg.setColor(Color.argb(255, hour, min, sec));
+						if(colorRangeValue == 1) {
+							Double tempTime = ( ( day * 86400 ) + ( hour * 3600 ) + ( min * 60 ) + sec ) * 0.53200202942669;
+							hexValue = String.format("%6s", Integer.toHexString(tempTime.intValue())).replace(" ", "0");
+							red = Integer.parseInt(hexValue.substring(0, 2), 16);
+							green = Integer.parseInt(hexValue.substring(2, 4), 16);
+							blue = Integer.parseInt(hexValue.substring(4, 6), 16);
+						} else {
+							hexValue = String.format("%02d%02d%02d", hour, min, sec);
+							red = hour;
+							green = min;
+							blue = sec;
+						}
+						bg.setColor(Color.argb(255, red, green, blue));
 						c.drawRect(0, 0, w, h, bg);
 						
 						if(!clockHideValue){
@@ -182,6 +199,9 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("TIME_FORMAT")){
 						changeTimeFormat(prefs.getString("TIME_FORMAT", "1"));
 					}
+					else if(key.equals("COLOR_RANGE")){
+						changeColorRange(prefs.getString("COLOR_RANGE", "0"));
+					}
 				}
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
@@ -190,6 +210,7 @@ public class HexatimeService extends WallpaperService{
 					changeNumberSign(prefs.getBoolean("NUMBER_SIGN", false));
 					changeClockHide(prefs.getBoolean("CLOCK_HIDE", false));
 					changeTimeFormat(prefs.getString("TIME_FORMAT", "1"));
+					changeColorRange(prefs.getString("COLOR_RANGE", "0"));
 				}
 				return;
 			}
@@ -276,6 +297,11 @@ public class HexatimeService extends WallpaperService{
 					timeFormat = cal.get(Calendar.HOUR_OF_DAY);                    
 				}
 				return;
+			}
+			
+			private void changeColorRange(String value){
+				colorRangeValue = Integer.parseInt(value);
+				return;		
 			}
 	}
 }
