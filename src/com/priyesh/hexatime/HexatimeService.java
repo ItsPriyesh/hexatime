@@ -208,6 +208,12 @@ public class HexatimeService extends WallpaperService{
 				else if (fontStyleValue == 3){
 					fontStyle = Typeface.createFromAsset(getAssets(), "RobotoLight.ttf");                    
 				}
+				else if (fontStyleValue == 4){
+					fontStyle = Typeface.createFromAsset(getAssets(), "OpenSans.ttf");                    
+				}
+				else if (fontStyleValue == 5){
+					fontStyle = Typeface.createFromAsset(getAssets(), "OpenSansLight.ttf");                    
+				}
 				return;
 			}
 			

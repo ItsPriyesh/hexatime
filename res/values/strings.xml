@@ -32,6 +32,9 @@
     <string name="lato_light">Lato Light</string>
     <string name="roboto_regular">Roboto Regular</string>
     <string name="roboto_light">Roboto Light</string>
+    <string name="opensans_regular">Open Sans Regular</string>
+    <string name="opensans_light">Open Sans Light</string>
+        
     <string name="large">Large</string>
     <string name="medium">Medium</string>
     <string name="small">Small</string>
