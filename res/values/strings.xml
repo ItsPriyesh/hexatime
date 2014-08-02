@@ -11,8 +11,8 @@
     <string name="clock_dimens_title">Clock size</string>
     <string name="clock_align_summary">Choose where the clock is positioned.</string>
     <string name="clock_align_title">Clock alignment</string>
-    <string name="clock_style_summary">Show or hide the number sign (#).</string>
-    <string name="clock_style_title">Clock style</string>
+    <string name="number_sign_summary">Show or hide the number sign (#).</string>
+    <string name="number_sign_title">Hide number sign</string>
     <string name="clock_hide_summary">Only display the colored wallpaper.</string>
     <string name="clock_hide_title">Hide clock</string>
     <string name="time_format_summary">Switch between 24 and 12 hour.</string>
@@ -28,8 +28,10 @@
     <string name="about_donate_summary">Buy me a cookie.</string>
     <string name="about_donate_title">Donate</string>
     
-    <string name="regular">Regular</string>
-    <string name="light">Light</string>
+    <string name="lato_regular">Lato Regular</string>
+    <string name="lato_light">Lato Light</string>
+    <string name="roboto_regular">Roboto Regular</string>
+    <string name="roboto_light">Roboto Light</string>
     <string name="large">Large</string>
     <string name="medium">Medium</string>
     <string name="small">Small</string>

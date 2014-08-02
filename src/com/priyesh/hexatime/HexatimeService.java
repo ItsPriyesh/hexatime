@@ -45,7 +45,7 @@ public class HexatimeService extends WallpaperService{
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
 	
-	private int fontStyleValue = 1; // 0 is regular, 1 is light
+	private int fontStyleValue = 1;
 	private Typeface fontStyle;
 	
 	private int clockSizeValue = 1; // 0 = small, 1 = medium, 2 = large
@@ -54,8 +54,8 @@ public class HexatimeService extends WallpaperService{
 	private int clockAlignmentValue = 1; // 0 = top, 1 = center, 2 = bottom
 	private float clockAlignment;
 	
-	private int clockStyleValue = 1;
-	private String clockStyle;
+	private String hideNumberSign;
+	private boolean hideNumberSignValue = false;
 	
 	private boolean clockHideValue = false;
 	
@@ -93,7 +93,6 @@ public class HexatimeService extends WallpaperService{
 				hour = cal.get(Calendar.HOUR_OF_DAY);
 				min = cal.get(Calendar.MINUTE);
 				sec = cal.get(Calendar.SECOND);
-			//	twelveHour = cal.get(Calendar.HOUR);
 
 				SurfaceHolder holder = getSurfaceHolder();
 				c = null;
@@ -108,7 +107,7 @@ public class HexatimeService extends WallpaperService{
 						hexClock.setColor(Color.WHITE);
 						hexClock.setAntiAlias(true);
 						
-						String hexTime = String.format(clockStyle, timeFormat, min, sec ); // 24 hour hex triplet time
+						String hexTime = String.format(hideNumberSign, timeFormat, min, sec ); // 24 hour hex triplet time
 						
 						float d = hexClock.measureText(hexTime, 0, hexTime.length());
 						int offset = (int) d / 2;
@@ -174,8 +173,8 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("CLOCK_ALIGNMENT")){
 						changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
 					}
-					else if(key.equals("CLOCK_STYLE")){
-						changeClockStyle(prefs.getString("CLOCK_STYLE", "1"));
+					else if(key.equals("NUMBER_SIGN")){
+						changeNumberSign(prefs.getBoolean("NUMBER_SIGN", false));
 					}
 					else if(key.equals("CLOCK_HIDE")){
 						changeClockHide(prefs.getBoolean("CLOCK_HIDE", false));
@@ -188,7 +187,7 @@ public class HexatimeService extends WallpaperService{
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
 					changeClockSize(prefs.getString("CLOCK_SIZE", "1"));
 					changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
-					changeClockStyle(prefs.getString("CLOCK_STYLE", "1"));
+					changeNumberSign(prefs.getBoolean("NUMBER_SIGN", false));
 					changeClockHide(prefs.getBoolean("CLOCK_HIDE", false));
 					changeTimeFormat(prefs.getString("TIME_FORMAT", "1"));
 				}
@@ -197,11 +196,17 @@ public class HexatimeService extends WallpaperService{
 
 			private void changeFontStyle(String value){
 				fontStyleValue = Integer.parseInt(value);
-				if(fontStyleValue == 0){ // regular
+				if(fontStyleValue == 0){ 
 					fontStyle = Typeface.createFromAsset(getAssets(), "Lato.ttf");
 				}
-				else if (fontStyleValue == 1){ // light
+				else if (fontStyleValue == 1){
 					fontStyle = Typeface.createFromAsset(getAssets(), "LatoLight.ttf");                    
+				}
+				else if (fontStyleValue == 2){
+					fontStyle = Typeface.createFromAsset(getAssets(), "Roboto.ttf");                    
+				}
+				else if (fontStyleValue == 3){
+					fontStyle = Typeface.createFromAsset(getAssets(), "RobotoLight.ttf");                    
 				}
 				return;
 			}
@@ -240,15 +245,14 @@ public class HexatimeService extends WallpaperService{
 				return;
 			}
 			
-			private void changeClockStyle(String value){
-				clockStyleValue = Integer.parseInt(value);
-				if(clockStyleValue == 0){ // Hide #
-					clockStyle = "%02d%02d%02d";
+			private void changeNumberSign(boolean value){
+				hideNumberSignValue = value;
+				if(hideNumberSignValue){ // Hide #
+					hideNumberSign = "%02d%02d%02d";
 				}
-				else if (clockStyleValue == 1){ // Show #
-					clockStyle = "#%02d%02d%02d";              
+				else if (!hideNumberSignValue){ // Show #
+					hideNumberSign = "#%02d%02d%02d";              
 				}
-				return;
 			}
 			
 			private void changeClockHide(boolean value){

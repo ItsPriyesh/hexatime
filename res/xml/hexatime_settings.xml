@@ -23,13 +23,10 @@
         android:key="CLOCK_ALIGNMENT"
         android:summary="@string/clock_align_summary"
         android:title="@string/clock_align_title" />
-    <com.priyesh.hexatime.NoTitleListPref
-        android:defaultValue="1"
-        android:entries="@array/clock_style_names"
-        android:entryValues="@array/clock_style_values"
-        android:key="CLOCK_STYLE"
-        android:summary="@string/clock_style_summary"
-        android:title="@string/clock_style_title"/>
+     <CheckBoxPreference 
+        android:key="NUMBER_SIGN"
+        android:summary="@string/number_sign_summary"
+        android:title="@string/number_sign_title" />
     <CheckBoxPreference 
         android:key="CLOCK_HIDE"
         android:summary="@string/clock_hide_summary"

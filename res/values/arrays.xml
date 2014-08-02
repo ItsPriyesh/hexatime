@@ -2,12 +2,16 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string-array name="font_styles">
-        <item>@string/regular</item>
-        <item>@string/light</item>
+        <item>@string/lato_regular</item>
+        <item>@string/lato_light</item>
+        <item>@string/roboto_regular</item>
+        <item>@string/roboto_light</item>
     </string-array>
     <string-array name="font_values">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
     
     <string-array name="clock_size_names">
@@ -30,15 +34,6 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
-    </string-array>
-    
-    <string-array name="clock_style_names">
-        <item>@string/hide</item>
-        <item>@string/show</item>
-    </string-array>
-    <string-array name="clock_style_values">
-        <item>0</item>
-        <item>1</item>
     </string-array>
     
     <string-array name="time_format_names">
