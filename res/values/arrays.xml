@@ -19,7 +19,6 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
-        
     </string-array>
 
     <string-array name="clock_alignment_names">
@@ -38,6 +37,15 @@
         <item>@string/show</item>
     </string-array>
     <string-array name="clock_style_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    
+    <string-array name="clock_cycle_names">
+        <item>@string/cycleday</item>
+        <item>@string/cycleyear</item>
+    </string-array>
+    <string-array name="clock_cycle_values">
         <item>0</item>
         <item>1</item>
     </string-array>
