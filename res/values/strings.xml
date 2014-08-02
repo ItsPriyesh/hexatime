@@ -11,10 +11,12 @@
     <string name="clock_dimens_title">Clock size</string>
     <string name="clock_align_summary">Choose where the clock is positioned.</string>
     <string name="clock_align_title">Clock alignment</string>
-    <string name="clock_style_summary">Show or hide the number sign (#)</string>
+    <string name="clock_style_summary">Show or hide the number sign (#).</string>
     <string name="clock_style_title">Clock style</string>
-    <string name="clock_hide_summary">Only display the colored wallpaper</string>
+    <string name="clock_hide_summary">Only display the colored wallpaper.</string>
     <string name="clock_hide_title">Hide clock</string>
+    <string name="time_format_summary">Switch between 24 and 12 hour.</string>
+    <string name="time_format_title">Time format</string>    
     
     <string name="about">About</string>
     <string name="about_developer_summary">This app is written by Priyesh Patel.</string>
@@ -36,6 +38,8 @@
     <string name="bottom">Bottom</string>
     <string name="hide">Hide</string>
     <string name="show">Show</string>
-    
+    <string name="twelve_hour">12 hour</string>
+    <string name="twenty_four_hour">24 hour</string>
+       
     <string name="thanks">Thanks :)</string>
 </resources>

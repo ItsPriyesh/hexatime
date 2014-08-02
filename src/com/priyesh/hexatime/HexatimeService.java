@@ -58,6 +58,9 @@ public class HexatimeService extends WallpaperService{
 	private String clockStyle;
 	
 	private boolean clockHideValue = false;
+	
+	private int timeFormatValue = 1;
+	private int timeFormat;
 
 	@Override
 	public Engine onCreateEngine() {
@@ -80,7 +83,6 @@ public class HexatimeService extends WallpaperService{
 			}};
 
 			HexatimeEngine(WallpaperService ws) {
-
 				mPrefs = HexatimeService.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
 				mPrefs.registerOnSharedPreferenceChangeListener(this);
 				onSharedPreferenceChanged(mPrefs, null);
@@ -91,7 +93,7 @@ public class HexatimeService extends WallpaperService{
 				hour = cal.get(Calendar.HOUR_OF_DAY);
 				min = cal.get(Calendar.MINUTE);
 				sec = cal.get(Calendar.SECOND);
-				twelveHour = cal.get(Calendar.HOUR);
+			//	twelveHour = cal.get(Calendar.HOUR);
 
 				SurfaceHolder holder = getSurfaceHolder();
 				c = null;
@@ -106,7 +108,7 @@ public class HexatimeService extends WallpaperService{
 						hexClock.setColor(Color.WHITE);
 						hexClock.setAntiAlias(true);
 						
-						String hexTime = String.format(clockStyle, hour, min, sec ); // 24 hour hex triplet time
+						String hexTime = String.format(clockStyle, timeFormat, min, sec ); // 24 hour hex triplet time
 						
 						float d = hexClock.measureText(hexTime, 0, hexTime.length());
 						int offset = (int) d / 2;
@@ -117,7 +119,7 @@ public class HexatimeService extends WallpaperService{
 						c.drawRect(0, 0, w, h, bg);
 						
 						if(!clockHideValue){
-						c.drawText(hexTime, w/2- offset, clockAlignment, hexClock);
+							c.drawText(hexTime, w/2- offset, clockAlignment, hexClock);
 						}
 
 					}
@@ -178,6 +180,9 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("CLOCK_HIDE")){
 						changeClockHide(prefs.getBoolean("CLOCK_HIDE", false));
 					}
+					else if(key.equals("TIME_FORMAT")){
+						changeTimeFormat(prefs.getString("TIME_FORMAT", "1"));
+					}
 				}
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
@@ -185,6 +190,7 @@ public class HexatimeService extends WallpaperService{
 					changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
 					changeClockStyle(prefs.getString("CLOCK_STYLE", "1"));
 					changeClockHide(prefs.getBoolean("CLOCK_HIDE", false));
+					changeTimeFormat(prefs.getString("TIME_FORMAT", "1"));
 				}
 				return;
 			}
@@ -247,6 +253,19 @@ public class HexatimeService extends WallpaperService{
 			
 			private void changeClockHide(boolean value){
 				clockHideValue = value;
+			}
+			
+			private void changeTimeFormat(String value){
+				timeFormatValue = Integer.parseInt(value);
+				if(timeFormatValue == 0){ // 12 hour
+					cal = Calendar.getInstance();
+					timeFormat = cal.get(Calendar.HOUR);
+				}
+				else if (timeFormatValue == 1){ // 24 hour
+					cal = Calendar.getInstance();
+					timeFormat = cal.get(Calendar.HOUR_OF_DAY);                    
+				}
+				return;
 			}
 	}
 }
