@@ -34,10 +34,6 @@ public class HexatimeActivity extends Activity implements Handler.Callback{
 	LinearLayout layout;
 	private IntroView mIntroView;
 	TransitionDrawable trans;
-
-	/* TODO
-	 * Add in app donation purchase
-	 */
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

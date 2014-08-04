@@ -4,7 +4,7 @@
     <string name="app_name">HexaTime</string>
     <string name="description">HexaTime displays time along with the corresponding hexadecimal color.</string>
     
-    <string name="appearance">Appearance</string>
+    <string name="clock_appearance">Clock Appearance</string>
     <string name="clock_typeface_summary">Change clock typeface.</string>
     <string name="clock_typeface_title">Font style</string>
     <string name="clock_dimens_summary">Adjust dimensions of clock.</string>
@@ -19,12 +19,16 @@
     <string name="time_format_title">Time format</string>    
     <string name="color_range_summary">Incorporate date to stretch color spectrum.</string>
     <string name="color_range_title">Color range</string>
- 
+    
+    <string name="background_appearance">Background Appearance</string>
+    
     <string name="about">About</string>
     <string name="about_developer_summary">This app is written by Priyesh Patel.</string>
     <string name="about_developer_title">Developer</string>
     <string name="about_contact_summary">Send me an email.</string>
     <string name="about_contact_title">Contact</string>
+    <string name="about_xda_summary">Visit the XDA thread for this app.</string>
+    <string name="about_xda_title">XDA Thread</string>
     <string name="about_source_summary">View the apps code via GitHub.</string>
     <string name="about_source_title">Source</string>
     <string name="about_donate_summary">Buy me a cookie.</string>
@@ -34,8 +38,8 @@
     <string name="lato_light">Lato Light</string>
     <string name="roboto_regular">Roboto Regular</string>
     <string name="roboto_light">Roboto Light</string>
-    <string name="opensans_regular">Open Sans Regular</string>
-    <string name="opensans_light">Open Sans Light</string>
+    <string name="robotoslab_regular">Roboto Slab Regular</string>
+    <string name="robotoslab_light">Roboto Slab Light</string>
         
     <string name="large">Large</string>
     <string name="medium">Medium</string>
@@ -47,6 +51,6 @@
     <string name="twenty_four_hour">24 hour</string>
     <string name="small_color_range">Small color range</string>
     <string name="large_color_range">Large color range</string>
-       
+    
     <string name="thanks">Thanks :)</string>
 </resources>

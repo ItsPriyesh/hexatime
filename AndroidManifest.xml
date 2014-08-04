@@ -48,6 +48,7 @@
                 android:name="android.service.wallpaper"
                 android:resource="@xml/wallpaper" />
         </service>
+        
     </application>
 
 </manifest>

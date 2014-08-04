@@ -50,7 +50,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 	@Override
 	protected void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+		overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 		getPreferenceManager().setSharedPreferencesName(HexatimeService.SHARED_PREFS_NAME); 
 		addPreferencesFromResource(R.xml.hexatime_settings);
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
@@ -88,11 +88,16 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 					} else {             
 						Log.d(TAG, "In-app Billing is set up OK");
 					}
+					try {
 					mHelper.queryInventoryAsync(mReceivedInventoryListener);
+					}
+					catch (IllegalStateException e) {
+						
+					}
 				}
 			});
         }
-		
+        		
         Preference contact = (Preference) findPreference("contact");
 		contact.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
@@ -101,6 +106,18 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 				email.addCategory(Intent.CATEGORY_BROWSABLE);
 				email.setData(Uri.parse("mailto:priyesh.96@hotmail.com"));
 				startActivity(email);
+				return true; 
+			}
+		});
+		
+		Preference xda = (Preference) findPreference("xda");
+		xda.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+				Intent git = new Intent();
+				git.setAction(Intent.ACTION_VIEW);
+				git.addCategory(Intent.CATEGORY_BROWSABLE);
+				git.setData(Uri.parse("http://forum.xda-developers.com/android/apps-games/app-hexatime-t2829060"));
+				startActivity(git);
 				return true; 
 			}
 		});

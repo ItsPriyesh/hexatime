@@ -17,9 +17,7 @@
 package com.priyesh.hexatime;
 
 import java.util.Calendar;
-
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -27,21 +25,17 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
 import android.view.Display;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 public class HexatimeService extends WallpaperService{
 
 	private static final String TAG = "Wallpaper";
 	public static final String SHARED_PREFS_NAME="hexatime_settings";
 	public int oneSecond = 1000;
-	public int day, hour, min, sec, twelveHour;
+	public int day, hour, twelveHour, min, sec;
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
 	
@@ -95,6 +89,7 @@ public class HexatimeService extends WallpaperService{
 				cal = Calendar.getInstance();
 				day = cal.get(Calendar.DAY_OF_YEAR) - 1;
 				hour = cal.get(Calendar.HOUR_OF_DAY);
+				twelveHour = cal.get(Calendar.HOUR);
 				min = cal.get(Calendar.MINUTE);
 				sec = cal.get(Calendar.SECOND);
 
@@ -111,7 +106,14 @@ public class HexatimeService extends WallpaperService{
 						hexClock.setColor(Color.WHITE);
 						hexClock.setAntiAlias(true);
 						
-						String hexTime = String.format(hideNumberSign, timeFormat, min, sec ); // 24 hour hex triplet time
+						String hexTime;
+						if (timeFormatValue == 0){
+							hexTime = String.format(hideNumberSign, twelveHour, min, sec); 
+
+						}
+						else {
+							hexTime = String.format(hideNumberSign, hour, min, sec);
+						}
 						String hexValue;
 						int red=0, green=0, blue=0;
 						float d = hexClock.measureText(hexTime, 0, hexTime.length());
@@ -230,10 +232,10 @@ public class HexatimeService extends WallpaperService{
 					fontStyle = Typeface.createFromAsset(getAssets(), "RobotoLight.ttf");                    
 				}
 				else if (fontStyleValue == 4){
-					fontStyle = Typeface.createFromAsset(getAssets(), "OpenSans.ttf");                    
+					fontStyle = Typeface.createFromAsset(getAssets(), "RobotoSlab.ttf");                    
 				}
 				else if (fontStyleValue == 5){
-					fontStyle = Typeface.createFromAsset(getAssets(), "OpenSansLight.ttf");                    
+					fontStyle = Typeface.createFromAsset(getAssets(), "RobotoSlabLight.ttf");                    
 				}
 				return;
 			}
@@ -288,14 +290,6 @@ public class HexatimeService extends WallpaperService{
 			
 			private void changeTimeFormat(String value){
 				timeFormatValue = Integer.parseInt(value);
-				if(timeFormatValue == 0){ // 12 hour
-					cal = Calendar.getInstance();
-					timeFormat = cal.get(Calendar.HOUR);
-				}
-				else if (timeFormatValue == 1){ // 24 hour
-					cal = Calendar.getInstance();
-					timeFormat = cal.get(Calendar.HOUR_OF_DAY);                    
-				}
 				return;
 			}
 			
