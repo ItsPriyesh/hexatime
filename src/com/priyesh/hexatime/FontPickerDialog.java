@@ -34,7 +34,6 @@ public class FontPickerDialog extends ListPreference {
 
     @Override
     protected View onCreateDialogView() {
-        ListView view = new ListView(getContext());
 
         String font1 = getContext().getResources().getString(R.string.lato_regular);
         String font2 = getContext().getResources().getString(R.string.lato_light);
@@ -71,7 +70,8 @@ public class FontPickerDialog extends ListPreference {
 		CharSequence[] entryValues = { "0", "1", "2", "3", "4", "5"};
         setEntries(entries);
         setEntryValues(entryValues);
-        return view;
+
+        return null;
     }
     
 	@Override
