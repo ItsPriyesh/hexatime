@@ -48,8 +48,11 @@ public class HexatimeService extends WallpaperService{
 	private int clockAlignmentValue = 1; // 0 = top, 1 = center, 2 = bottom
 	private float clockAlignment;
 	
-	private String hideNumberSign;
-	private boolean hideNumberSignValue = false;
+	private String clockAddons;
+	private int clockAddonsValue = 1;
+	
+	private String separatorStyle;
+	private int separatorStyleValue = 1;
 	
 	private boolean clockHideValue = false;
 	
@@ -108,11 +111,11 @@ public class HexatimeService extends WallpaperService{
 						
 						String hexTime;
 						if (timeFormatValue == 0){
-							hexTime = String.format(hideNumberSign, twelveHour, min, sec); 
+							hexTime = String.format(clockAddons, twelveHour, min, sec); 
 
 						}
 						else {
-							hexTime = String.format(hideNumberSign, hour, min, sec);
+							hexTime = String.format(clockAddons, hour, min, sec);
 						}
 						String hexValue;
 						int red=0, green=0, blue=0;
@@ -192,9 +195,6 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("CLOCK_ALIGNMENT")){
 						changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
 					}
-					else if(key.equals("NUMBER_SIGN")){
-						changeNumberSign(prefs.getBoolean("NUMBER_SIGN", false));
-					}
 					else if(key.equals("CLOCK_HIDE")){
 						changeClockHide(prefs.getBoolean("CLOCK_HIDE", false));
 					}
@@ -204,15 +204,23 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("COLOR_RANGE")){
 						changeColorRange(prefs.getString("COLOR_RANGE", "0"));
 					}
+					else if(key.equals("CLOCK_ADDONS")){
+						changeClockAddons(prefs.getString("CLOCK_ADDONS", "1"));
+					}
+					else if(key.equals("SEPARATOR_STYLE")){
+						changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
+					}
 				}
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
 					changeClockSize(prefs.getString("CLOCK_SIZE", "1"));
 					changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
-					changeNumberSign(prefs.getBoolean("NUMBER_SIGN", false));
 					changeClockHide(prefs.getBoolean("CLOCK_HIDE", false));
 					changeTimeFormat(prefs.getString("TIME_FORMAT", "1"));
 					changeColorRange(prefs.getString("COLOR_RANGE", "0"));
+					changeClockAddons(prefs.getString("CLOCK_ADDONS", "1"));
+					changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
+
 				}
 				return;
 			}
@@ -274,14 +282,46 @@ public class HexatimeService extends WallpaperService{
 				return;
 			}
 			
-			private void changeNumberSign(boolean value){
-				hideNumberSignValue = value;
-				if(hideNumberSignValue){ // Hide #
-					hideNumberSign = "%02d%02d%02d";
+			private void changeClockAddons(String value){
+				clockAddonsValue = Integer.parseInt(value);
+				if(clockAddonsValue == 0){ // hide #
+					clockAddons = "%02d%02d%02d";
 				}
-				else if (!hideNumberSignValue){ // Show #
-					hideNumberSign = "#%02d%02d%02d";              
+				else if (clockAddonsValue == 1){ // show #
+					clockAddons = "#%02d%02d%02d";
 				}
+				else if (clockAddonsValue == 2){ // show separator
+					clockAddons = "%02d"+separatorStyle+"%02d"+separatorStyle+"%02d";
+				}
+				else if (clockAddonsValue == 3){ // # and separator
+					clockAddons = "#%02d"+separatorStyle+"%02d"+separatorStyle+"%02d";
+				}
+				return;
+			}
+			
+			private void changeSeparatorStyle(String value){
+				separatorStyleValue = Integer.parseInt(value);
+				if(separatorStyleValue == 0){ 
+					separatorStyle = ":";
+					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
+				}
+				else if (separatorStyleValue == 1){
+					separatorStyle = " ";
+					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
+				}
+				else if (separatorStyleValue == 2){
+					separatorStyle = ".";
+					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
+				}
+				else if (separatorStyleValue == 3){
+					separatorStyle = "|";
+					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
+				}
+				else if (separatorStyleValue == 4){
+					separatorStyle = "/";
+					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
+				}
+				return;
 			}
 			
 			private void changeClockHide(boolean value){

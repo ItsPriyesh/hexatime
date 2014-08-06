@@ -32,6 +32,34 @@
         <item>1</item>
     </string-array>
     
+    <string-array name="clock_addon_names">
+        <item>@string/hide_number_sign</item>
+        <item>@string/show_number_sign</item>
+        <item>@string/show_separator</item>
+        <item>@string/number_sign_separator</item>
+    </string-array>
+    <string-array name="clock_addon_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    
+	<string-array name="separator_style_names">
+        <item>@string/separator_colon</item>
+        <item>@string/separator_space</item>
+        <item>@string/separator_dot</item>
+        <item>@string/separator_pipe</item>
+        <item>@string/separator_slash</item>
+    </string-array>
+    <string-array name="separator_style_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    
     <string-array name="color_range_names">
         <item>@string/small_color_range</item>
         <item>@string/large_color_range</item>

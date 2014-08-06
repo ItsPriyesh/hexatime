@@ -29,10 +29,20 @@
             android:key="TIME_FORMAT"
             android:summary="@string/time_format_summary"
             android:title="@string/time_format_title" />
-        <CheckBoxPreference
-            android:key="NUMBER_SIGN"
-            android:summary="@string/number_sign_summary"
-            android:title="@string/number_sign_title" />
+        <com.priyesh.hexatime.NoTitleListPref
+            android:defaultValue="1"
+            android:entries="@array/clock_addon_names"
+            android:entryValues="@array/clock_addon_values"
+            android:key="CLOCK_ADDONS"
+            android:summary="@string/clock_addon_summary"
+            android:title="@string/clock_addon_title" />
+ 		<com.priyesh.hexatime.NoTitleListPref
+            android:defaultValue="1"
+            android:entries="@array/separator_style_names"
+            android:entryValues="@array/separator_style_values"
+            android:key="SEPARATOR_STYLE"
+            android:summary="@string/separator_style_summary"
+            android:title="@string/separator_style_title" />
         <CheckBoxPreference
             android:key="CLOCK_HIDE"
             android:summary="@string/clock_hide_summary"

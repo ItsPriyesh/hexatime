@@ -25,6 +25,7 @@ import android.util.Log;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -58,7 +59,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
         list.setFitsSystemWindows(true);
         ActionBar ab = getActionBar();
         ab.setBackgroundDrawable(new ColorDrawable (getResources().getColor(R.color.c2)));
-        getListView().setBackgroundColor(getResources().getColor(R.color.c2));
+        list.setBackgroundColor(getResources().getColor(R.color.c2));
         setTheme(R.style.Settings);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
 			Window win = getWindow();
@@ -216,6 +217,8 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
     protected void onDestroy() {
             getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
             super.onDestroy();
+            if (mHelper != null) mHelper.dispose();
+        	mHelper = null;
             return;
     }
 
