@@ -24,7 +24,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ListView;
 
 public class FontPickerDialog extends ListPreference {
 	

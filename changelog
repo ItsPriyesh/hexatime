@@ -1,0 +1,14 @@
+1.1 (July 12/14)
+- Initial release
+
+1.2 (August 5/14)
+- Added option for larger color range which includes the day of the year in the hexcode calculation
+- Added option to hide clock
+- Added 12 hour time format
+- Added more fonts, and the names are now shown in their respective typeface
+- Added option to display separators in between hour, minute and second
+- Added 5 separator styles to choose from
+- Fixed settings crash on some devices
+- Stopped Google Play Billing Service from constantly running in the background
+- Slight rearrangement of the settings
+

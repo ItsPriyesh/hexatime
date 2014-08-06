@@ -57,7 +57,6 @@ public class HexatimeService extends WallpaperService{
 	private boolean clockHideValue = false;
 	
 	private int timeFormatValue = 1;
-	private int timeFormat;
 	
 	private int colorRangeValue = 0; // 0 = day, 1 = year
 

@@ -18,10 +18,7 @@ package com.priyesh.hexatime;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.preference.ListPreference;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.util.AttributeSet;
 
 public class NoTitleListPref extends ListPreference {

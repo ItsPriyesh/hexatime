@@ -59,11 +59,11 @@
     <string name="show_separator">Show separators</string>
     <string name="number_sign_separator">Number sign &amp; separators</string>
     
-    <string name="separator_colon">Colon (12:34:56)</string>
-    <string name="separator_space">Space (12 34 56)</string>
-    <string name="separator_dot">Dot (12.34.56)</string>
-    <string name="separator_pipe">Pipe (12|34|56)</string>    
-    <string name="separator_slash">Slash (12/34/56)</string>
+    <string name="separator_colon">"Colon (12:34:56)"</string>
+    <string name="separator_space">"Space (12 34 56)"</string>
+    <string name="separator_dot">"Dot     (12.34.56)"</string>
+    <string name="separator_pipe">"Pipe   (12|34|56)"</string>    
+    <string name="separator_slash">"Slash (12/34/56)"</string>
     
     <string name="thanks">Thanks :)</string>
 </resources>

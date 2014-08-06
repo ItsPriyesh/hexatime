@@ -27,7 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.*;
-import android.graphics.Paint.Align;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
