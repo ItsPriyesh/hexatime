@@ -43,10 +43,17 @@
             android:key="SEPARATOR_STYLE"
             android:summary="@string/separator_style_summary"
             android:title="@string/separator_style_title" />
-        <CheckBoxPreference
+ 		<com.priyesh.hexatime.NoTitleListPref
+            android:defaultValue="1"
+            android:entries="@array/clock_visibility_names"
+            android:entryValues="@array/clock_visibility_values"
+            android:key="CLOCK_VISIBILITY"
+            android:summary="@string/clock_visibility_summary"
+            android:title="@string/clock_visibility_title" />
+   <!--      <CheckBoxPreference
             android:key="CLOCK_HIDE"
             android:summary="@string/clock_hide_summary"
-            android:title="@string/clock_hide_title" />
+            android:title="@string/clock_hide_title" /> -->
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/background_appearance" >
         <com.priyesh.hexatime.NoTitleListPref

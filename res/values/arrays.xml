@@ -68,4 +68,16 @@
         <item>0</item>
         <item>1</item>
     </string-array>
+    
+    <string-array name="clock_visibility_names">
+        <item>@string/always_visible</item>        
+        <item>@string/lockscreen_hidden</item>
+        <item>@string/always_hidden</item>
+    </string-array>
+    <string-array name="clock_visibility_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
 </resources>

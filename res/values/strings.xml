@@ -11,8 +11,8 @@
     <string name="clock_dimens_title">Clock size</string>
     <string name="clock_align_summary">Choose where the clock is positioned.</string>
     <string name="clock_align_title">Clock alignment</string>
-    <string name="clock_hide_summary">Only display the colored wallpaper.</string>
-    <string name="clock_hide_title">Hide clock</string>
+    <string name="clock_visibility_summary">Choose when the clock is shown or hidden.</string>
+    <string name="clock_visibility_title">Clock visibility</string>
     <string name="time_format_summary">Switch between 24 and 12 hour.</string>
     <string name="time_format_title">Time format</string>    
     <string name="clock_addon_summary">Miscellaneous format changes for clock.</string>    
@@ -64,6 +64,10 @@
     <string name="separator_dot">"Dot     (12.34.56)"</string>
     <string name="separator_pipe">"Pipe   (12|34|56)"</string>    
     <string name="separator_slash">"Slash (12/34/56)"</string>
+    
+    <string name="always_visible">Always visible</string>
+    <string name="lockscreen_hidden">Hidden on lockscreen</string>
+    <string name="always_hidden">Always hidden</string>
     
     <string name="thanks">Thanks :)</string>
 </resources>
