@@ -48,7 +48,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar;
 
-public class NoTitleSeekbarPrefDim extends DialogPreference {
+public class DimSeekbar extends DialogPreference {
 
 	protected final static int SEEKBAR_RESOLUTION = 10000;
 
@@ -56,18 +56,18 @@ public class NoTitleSeekbarPrefDim extends DialogPreference {
 	protected int mSeekBarValue;
 	protected CharSequence[] mSummaries;
 
-	public NoTitleSeekbarPrefDim(Context context, AttributeSet attrs) {
+	public DimSeekbar(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setup(context, attrs);
 	}
 
-	public NoTitleSeekbarPrefDim(Context context, AttributeSet attrs, int defStyle) {
+	public DimSeekbar(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		setup(context, attrs);
 	}
 
 	private void setup(Context context, AttributeSet attrs) {
-		setDialogLayoutResource(R.layout.seekbar_pref_dim);
+		setDialogLayoutResource(R.layout.dim_seekbar);
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class NoTitleSeekbarPrefDim extends DialogPreference {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
-					NoTitleSeekbarPrefDim.this.mSeekBarValue = progress;
+					DimSeekbar.this.mSeekBarValue = progress;
 				}
 
 			}

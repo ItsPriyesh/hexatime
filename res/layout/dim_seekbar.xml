@@ -22,8 +22,8 @@
         android:layout_height="wrap_content" />
 
     <SeekBar
-        android:progressDrawable="@drawable/dim_bar"
-        android:thumb="@drawable/scrubber"
+        android:progressDrawable="@drawable/dim_seekbar_bg"
+        android:thumb="@drawable/seekbar_scrubber"
         android:id="@+id/slider_preference_seekbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

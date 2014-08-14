@@ -27,8 +27,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="12dip"
         android:paddingTop="12dip"
-        android:progressDrawable="@drawable/seekbar"
-        android:thumb="@drawable/scrubber" />
+        android:thumb="@drawable/seekbar_scrubber" />
 
     <LinearLayout
         android:layout_width="match_parent"
