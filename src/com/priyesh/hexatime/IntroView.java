@@ -22,6 +22,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.WallpaperManager;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +33,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,7 +184,7 @@ public class IntroView extends View{
 			String activate = "Activate";
 			bounds = new Rect();
 			text.getTextBounds(activate, 0, 8, bounds);	
-			 
+
 			Paint subtext = new Paint();
 			subtext.setColor(Color.parseColor("#" + colorAlpha + "FFFFFF"));
 			subtext.setTextSize((getResources().getDimensionPixelSize(R.dimen.settingsFontSize)));
@@ -193,12 +195,12 @@ public class IntroView extends View{
 			subtext.getTextBounds(settings, 0, 23, subbounds);	
 
 			canvas.restore();
-			
+
 			Paint buttonBG = new Paint();
 			buttonBG.setStyle(Paint.Style.STROKE);
 			buttonBG.setColor(Color.WHITE);
 			canvas.drawRect(((canvas.getWidth()/2)-text.measureText(activate)/2) - 20, (float) (canvas.getHeight() - (canvas.getHeight()*0.25)) - text.getTextSize(), ((canvas.getWidth()/2) + text.measureText(activate)/2) + 20, ((float) (canvas.getHeight() - (canvas.getHeight()*0.25))) + 20, buttonBG);
-			
+
 			canvas.drawText(activate, (canvas.getWidth()/2) - (bounds.width()/2), (float) (canvas.getHeight() - (canvas.getHeight()*0.25)), text);		
 			canvas.drawText(settings, (canvas.getWidth()/2) - (subbounds.width()/2), (float) (canvas.getHeight() - (canvas.getHeight()*0.15)), subtext);
 
@@ -311,11 +313,16 @@ public class IntroView extends View{
 
 		@Override
 		public boolean onSingleTapConfirmed(MotionEvent e) {
-			mContext.startActivity(new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
-			.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(getContext(), HexatimeService.class))
-			.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-			mContext.startActivity(new Intent (getContext(), HexatimeSettings.class));
-			((Activity) mContext).overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+			try {
+				mContext.startActivity(new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
+				.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(getContext(), HexatimeService.class))
+				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));			
+				mContext.startActivity(new Intent (getContext(), HexatimeSettings.class));
+				((Activity) mContext).overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+			}
+			catch (ActivityNotFoundException anfe){
+				CustomAlerts.showBasicAlert("Error", "Your device does not support live wallpapers since LiveWallpapersPicker.apk is missing. Please email me for help with resolving this issue.", getContext());
+			}
 			return true;
 		}
 		@Override
