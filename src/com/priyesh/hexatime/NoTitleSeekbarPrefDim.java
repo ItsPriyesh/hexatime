@@ -12,31 +12,28 @@ import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.SeekBar;
 
-public class NoTitleSeekbarPref extends DialogPreference {
+public class NoTitleSeekbarPrefDim extends DialogPreference {
 
 	protected final static int SEEKBAR_RESOLUTION = 10000;
 
 	protected float mValue;
 	protected int mSeekBarValue;
 	protected CharSequence[] mSummaries;
-	SeekBar seekbar;
-	
-	public NoTitleSeekbarPref(Context context, AttributeSet attrs) {
+
+	public NoTitleSeekbarPrefDim(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setup(context, attrs);
 	}
 
-	public NoTitleSeekbarPref(Context context, AttributeSet attrs, int defStyle) {
+	public NoTitleSeekbarPrefDim(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		setup(context, attrs);
 	}
 
 	private void setup(Context context, AttributeSet attrs) {
-		setDialogLayoutResource(R.layout.seekbar_pref);
+		setDialogLayoutResource(R.layout.seekbar_pref_dim);
 	}
 
 	@Override
@@ -98,33 +95,9 @@ public class NoTitleSeekbarPref extends DialogPreference {
 	protected View onCreateDialogView() {
 		mSeekBarValue = (int) (mValue * SEEKBAR_RESOLUTION);
 		View view = super.onCreateDialogView();
-		seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
-		
+		SeekBar seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
 		seekbar.setMax(SEEKBAR_RESOLUTION);
 		seekbar.setProgress(mSeekBarValue);
-		
-		Button leftButton = (Button) view.findViewById(R.id.leftButton);
-		leftButton.setOnClickListener(new OnClickListener() {
-		    public void onClick(View v) {
-		    	mSeekBarValue = (int) (0.35 * SEEKBAR_RESOLUTION);
-		    	seekbar.setProgress(mSeekBarValue);
-		    }
-		});
-		Button centerButton = (Button) view.findViewById(R.id.centerButton);
-		centerButton.setOnClickListener(new OnClickListener() {
-		    public void onClick(View v) {
-		    	mSeekBarValue = (int) (0.5 * SEEKBAR_RESOLUTION);
-		    	seekbar.setProgress(mSeekBarValue);
-		    }
-		});
-		Button rightButton = (Button) view.findViewById(R.id.rightButton);
-		rightButton.setOnClickListener(new OnClickListener() {
-		    public void onClick(View v) {
-		    	mSeekBarValue = (int) (0.65 * SEEKBAR_RESOLUTION);
-		    	seekbar.setProgress(mSeekBarValue);
-		    }
-		});
-		
 		seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
 			@Override
@@ -138,7 +111,7 @@ public class NoTitleSeekbarPref extends DialogPreference {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
-					NoTitleSeekbarPref.this.mSeekBarValue = progress;
+					NoTitleSeekbarPrefDim.this.mSeekBarValue = progress;
 				}
 
 			}

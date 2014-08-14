@@ -2,7 +2,7 @@
 <!--
 Copyright 2012 Jay Weisskopf
 
-Licensed under the MIT License (see LICENSE.txt)
+Licensed under the MIT License
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/slider_preference_layout"
@@ -21,7 +21,7 @@ Licensed under the MIT License (see LICENSE.txt)
 
     <SeekBar
         android:progressDrawable="@drawable/dim_bar"
-        android:thumb="@drawable/dim_bar_scrubber"
+        android:thumb="@drawable/scrubber"
         android:id="@+id/slider_preference_seekbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

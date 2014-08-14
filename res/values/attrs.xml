@@ -11,8 +11,4 @@
         <attr name="arrowHeight" format="dimension" />
     </declare-styleable>
     
-    <declare-styleable name="NoTitleSeekbarPref">
-        <attr name="android:summary" />
-    </declare-styleable>
-    
 </resources>
