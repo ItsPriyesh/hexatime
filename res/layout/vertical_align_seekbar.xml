@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright 2012 Jay Weisskopf
-
-Licensed under the MIT License
+ AndroidSliderPreference Library originally Copyright (C) 2012 Jay Weisskopf
+ and licensed under the MIT license.
+ 
+ Additions to AndroidSliderPreference Library Copyright (C) 2014 Priyesh Patel
+ and licensed under Apache License, Version 2.0.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/slider_preference_layout"
