@@ -6,10 +6,10 @@
     
     <string name="clock_typeface_summary">Change clock typeface.</string>
     <string name="clock_typeface_title">Font style</string>
-    <string name="clock_dimens_summary">Adjust dimensions of clock.</string>
+    <string name="clock_dimens_summary">Make the clock larger or smaller.</string>
     <string name="clock_dimens_title">Clock size</string>
-    <string name="clock_align_summary">Choose where the clock is positioned.</string>
-    <string name="clock_align_title">Clock alignment</string>
+    <string name="clock_vertical_align_summary">Adjust the vertical position of clock.</string>
+    <string name="clock_vertical_align_title">Vertical alignment</string> 
     <string name="clock_horizontal_align_summary">Adjust the horizontal position of clock.</string>
     <string name="clock_horizontal_align_title">Horizontal alignment</string>    
     <string name="clock_visibility_summary">Choose when the clock is shown or hidden.</string>

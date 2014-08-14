@@ -36,6 +36,7 @@ public class HexatimeService extends WallpaperService{
 
 	private static final String TAG = "Wallpaper";
 	public static final String SHARED_PREFS_NAME="hexatime_settings";
+	
 	public int oneSecond = 1000;
 	public int day, hour, twelveHour, min, sec;
 	public Calendar cal;
@@ -44,27 +45,23 @@ public class HexatimeService extends WallpaperService{
 	
 	private int fontStyleValue = 1;
 	private Typeface fontStyle;
-
-	private int clockSizeValue = 1; // 0 = small, 1 = medium, 2 = large
+	
+	private int clockSizeValue = 1;
 	private int clockSize;
-
-	private int clockAlignmentValue = 1; // 0 = top, 1 = center, 2 = bottom
-	private float clockAlignment;
-
+	
 	private float clockHorizontalAlignment;
+	private float clockVerticalAlignment;
 	
-	private String clockAddons;
 	private int clockAddonsValue = 1;
-
-	private String separatorStyle;
-	private int separatorStyleValue = 1;
-
-	private int clockVisibilityValue = 0;
-
-	private int timeFormatValue = 1;
-
-	private int colorRangeValue = 0; // 0 = day, 1 = year
+	private String clockAddons;
 	
+	private int separatorStyleValue = 1;
+	private String separatorStyle;
+	
+	private int clockVisibilityValue = 0;
+	
+	private int timeFormatValue = 1;
+	private int colorRangeValue = 0;
 	private int amountToDim = 0;
 
 	@Override
@@ -117,7 +114,6 @@ public class HexatimeService extends WallpaperService{
 						String hexTime;
 						if (timeFormatValue == 0){
 							hexTime = String.format(clockAddons, twelveHour, min, sec); 
-
 						}
 						else {
 							hexTime = String.format(clockAddons, hour, min, sec);
@@ -141,6 +137,7 @@ public class HexatimeService extends WallpaperService{
 							green = min;
 							blue = sec;
 						}
+						
 						bg.setColor(Color.argb(255, red, green, blue));
 						c.drawRect(0, 0, w, h, bg);
 
@@ -153,13 +150,11 @@ public class HexatimeService extends WallpaperService{
 						boolean lockscreenShowing = km.inKeyguardRestrictedInputMode();
 
 						if (clockVisibilityValue == 0){
-							//c.drawText(hexTime, w/2- offset, clockAlignment, hexClock);
-							c.drawText(hexTime, clockHorizontalAlignment, clockAlignment, hexClock);
+							c.drawText(hexTime, clockHorizontalAlignment, clockVerticalAlignment, hexClock);
 						}
 						else if (clockVisibilityValue == 1) {
 							if(!lockscreenShowing){  
-								//c.drawText(hexTime, w/2- offset, clockAlignment, hexClock);
-								c.drawText(hexTime, clockHorizontalAlignment, clockAlignment, hexClock);
+								c.drawText(hexTime, clockHorizontalAlignment, clockVerticalAlignment, hexClock);
 							}
 						}
 						else if (clockVisibilityValue == 2) {
@@ -214,8 +209,8 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("CLOCK_SIZE")){
 						changeClockSize(prefs.getString("CLOCK_SIZE", "1"));
 					}
-					else if(key.equals("CLOCK_ALIGNMENT")){
-						changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
+					else if(key.equals("CLOCK_VERTICAL_ALIGNMENT")){
+						changeClockVerticalAlignment(prefs.getFloat("CLOCK_VERTICAL_ALIGNMENT", 0.5f));
 					}
 					else if(key.equals("CLOCK_HORIZONTAL_ALIGNMENT")){
 						changeClockHorizontalAlignment(prefs.getFloat("CLOCK_HORIZONTAL_ALIGNMENT", 0.5f));
@@ -242,7 +237,7 @@ public class HexatimeService extends WallpaperService{
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
 					changeClockSize(prefs.getString("CLOCK_SIZE", "1"));
-					changeClockAlignment(prefs.getString("CLOCK_ALIGNMENT", "1"));
+					changeClockVerticalAlignment(prefs.getFloat("CLOCK_VERTICAL_ALIGNMENT", 0.5f));
 					changeClockHorizontalAlignment(prefs.getFloat("CLOCK_HORIZONTAL_ALIGNMENT", 0.5f));
 					changeClockVisibility(prefs.getString("CLOCK_VISIBILITY", "0"));
 					changeTimeFormat(prefs.getString("TIME_FORMAT", "1"));
@@ -279,62 +274,49 @@ public class HexatimeService extends WallpaperService{
 
 			private void changeClockSize(String value){
 				clockSizeValue = Integer.parseInt(value);
-				if(clockSizeValue == 0){ // small
+				if(clockSizeValue == 0){
 					clockSize = (getResources().getDimensionPixelSize(R.dimen.clockFontSizeSmall));
 				}
-				else if (clockSizeValue == 1){ // medium
+				else if (clockSizeValue == 1){
 					clockSize = (getResources().getDimensionPixelSize(R.dimen.clockFontSizeMed));
 				}
-				else if (clockSizeValue == 2){ //large
+				else if (clockSizeValue == 2){
 					clockSize = (getResources().getDimensionPixelSize(R.dimen.clockFontSizeLarge));
 				}
 				return;
 			}
 
-			private void changeClockAlignment(String value){
-				clockAlignmentValue = Integer.parseInt(value);				
+			private void changeClockVerticalAlignment(float value){
 				WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
 				Display display = wm.getDefaultDisplay();
 				Point size = new Point();
 				display.getSize(size);
-				int h = size.y;
-
-				if(clockAlignmentValue == 0){ // top
-					clockAlignment = (float) (h - (h*0.65));
-				}
-				else if (clockAlignmentValue == 1){ // center
-					clockAlignment = (float) (h - (h*0.50));
-				}
-				else if (clockAlignmentValue == 2){ //bottom
-					clockAlignment = (float) (h - (h*0.35));
-				}
-				return;
+				int h = size.y;				
+				clockVerticalAlignment = h - (h * value);
 			}
-
+			
 			private void changeClockHorizontalAlignment(float value){
 				WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
 				Display display = wm.getDefaultDisplay();
 				Point size = new Point();
 				display.getSize(size);
 				int w = size.x;
-
 				clockHorizontalAlignment = (w * value) - horizontalClockOffset;
-
 			}
 			
 			private void changeClockAddons(String value){
 				clockAddonsValue = Integer.parseInt(value);
-				if(clockAddonsValue == 0){ // hide #
+				if(clockAddonsValue == 0){
 					clockAddons = "%02d%02d%02d";
 				}
-				else if (clockAddonsValue == 1){ // show #
+				else if (clockAddonsValue == 1){ 
 					clockAddons = "#%02d%02d%02d";
 				}
-				else if (clockAddonsValue == 2){ // show separator
-					clockAddons = "%02d"+separatorStyle+"%02d"+separatorStyle+"%02d";
+				else if (clockAddonsValue == 2){ 
+					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
-				else if (clockAddonsValue == 3){ // # and separator
-					clockAddons = "#%02d"+separatorStyle+"%02d"+separatorStyle+"%02d";
+				else if (clockAddonsValue == 3){ 
+					clockAddons = "#%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 				return;
 			}

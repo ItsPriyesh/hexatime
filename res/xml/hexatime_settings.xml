@@ -46,14 +46,12 @@
             android:key="CLOCK_SIZE"
             android:summary="@string/clock_dimens_summary"
             android:title="@string/clock_dimens_title" />
-        <com.priyesh.hexatime.NoTitleListPref
-            android:defaultValue="1"
-            android:entries="@array/clock_alignment_names"
-            android:entryValues="@array/clock_alignment_values"
-            android:key="CLOCK_ALIGNMENT"
-            android:summary="@string/clock_align_summary"
-            android:title="@string/clock_align_title" />
-        <com.priyesh.hexatime.NoTitleSeekbarPref
+        <com.priyesh.hexatime.VerticalAlignSeekbar
+            android:defaultValue="0.5"
+            android:key="CLOCK_VERTICAL_ALIGNMENT"
+            android:summary="@string/clock_vertical_align_summary"
+            android:title="@string/clock_vertical_align_title" />
+        <com.priyesh.hexatime.HorizontalAlignSeekbar
             android:defaultValue="0.5"
             android:key="CLOCK_HORIZONTAL_ALIGNMENT"
             android:summary="@string/clock_horizontal_align_summary"
@@ -67,7 +65,6 @@
             android:key="COLOR_RANGE"
             android:summary="@string/color_range_summary"
             android:title="@string/color_range_title" />
-
         <com.priyesh.hexatime.NoTitleSeekbarPrefDim
             android:defaultValue="0.0"
             android:key="DIM_BACKGROUND"

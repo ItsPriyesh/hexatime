@@ -16,7 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
 
-public class NoTitleSeekbarPref extends DialogPreference {
+public class HorizontalAlignSeekbar extends DialogPreference {
 
 	protected final static int SEEKBAR_RESOLUTION = 10000;
 
@@ -25,18 +25,18 @@ public class NoTitleSeekbarPref extends DialogPreference {
 	protected CharSequence[] mSummaries;
 	SeekBar seekbar;
 	
-	public NoTitleSeekbarPref(Context context, AttributeSet attrs) {
+	public HorizontalAlignSeekbar(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setup(context, attrs);
 	}
 
-	public NoTitleSeekbarPref(Context context, AttributeSet attrs, int defStyle) {
+	public HorizontalAlignSeekbar(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		setup(context, attrs);
 	}
 
 	private void setup(Context context, AttributeSet attrs) {
-		setDialogLayoutResource(R.layout.seekbar_pref);
+		setDialogLayoutResource(R.layout.horizontal_align_seekbar);
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class NoTitleSeekbarPref extends DialogPreference {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
-					NoTitleSeekbarPref.this.mSeekBarValue = progress;
+					HorizontalAlignSeekbar.this.mSeekBarValue = progress;
 				}
 
 			}
