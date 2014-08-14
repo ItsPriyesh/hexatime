@@ -20,7 +20,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
-
+ 
 public class NoTitleListPref extends ListPreference {
 
 	public NoTitleListPref(Context context, AttributeSet attrs) {

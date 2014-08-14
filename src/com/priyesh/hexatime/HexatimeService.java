@@ -61,7 +61,8 @@ public class HexatimeService extends WallpaperService{
 	private int timeFormatValue = 1;
 
 	private int colorRangeValue = 0; // 0 = day, 1 = year
-
+	
+	private int amountToDim = 0;
 
 	@Override
 	public Engine onCreateEngine() {
@@ -74,7 +75,7 @@ public class HexatimeService extends WallpaperService{
 		private final Handler mHandler = new Handler();
 
 		private Canvas c;
-		private Paint hexClock, bg;
+		private Paint hexClock, bg, dimLayer;
 
 		private final Runnable mUpdateDisplay = new Runnable() {
 
@@ -140,6 +141,11 @@ public class HexatimeService extends WallpaperService{
 						bg.setColor(Color.argb(255, red, green, blue));
 						c.drawRect(0, 0, w, h, bg);
 
+						dimLayer = new Paint();
+						dimLayer.setColor(Color.BLACK);
+						dimLayer.setAlpha(amountToDim);
+						c.drawRect(0, 0, w, h, dimLayer);
+						
 						KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 						boolean lockscreenShowing = km.inKeyguardRestrictedInputMode();
 
@@ -221,6 +227,9 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("SEPARATOR_STYLE")){
 						changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
 					}
+					else if(key.equals("DIM_BACKGROUND")){
+						changeDimBackground(prefs.getFloat("DIM_BACKGROUND", 0.0f));
+					}
 				}
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
@@ -231,7 +240,7 @@ public class HexatimeService extends WallpaperService{
 					changeColorRange(prefs.getString("COLOR_RANGE", "0"));
 					changeClockAddons(prefs.getString("CLOCK_ADDONS", "1"));
 					changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
-
+					changeDimBackground(prefs.getFloat("DIM_BACKGROUND", 0.0f)); 
 				}
 				return;
 			}
@@ -347,6 +356,10 @@ public class HexatimeService extends WallpaperService{
 			private void changeColorRange(String value){
 				colorRangeValue = Integer.parseInt(value);
 				return;		
+			}
+			
+			private void changeDimBackground(Float value){
+				amountToDim = (int) (value * 255);
 			}
 	}
 }

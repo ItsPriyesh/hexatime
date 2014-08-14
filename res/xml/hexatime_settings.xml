@@ -4,10 +4,11 @@
 
     <PreferenceCategory android:title="@string/clock_appearance" >
         <com.priyesh.hexatime.FontPickerDialog
-            android:defaultValue="1"            
+            android:defaultValue="1"
             android:key="FONT_STYLE"
             android:summary="@string/clock_typeface_summary"
             android:title="@string/clock_typeface_title" />
+
         <com.priyesh.hexatime.NoTitleListPref
             android:defaultValue="1"
             android:entries="@array/clock_size_names"
@@ -36,24 +37,20 @@
             android:key="CLOCK_ADDONS"
             android:summary="@string/clock_addon_summary"
             android:title="@string/clock_addon_title" />
- 		<com.priyesh.hexatime.NoTitleListPref
+        <com.priyesh.hexatime.NoTitleListPref
             android:defaultValue="1"
             android:entries="@array/separator_style_names"
             android:entryValues="@array/separator_style_values"
             android:key="SEPARATOR_STYLE"
             android:summary="@string/separator_style_summary"
             android:title="@string/separator_style_title" />
- 		<com.priyesh.hexatime.NoTitleListPref
+        <com.priyesh.hexatime.NoTitleListPref
             android:defaultValue="1"
             android:entries="@array/clock_visibility_names"
             android:entryValues="@array/clock_visibility_values"
             android:key="CLOCK_VISIBILITY"
             android:summary="@string/clock_visibility_summary"
             android:title="@string/clock_visibility_title" />
-   <!--      <CheckBoxPreference
-            android:key="CLOCK_HIDE"
-            android:summary="@string/clock_hide_summary"
-            android:title="@string/clock_hide_title" /> -->
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/background_appearance" >
         <com.priyesh.hexatime.NoTitleListPref
@@ -63,6 +60,11 @@
             android:key="COLOR_RANGE"
             android:summary="@string/color_range_summary"
             android:title="@string/color_range_title" />
+        <com.priyesh.hexatime.NoTitleSeekbarPref
+            android:defaultValue="0.0"
+            android:key="DIM_BACKGROUND"
+            android:summary="@string/dim_background_summary"
+            android:title="@string/dim_background_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/about" >
         <Preference

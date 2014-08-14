@@ -69,5 +69,8 @@
     <string name="lockscreen_hidden">Hidden on lockscreen</string>
     <string name="always_hidden">Always hidden</string>
     
+    <string name="dim_background_title">Dim background</string>
+    <string name="dim_background_summary">Darken the wallpaper color.</string>
+        
     <string name="thanks">Thanks :)</string>
 </resources>
