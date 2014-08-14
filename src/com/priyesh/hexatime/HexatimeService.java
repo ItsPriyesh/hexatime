@@ -269,7 +269,6 @@ public class HexatimeService extends WallpaperService{
 				else if (fontStyleValue == 5){
 					fontStyle = Typeface.createFromAsset(getAssets(), "RobotoSlabLight.ttf");                    
 				}
-				return;
 			}
 
 			private void changeClockSize(String value){
@@ -283,7 +282,6 @@ public class HexatimeService extends WallpaperService{
 				else if (clockSizeValue == 2){
 					clockSize = (getResources().getDimensionPixelSize(R.dimen.clockFontSizeLarge));
 				}
-				return;
 			}
 
 			private void changeClockVerticalAlignment(float value){
@@ -318,7 +316,6 @@ public class HexatimeService extends WallpaperService{
 				else if (clockAddonsValue == 3){ 
 					clockAddons = "#%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
-				return;
 			}
 
 			private void changeSeparatorStyle(String value){
@@ -343,22 +340,18 @@ public class HexatimeService extends WallpaperService{
 					separatorStyle = "/";
 					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
 				}
-				return;
 			}
 
 			private void changeClockVisibility(String value){
 				clockVisibilityValue = Integer.parseInt(value);
-				return;
 			}
 			
 			private void changeTimeFormat(String value){
 				timeFormatValue = Integer.parseInt(value);
-				return;
 			}
 
 			private void changeColorRange(String value){
 				colorRangeValue = Integer.parseInt(value);
-				return;		
 			}
 			
 			private void changeDimBackground(float value){
