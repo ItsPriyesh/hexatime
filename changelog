@@ -12,3 +12,12 @@
 - Stopped Google Play Billing Service from constantly running in the background
 - Slight rearrangement of the settings
 
+1.3 (August 18/14)
+- Implemented advanced positioning controls (user now has full control over placement of clock)
+- Implemented pattern overlay feature with options for pattern style, opacity and scale
+- Redesigned the settings with a material look & feel
+- Added option to dim the background color
+- Added option to hide clock on lockscreen only
+- Lots of behind the scenes code cleanup, refactoring and improvements
+- Fixed crash that some users were experiencing 
+
