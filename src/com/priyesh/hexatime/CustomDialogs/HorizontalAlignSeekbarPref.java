@@ -38,7 +38,11 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime;
+package com.priyesh.hexatime.CustomDialogs;
+
+import com.priyesh.hexatime.R;
+import com.priyesh.hexatime.R.id;
+import com.priyesh.hexatime.R.layout;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -50,7 +54,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
 
-public class HorizontalAlignSeekbar extends DialogPreference {
+public class HorizontalAlignSeekbarPref extends DialogPreference {
 
 	protected final static int SEEKBAR_RESOLUTION = 10000;
 
@@ -59,12 +63,12 @@ public class HorizontalAlignSeekbar extends DialogPreference {
 	protected CharSequence[] mSummaries;
 	SeekBar seekbar;
 	
-	public HorizontalAlignSeekbar(Context context, AttributeSet attrs) {
+	public HorizontalAlignSeekbarPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setup(context, attrs);
 	}
 
-	public HorizontalAlignSeekbar(Context context, AttributeSet attrs, int defStyle) {
+	public HorizontalAlignSeekbarPref(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		setup(context, attrs);
 	}
@@ -172,7 +176,7 @@ public class HorizontalAlignSeekbar extends DialogPreference {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
-					HorizontalAlignSeekbar.this.mSeekBarValue = progress;
+					HorizontalAlignSeekbarPref.this.mSeekBarValue = progress;
 				}
 
 			}

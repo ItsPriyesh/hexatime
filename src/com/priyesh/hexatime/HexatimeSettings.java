@@ -16,25 +16,26 @@
 
 package com.priyesh.hexatime;
 
-import com.priyesh.hexatime.util.Inventory;
-import com.priyesh.hexatime.util.Purchase;
-import com.priyesh.hexatime.util.IabResult;
-import com.priyesh.hexatime.util.IabHelper;
+import com.priyesh.hexatime.InAppBilling.IabHelper;
+import com.priyesh.hexatime.InAppBilling.IabResult;
+import com.priyesh.hexatime.InAppBilling.Inventory;
+import com.priyesh.hexatime.InAppBilling.Purchase;
+import com.priyesh.hexatime.InterfaceUtils.FloatingActionButton;
+import com.priyesh.hexatime.InterfaceUtils.SystemBarTintManager;
 
 import android.util.Log;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.preference.PreferenceManager;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
@@ -45,60 +46,97 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 	IabHelper mHelper;
 	static final String ITEM_SKU = "com.priyesh.hexatime.donate";
 	private static final String TAG = "com.priyesh.hexatime";
-	
+	public static final String SHARED_PREFS_NAME="hexatime_settings";
+
+	private SharedPreferences mPrefs = null;
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle icicle) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);    
 		super.onCreate(icicle);
-		overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_down);		
 		getPreferenceManager().setSharedPreferencesName(HexatimeService.SHARED_PREFS_NAME); 
 		addPreferencesFromResource(R.xml.hexatime_settings);
-        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-        ListView list = (ListView) findViewById(android.R.id.list);
-        list.setFitsSystemWindows(true);
-        ActionBar ab = getActionBar();
-        ab.setBackgroundDrawable(new ColorDrawable (getResources().getColor(R.color.c2)));
-        list.setBackgroundColor(getResources().getColor(R.color.c2));
-        setTheme(R.style.Settings);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+		setContentView(R.layout.settings_layout);
+		getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+		ListView list = (ListView) findViewById(android.R.id.list);
+		list.setFitsSystemWindows(true); 
+		list.setBackgroundColor(getResources().getColor(R.color.settings_bg));
+
+		FloatingActionButton applyFab = (FloatingActionButton)findViewById(R.id.apply_fab);
+		applyFab.setColor(Color.WHITE);
+		applyFab.setDrawable(getResources().getDrawable(R.drawable.ic_navigation_accept));
+		applyFab.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v){
+				startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
+			}
+		});
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
 			Window win = getWindow();
 			win.setFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 			win.setFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			SystemBarTintManager tintManager = new SystemBarTintManager(this);
+			tintManager.setStatusBarTintEnabled(true);
+			tintManager.setStatusBarTintColor(getResources().getColor(R.color.c2));
 		}       
-       
-        String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8"
-        		+ "AMIIBCgKCAQEAvCkRv5LFEf30z2omRbkygc7gxsDr+i1pd2Scz55/"
-        		+ "PO/11a3yt7fEf0zM98wV6JKJITMpbve0RQ7J7M2Yjz8F4QpkkqLZ4"
-        		+ "7PM6j0XlkU63dTZoHP0lHQsphr/eE4cjUymFHOyU9b3pQCAMGI2iD"
-        		+ "twGzHtOwE12u+UZSmfr8rjEVQGMtlZDuSmJEEx5YlJXrg/BJIHM7W"
-        		+ "o2IoyNVdhmuZ6xkpyv1pd8aVuAEddWvQwJHuhE7C5C4gz9zWI6frV"
-        		+ "7zTgiIudEECH3PUJUnT5lfK0nk6OZ5Y4ZsyBDFLfT8qhMHgQRy6uB"
-        		+ "k9Bv/3hZEMJVDeFER9HFChLLuDqeLc9sQOPewIDAQAB";
-        
-        mHelper = new IabHelper(this, base64EncodedPublicKey);
+	
+		mPrefs = HexatimeSettings.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
+		String clockAddonIndex = mPrefs.getString("CLOCK_ADDONS", "1");
+		int clockAddonIndexNum = Integer.parseInt(clockAddonIndex);
+		final ListPreference clockAddon = (ListPreference)findPreference("CLOCK_ADDONS");
+		final ListPreference separatorStyle = (ListPreference)findPreference("SEPARATOR_STYLE");
+		if (clockAddonIndexNum == 0 || clockAddonIndexNum == 1){
+			separatorStyle.setEnabled(false);
+		}
+		else {
+			separatorStyle.setEnabled(true);
+		}
+		
+		clockAddon.setOnPreferenceChangeListener(new
+		Preference.OnPreferenceChangeListener() {
+		  public boolean onPreferenceChange(Preference preference, Object newValue) {
+		    final String val = newValue.toString();
+		    int index = clockAddon.findIndexOfValue(val);
+		    if(index == 0 || index == 1)
+		    	separatorStyle.setEnabled(false);
+		    else
+		    	separatorStyle.setEnabled(true);
+		    return true;
+		  }
+		});
+		
+		String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8"
+				+ "AMIIBCgKCAQEAvCkRv5LFEf30z2omRbkygc7gxsDr+i1pd2Scz55/"
+				+ "PO/11a3yt7fEf0zM98wV6JKJITMpbve0RQ7J7M2Yjz8F4QpkkqLZ4"
+				+ "7PM6j0XlkU63dTZoHP0lHQsphr/eE4cjUymFHOyU9b3pQCAMGI2iD"
+				+ "twGzHtOwE12u+UZSmfr8rjEVQGMtlZDuSmJEEx5YlJXrg/BJIHM7W"
+				+ "o2IoyNVdhmuZ6xkpyv1pd8aVuAEddWvQwJHuhE7C5C4gz9zWI6frV"
+				+ "7zTgiIudEECH3PUJUnT5lfK0nk6OZ5Y4ZsyBDFLfT8qhMHgQRy6uB"
+				+ "k9Bv/3hZEMJVDeFER9HFChLLuDqeLc9sQOPewIDAQAB";
 
-        boolean enableInAppBilling = true; //set false to fix crashing on devices without GApps
-        
-        if (enableInAppBilling){
-			mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-				public void onIabSetupFinished(IabResult result) {
-					if (!result.isSuccess()) {
-						Log.d(TAG, "In-app Billing setup failed: " + 
-								result);
-					} else {             
-						Log.d(TAG, "In-app Billing is set up OK");
-					}
-					try {
-					mHelper.queryInventoryAsync(mReceivedInventoryListener);
-					}
-					catch (IllegalStateException e) {
-						
-					}
+				
+		mHelper = new IabHelper(this, base64EncodedPublicKey);
+		mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+			public void onIabSetupFinished(IabResult result) {
+				if (!result.isSuccess()) {
+					Log.d(TAG, "In-app Billing setup failed: " + 
+							result);
+				} else {             
+					Log.d(TAG, "In-app Billing is set up OK");
 				}
-			});
-        }
-        		
-        Preference contact = (Preference) findPreference("contact");
+				try {
+					mHelper.queryInventoryAsync(mReceivedInventoryListener);
+				}
+				catch (IllegalStateException e) {
+
+				}
+			}
+		});
+		
+		Preference contact = (Preference) findPreference("contact");
 		contact.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
 				Intent email = new Intent();
@@ -109,7 +147,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 				return true; 
 			}
 		});
-		
+
 		Preference xda = (Preference) findPreference("xda");
 		xda.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
@@ -121,8 +159,8 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 				return true; 
 			}
 		});
-		
-        Preference source = (Preference) findPreference("source");
+
+		Preference source = (Preference) findPreference("source");
 		source.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
 				Intent git = new Intent();
@@ -133,7 +171,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 				return true; 
 			}
 		});
-		
+
 		Preference donateInAppBilling = (Preference) findPreference("donate");
 		donateInAppBilling.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {				
@@ -187,42 +225,24 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 			}
 		}
 	};
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.settings_menu, menu);
-	    return super.onCreateOptionsMenu(menu);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case R.id.apply:
-	        	startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
-	}
-	
-	@Override
-    protected void onResume() {
-            super.onResume();
-            return;
-    }
 
-    @Override
-    protected void onDestroy() {
-            getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
-            super.onDestroy();
-            if (mHelper != null) mHelper.dispose();
-        	mHelper = null;
-            return;
-    }
+	@Override
+	protected void onResume() {
+		super.onResume();
+		return;
+	}
 
-    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            return;
-    }
+	@Override
+	protected void onDestroy() {
+		getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+		super.onDestroy();
+		if (mHelper != null) mHelper.dispose();
+		mHelper = null;
+		return;
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+	}
 
 }

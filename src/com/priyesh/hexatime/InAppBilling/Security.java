@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime.util;
+package com.priyesh.hexatime.InAppBilling;
 
 import android.text.TextUtils;
 import android.util.Log;

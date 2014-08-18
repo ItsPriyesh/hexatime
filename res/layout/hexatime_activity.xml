@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <com.priyesh.hexatime.IntroView
+        <com.priyesh.hexatime.InterfaceUtils.MainActivityAnimator
             android:id="@+id/intro"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

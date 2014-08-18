@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime.util;
+package com.priyesh.hexatime.InAppBilling;
 
 import android.app.Activity;
 import android.app.PendingIntent;

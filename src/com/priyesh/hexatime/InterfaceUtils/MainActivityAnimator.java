@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime;
+package com.priyesh.hexatime.InterfaceUtils;
+
+import com.priyesh.hexatime.HexatimeService;
+import com.priyesh.hexatime.HexatimeSettings;
+import com.priyesh.hexatime.R;
+import com.priyesh.hexatime.R.anim;
+import com.priyesh.hexatime.R.dimen;
+import com.priyesh.hexatime.R.styleable;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -33,12 +40,13 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IntroView extends View{
+import com.priyesh.hexatime.CustomDialogs.CustomAlerts;
+
+public class MainActivityAnimator extends View{
 
 	private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final SvgHelper mSvg = new SvgHelper(mPaint);
@@ -54,7 +62,6 @@ public class IntroView extends View{
 	private SvgHelper.SvgPath mDragPath;
 	private Paint mArrowPaint;
 	private int mArrowLength;
-	private int mArrowHeight;
 	private int mRadius;
 	private ObjectAnimator mWaitAnimator;
 	private float mWait;
@@ -65,23 +72,23 @@ public class IntroView extends View{
 	GestureDetector gestureDetector;
 	Context mContext;  
 
-	public IntroView(Context context, AttributeSet attrs) {
+	public MainActivityAnimator(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
-	public IntroView(Context context, AttributeSet attrs, int defStyle) {
+	public MainActivityAnimator(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		mContext= context;
 		gestureDetector = new GestureDetector(context, new GestureListener());
 
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.IntroView, defStyle, 0);
+		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MainActivityAnimator, defStyle, 0);
 		try {
 			if (a != null) {
-				mPaint.setStrokeWidth(a.getFloat(R.styleable.IntroView_strokeWidth, 1.0f));
-				mPaint.setColor(a.getColor(R.styleable.IntroView_strokeColor, 0xff000000));
-				mPhase = a.getFloat(R.styleable.IntroView_phase, 0.0f);
-				mDuration = a.getInt(R.styleable.IntroView_duration, 4000);
-				mRadius = a.getDimensionPixelSize(R.styleable.IntroView_waitRadius, 50);
-				mFadeFactor = a.getFloat(R.styleable.IntroView_fadeFactor, 10.0f);
+				mPaint.setStrokeWidth(a.getFloat(R.styleable.MainActivityAnimator_strokeWidth, 1.0f));
+				mPaint.setColor(a.getColor(R.styleable.MainActivityAnimator_strokeColor, 0xff000000));
+				mPhase = a.getFloat(R.styleable.MainActivityAnimator_phase, 0.0f);
+				mDuration = a.getInt(R.styleable.MainActivityAnimator_duration, 4000);
+				mRadius = a.getDimensionPixelSize(R.styleable.MainActivityAnimator_waitRadius, 50);
+				mFadeFactor = a.getFloat(R.styleable.MainActivityAnimator_fadeFactor, 10.0f);
 			}
 		} finally {
 			if (a != null) a.recycle();
@@ -147,7 +154,7 @@ public class IntroView extends View{
 			@Override
 			public void onAnimationEnd(Animator animation) {
 				mWaitAnimator.cancel();
-				ObjectAnimator.ofFloat(IntroView.this, "drag",
+				ObjectAnimator.ofFloat(MainActivityAnimator.this, "drag",
 						1.0f, 0.0f).setDuration(mDuration / 3).start();                
 			}
 		});
@@ -318,7 +325,7 @@ public class IntroView extends View{
 				.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(getContext(), HexatimeService.class))
 				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));			
 				mContext.startActivity(new Intent (getContext(), HexatimeSettings.class));
-				((Activity) mContext).overridePendingTransition(R.anim.slide_up,R.anim.slide_down);
+				((Activity) mContext).overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 			}
 			catch (ActivityNotFoundException anfe){
 				CustomAlerts.showBasicAlert("Error", "Your device does not support live wallpapers since LiveWallpapersPicker.apk is missing. Please email me for help with resolving this issue.", getContext());

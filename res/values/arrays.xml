@@ -79,5 +79,15 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    
+ 
+    <string-array name="image_overlay_names">
+        <item>@string/image_overlay_hex</item>        
+        <item>@string/image_overlay_grid</item>
+        <item>@string/image_overlay_dots</item>
+    </string-array>
+    <string-array name="image_overlay_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

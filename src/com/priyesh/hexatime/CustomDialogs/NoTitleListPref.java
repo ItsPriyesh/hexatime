@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime;
+package com.priyesh.hexatime.CustomDialogs;
 
 import android.app.AlertDialog;
 import android.content.Context;

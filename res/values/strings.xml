@@ -22,10 +22,19 @@
     <string name="separator_style_title">Separator style</string>
     <string name="color_range_summary">Incorporate date to stretch color spectrum.</string>
     <string name="color_range_title">Color range</string>
-    
+    <string name="enable_image_overlay_summary">Displays overlay on top of colored background.</string>
+    <string name="enable_image_overlay_title">Enable pattern overlay</string>
+    <string name="image_overlay_summary">Select a design of your choice.</string>
+    <string name="image_overlay_title">Overlay pattern</string>
+    <string name="image_overlay_opacity_summary">Adjust the transparency of the pattern overlay.</string>
+    <string name="image_overlay_opacity_title">Overlay opacity</string>
+    <string name="image_overlay_scale_summary">Resize the pattern overlay.</string>
+    <string name="image_overlay_scale_title">Overlay scale</string>
+                
     <string name="clock_appearance">Clock Appearance</string>
     <string name="clock_size_and_position">Clock Size &amp; Position</string>
     <string name="background_appearance">Background Appearance</string>
+    <string name="background_overlay">Background Overlay</string>
     
     <string name="about">About</string>
     <string name="about_developer_summary">This app is written by Priyesh Patel.</string>
@@ -58,6 +67,9 @@
     <string name="twenty_four_hour">24 hour</string>
     <string name="small_color_range">Small color range</string>
     <string name="large_color_range">Large color range</string>
+    <string name="image_overlay_hex">Hexagon</string>
+    <string name="image_overlay_grid">Grid</string> 
+    <string name="image_overlay_dots">Dots</string>      
     
     <string name="hide_number_sign">Hide all</string>
     <string name="show_number_sign">Show number sign</string>
@@ -76,6 +88,6 @@
     
     <string name="dim_background_title">Dim background</string>
     <string name="dim_background_summary">Darken the wallpaper color.</string>
-        
+    
     <string name="thanks">Thanks :)</string>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="cell_grow_speed">200</integer>
+    <integer name="custom_progressbar_animation_duration">1000</integer>
+    <integer name="default_animation_speed">300</integer>
+</resources>

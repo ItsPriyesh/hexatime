@@ -21,11 +21,15 @@ import java.util.Calendar;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
 import android.view.Display;
@@ -36,33 +40,39 @@ public class HexatimeService extends WallpaperService{
 
 	private static final String TAG = "Wallpaper";
 	public static final String SHARED_PREFS_NAME="hexatime_settings";
-	
+
 	public int oneSecond = 1000;
 	public int day, hour, twelveHour, min, sec;
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
 	public int horizontalClockOffset;
-	
+
 	private int fontStyleValue = 1;
 	private Typeface fontStyle;
-	
+
 	private int clockSizeValue = 1;
 	private int clockSize;
-	
+
 	private float clockHorizontalAlignment;
 	private float clockVerticalAlignment;
-	
+
 	private int clockAddonsValue = 1;
 	private String clockAddons;
-	
+
 	private int separatorStyleValue = 1;
 	private String separatorStyle;
-	
+
 	private int clockVisibilityValue = 0;
-	
+
 	private int timeFormatValue = 1;
 	private int colorRangeValue = 0;
-	private int amountToDim = 0;
+	private int amountToDim;
+
+	private boolean enableImageOverlayValue;
+	private int imageOverlayValue;
+	private int imageOverlay;
+	private int imageOverlayOpacity;
+	private int imageOverlayScale;
 
 	@Override
 	public Engine onCreateEngine() {
@@ -75,7 +85,7 @@ public class HexatimeService extends WallpaperService{
 		private final Handler mHandler = new Handler();
 
 		private Canvas c;
-		private Paint hexClock, bg, dimLayer;
+		private Paint hexClock, bg, dimLayer, imageLayer;
 
 		private final Runnable mUpdateDisplay = new Runnable() {
 
@@ -137,7 +147,7 @@ public class HexatimeService extends WallpaperService{
 							green = min;
 							blue = sec;
 						}
-						
+
 						bg.setColor(Color.argb(255, red, green, blue));
 						c.drawRect(0, 0, w, h, bg);
 
@@ -145,14 +155,28 @@ public class HexatimeService extends WallpaperService{
 						dimLayer.setColor(Color.BLACK);
 						dimLayer.setAlpha(amountToDim);
 						c.drawRect(0, 0, w, h, dimLayer);
-						
-						KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-						boolean lockscreenShowing = km.inKeyguardRestrictedInputMode();
+
+						if (enableImageOverlayValue) {
+							imageLayer = new Paint();							
+							Bitmap initialOverlay = BitmapFactory.decodeResource(getResources(), imageOverlay);
+							Bitmap overlayScaled = Bitmap.createScaledBitmap(initialOverlay, imageOverlayScale, imageOverlayScale, false);
+							
+							BitmapDrawable imageOverlay = new BitmapDrawable (overlayScaled); 
+							imageOverlay.setTileModeX(Shader.TileMode.REPEAT); 
+							imageOverlay.setTileModeY(Shader.TileMode.REPEAT);
+							imageOverlay.setAlpha(imageOverlayOpacity);
+							imageOverlay.setBounds(0, 0, w, h);
+
+							imageOverlay.draw(c);				       
+							imageOverlay.getBitmap().recycle();
+						}						
 
 						if (clockVisibilityValue == 0){
 							c.drawText(hexTime, clockHorizontalAlignment, clockVerticalAlignment, hexClock);
 						}
 						else if (clockVisibilityValue == 1) {
+							KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+							boolean lockscreenShowing = km.inKeyguardRestrictedInputMode();
 							if(!lockscreenShowing){  
 								c.drawText(hexTime, clockHorizontalAlignment, clockVerticalAlignment, hexClock);
 							}
@@ -233,6 +257,19 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("DIM_BACKGROUND")){
 						changeDimBackground(prefs.getFloat("DIM_BACKGROUND", 0.0f));
 					}
+					else if(key.equals("ENABLE_IMAGE_OVERLAY")){
+						enableImageOverlay(prefs.getBoolean("ENABLE_IMAGE_OVERLAY", false));
+					}
+					else if(key.equals("IMAGE_OVERLAY")){
+						changeImageOverlay(prefs.getString("IMAGE_OVERLAY", "0"));
+					}
+					else if(key.equals("IMAGE_OVERLAY_OPACITY")){
+						changeImageOverlayOpacity(prefs.getFloat("IMAGE_OVERLAY_OPACITY", 0.5f));
+					}
+					else if(key.equals("IMAGE_OVERLAY_SCALE")){
+						changeImageOverlayScale(prefs.getFloat("IMAGE_OVERLAY_SCALE", 0.5f));
+					}
+					
 				}
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
@@ -245,6 +282,10 @@ public class HexatimeService extends WallpaperService{
 					changeClockAddons(prefs.getString("CLOCK_ADDONS", "1"));
 					changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
 					changeDimBackground(prefs.getFloat("DIM_BACKGROUND", 0.0f)); 
+					enableImageOverlay(prefs.getBoolean("ENABLE_IMAGE_OVERLAY", false));
+					changeImageOverlay(prefs.getString("IMAGE_OVERLAY", "0"));
+					changeImageOverlayOpacity(prefs.getFloat("IMAGE_OVERLAY_OPACITY", 0.5f));
+					changeImageOverlayScale(prefs.getFloat("IMAGE_OVERLAY_SCALE", 0.5f));
 				}
 				return;
 			}
@@ -292,7 +333,7 @@ public class HexatimeService extends WallpaperService{
 				int h = size.y;				
 				clockVerticalAlignment = h - (h * value);
 			}
-			
+
 			private void changeClockHorizontalAlignment(float value){
 				WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
 				Display display = wm.getDefaultDisplay();
@@ -301,7 +342,7 @@ public class HexatimeService extends WallpaperService{
 				int w = size.x;
 				clockHorizontalAlignment = (w * value) - horizontalClockOffset;
 			}
-			
+
 			private void changeClockAddons(String value){
 				clockAddonsValue = Integer.parseInt(value);
 				if(clockAddonsValue == 0){
@@ -345,7 +386,7 @@ public class HexatimeService extends WallpaperService{
 			private void changeClockVisibility(String value){
 				clockVisibilityValue = Integer.parseInt(value);
 			}
-			
+
 			private void changeTimeFormat(String value){
 				timeFormatValue = Integer.parseInt(value);
 			}
@@ -353,9 +394,37 @@ public class HexatimeService extends WallpaperService{
 			private void changeColorRange(String value){
 				colorRangeValue = Integer.parseInt(value);
 			}
-			
+
 			private void changeDimBackground(float value){
 				amountToDim = (int) (value * 255);
+			}
+
+			private void enableImageOverlay(boolean value){
+				enableImageOverlayValue = value;
+			}
+
+			private void changeImageOverlay(String value){
+				imageOverlayValue = Integer.parseInt(value);
+				if (imageOverlayValue == 0){
+					imageOverlay = R.drawable.hex;
+				}
+				else if (imageOverlayValue == 1){
+					imageOverlay = R.drawable.grid;
+				}
+				else if (imageOverlayValue == 2){
+					imageOverlay = R.drawable.dots;
+				}
+				
+			}
+			private void changeImageOverlayOpacity(float value){
+				imageOverlayOpacity = (int) (value * 255);
+			}
+
+			private void changeImageOverlayScale(float value){
+				imageOverlayScale = (int) (500 * value);
+				if (imageOverlayScale == 0) {
+					imageOverlayScale = 1;
+				}
 			}
 	}
 }

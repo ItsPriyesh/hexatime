@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime;
+package com.priyesh.hexatime.CustomDialogs;
+
+import com.priyesh.hexatime.R;
+import com.priyesh.hexatime.R.id;
+import com.priyesh.hexatime.R.layout;
 
 import android.app.Dialog;
 import android.content.Context;

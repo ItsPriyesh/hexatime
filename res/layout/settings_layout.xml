@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#173134"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:gravity="center|start"
+            android:text="Settings"
+            android:fontFamily="sans-serif-thin" 
+            android:textColor="@android:color/white"
+            android:textSize="26dp" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="100dp"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent" 
+        android:headerDividersEnabled="false"/>
+
+    <com.priyesh.hexatime.InterfaceUtils.FloatingActionButton
+        android:id="@+id/apply_fab"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="64dp"
+        android:layout_marginRight="16dp" />
+
+</FrameLayout>

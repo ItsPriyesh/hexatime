@@ -38,7 +38,11 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime;
+package com.priyesh.hexatime.CustomDialogs;
+
+import com.priyesh.hexatime.R;
+import com.priyesh.hexatime.R.id;
+import com.priyesh.hexatime.R.layout;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -48,7 +52,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar;
 
-public class DimSeekbar extends DialogPreference {
+public class DimSeekbarPref extends DialogPreference {
 
 	protected final static int SEEKBAR_RESOLUTION = 10000;
 
@@ -56,12 +60,12 @@ public class DimSeekbar extends DialogPreference {
 	protected int mSeekBarValue;
 	protected CharSequence[] mSummaries;
 
-	public DimSeekbar(Context context, AttributeSet attrs) {
+	public DimSeekbarPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setup(context, attrs);
 	}
 
-	public DimSeekbar(Context context, AttributeSet attrs, int defStyle) {
+	public DimSeekbarPref(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		setup(context, attrs);
 	}
@@ -145,7 +149,7 @@ public class DimSeekbar extends DialogPreference {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
-					DimSeekbar.this.mSeekBarValue = progress;
+					DimSeekbarPref.this.mSeekBarValue = progress;
 				}
 
 			}

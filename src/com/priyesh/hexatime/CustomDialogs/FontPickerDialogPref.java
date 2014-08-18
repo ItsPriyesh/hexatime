@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime;
+package com.priyesh.hexatime.CustomDialogs;
+
+import com.priyesh.hexatime.R;
+import com.priyesh.hexatime.InterfaceUtils.CustomTypefaceSpan;
+import com.priyesh.hexatime.R.string;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -25,9 +29,9 @@ import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class FontPickerDialog extends ListPreference {
+public class FontPickerDialogPref extends ListPreference {
 	
-	public FontPickerDialog(Context context, AttributeSet attrs) {
+	public FontPickerDialogPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 

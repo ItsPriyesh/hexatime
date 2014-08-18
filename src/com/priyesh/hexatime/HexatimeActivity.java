@@ -16,6 +16,8 @@
 
 package com.priyesh.hexatime;
 
+import com.priyesh.hexatime.InterfaceUtils.MainActivityAnimator;
+
 import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -32,7 +34,7 @@ public class HexatimeActivity extends Activity implements Handler.Callback{
 	private Handler mHandler = new Handler(this);
 	private int mDelay = 1500;
 	LinearLayout layout;
-	private IntroView mIntroView;
+	private MainActivityAnimator mIntroView;
 	TransitionDrawable trans;
 	
 	@Override
@@ -42,7 +44,7 @@ public class HexatimeActivity extends Activity implements Handler.Callback{
 
 		layout = (LinearLayout)findViewById(R.id.linearlayout);
 
-		mIntroView = (IntroView) findViewById(R.id.intro);
+		mIntroView = (MainActivityAnimator) findViewById(R.id.intro);
 		mIntroView.setSvgResource(R.raw.hexatime);
 
 		ColorDrawable c1 = new ColorDrawable(getResources().getColor(R.color.c1));

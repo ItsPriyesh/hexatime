@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="IntroView">
+    <declare-styleable name="MainActivityAnimator">
         <attr name="strokeWidth" format="float" />
         <attr name="strokeColor" format="color|reference" />
         <attr name="phase" format="float" />
@@ -11,4 +11,12 @@
         <attr name="arrowHeight" format="dimension" />
     </declare-styleable>
     
+    <declare-styleable name="FloatingActionButton">
+        <attr name="drawable" format="integer"/>
+        <attr name="color" format="color"/>
+        <attr name="shadowRadius" format="float"/>
+        <attr name="shadowDx" format="float"/>
+        <attr name="shadowDy" format="float"/>
+        <attr name="shadowColor" format="integer"/>
+    </declare-styleable>
 </resources>

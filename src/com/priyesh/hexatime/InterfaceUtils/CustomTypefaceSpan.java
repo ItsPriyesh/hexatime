@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime;
+package com.priyesh.hexatime.InterfaceUtils;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;

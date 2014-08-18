@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime.util;
+package com.priyesh.hexatime.InAppBilling;
 
 import java.util.ArrayList;
 import java.util.HashMap;

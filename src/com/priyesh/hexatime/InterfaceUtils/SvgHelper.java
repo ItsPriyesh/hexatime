@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime;
+package com.priyesh.hexatime.InterfaceUtils;
 
 import android.content.Context;
 import android.graphics.*;
@@ -54,12 +54,12 @@ public class SvgHelper {
                 Integer.MIN_VALUE, Integer.MIN_VALUE,
                 Integer.MAX_VALUE, Integer.MAX_VALUE);
 
-        final Path path;
-        final Paint paint;
-        final float length;
-        final Rect bounds;
+        public final Path path;
+        public final Paint paint;
+        public final float length;
+        public final Rect bounds;
 
-        SvgPath(Path path, Paint paint) {
+        public SvgPath(Path path, Paint paint) {
             this.path = path;
             this.paint = paint;
 
