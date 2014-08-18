@@ -69,7 +69,8 @@
     <string name="large_color_range">Large color range</string>
     <string name="image_overlay_hex">Hexagon</string>
     <string name="image_overlay_grid">Grid</string> 
-    <string name="image_overlay_dots">Dots</string>      
+    <string name="image_overlay_dots">Dots</string> 
+	<string name="image_overlay_circles">Circles</string>      
     
     <string name="hide_number_sign">Hide all</string>
     <string name="show_number_sign">Show number sign</string>

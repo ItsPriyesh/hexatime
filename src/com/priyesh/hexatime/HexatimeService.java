@@ -414,6 +414,9 @@ public class HexatimeService extends WallpaperService{
 				else if (imageOverlayValue == 2){
 					imageOverlay = R.drawable.dots;
 				}
+				else if (imageOverlayValue == 3){
+					imageOverlay = R.drawable.circles;
+				}
 				
 			}
 			private void changeImageOverlayOpacity(float value){

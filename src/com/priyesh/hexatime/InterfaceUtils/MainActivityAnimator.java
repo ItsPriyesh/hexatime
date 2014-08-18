@@ -324,8 +324,10 @@ public class MainActivityAnimator extends View{
 				mContext.startActivity(new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
 				.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(getContext(), HexatimeService.class))
 				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));			
+				((Activity) mContext).overridePendingTransition(R.anim.grow_top_right, R.anim.slide_down);
 				mContext.startActivity(new Intent (getContext(), HexatimeSettings.class));
 				((Activity) mContext).overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+
 			}
 			catch (ActivityNotFoundException anfe){
 				CustomAlerts.showBasicAlert("Error", "Your device does not support live wallpapers since LiveWallpapersPicker.apk is missing. Please email me for help with resolving this issue.", getContext());

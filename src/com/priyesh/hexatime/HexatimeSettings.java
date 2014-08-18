@@ -55,7 +55,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 	protected void onCreate(Bundle icicle) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);    
 		super.onCreate(icicle);
-		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_down);		
+		overridePendingTransition(R.anim.grow_top_right, R.anim.slide_down);		
 		getPreferenceManager().setSharedPreferencesName(HexatimeService.SHARED_PREFS_NAME); 
 		addPreferencesFromResource(R.xml.hexatime_settings);
 		setContentView(R.layout.settings_layout);
@@ -71,6 +71,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 		applyFab.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v){
 				startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME));
+				overridePendingTransition(R.anim.slide_up, R.anim.shrink_top_right);
 			}
 		});
 
