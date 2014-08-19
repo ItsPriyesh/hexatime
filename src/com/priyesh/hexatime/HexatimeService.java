@@ -45,7 +45,6 @@ public class HexatimeService extends WallpaperService{
 	public int day, hour, twelveHour, min, sec;
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
-//	public int horizontalClockOffset;
 
 	private int fontStyleValue = 1;
 	private Typeface fontStyle;
@@ -85,7 +84,7 @@ public class HexatimeService extends WallpaperService{
 		private final Handler mHandler = new Handler();
 
 		private Canvas c;
-		private Paint hexClock, bg, dimLayer;// imageLayer;
+		private Paint hexClock, bg, dimLayer;
 		
 		private final Runnable mUpdateDisplay = new Runnable() {
 
@@ -105,6 +104,7 @@ public class HexatimeService extends WallpaperService{
 				day = cal.get(Calendar.DAY_OF_YEAR) - 1;
 				hour = cal.get(Calendar.HOUR_OF_DAY);
 				twelveHour = cal.get(Calendar.HOUR);
+				if (twelveHour == 0){ twelveHour = 12; }
 				min = cal.get(Calendar.MINUTE);
 				sec = cal.get(Calendar.SECOND);
 
@@ -136,7 +136,7 @@ public class HexatimeService extends WallpaperService{
 						int h = c.getHeight();
 
 						if(colorRangeValue == 1) {
-							Double tempTime = ( ( day * 86400 ) + ( hour * 3600 ) + ( min * 60 ) + sec ) * 0.53200202942669;
+							Double tempTime = ((day * 86400) + (hour * 3600) + (min * 60) + sec) * 0.53200202942669;
 							hexValue = String.format("%6s", Integer.toHexString(tempTime.intValue())).replace(" ", "0");
 							red = Integer.parseInt(hexValue.substring(0, 2), 16);
 							green = Integer.parseInt(hexValue.substring(2, 4), 16);
@@ -157,7 +157,6 @@ public class HexatimeService extends WallpaperService{
 						c.drawRect(0, 0, w, h, dimLayer);
 
 						if (enableImageOverlayValue) {
-						//	imageLayer = new Paint();							
 							Bitmap initialOverlay = BitmapFactory.decodeResource(getResources(), imageOverlay);
 							Bitmap overlayScaled = Bitmap.createScaledBitmap(initialOverlay, imageOverlayScale, imageOverlayScale, false);
 							
@@ -340,7 +339,6 @@ public class HexatimeService extends WallpaperService{
 				Point size = new Point();
 				display.getSize(size);
 				int w = size.x;
-				
 				clockHorizontalAlignment = (w * value);
 			}
 
