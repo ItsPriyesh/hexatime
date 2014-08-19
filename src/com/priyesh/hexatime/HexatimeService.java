@@ -45,7 +45,7 @@ public class HexatimeService extends WallpaperService{
 	public int day, hour, twelveHour, min, sec;
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
-	public int horizontalClockOffset;
+//	public int horizontalClockOffset;
 
 	private int fontStyleValue = 1;
 	private Typeface fontStyle;
@@ -85,8 +85,8 @@ public class HexatimeService extends WallpaperService{
 		private final Handler mHandler = new Handler();
 
 		private Canvas c;
-		private Paint hexClock, bg, dimLayer, imageLayer;
-
+		private Paint hexClock, bg, dimLayer;// imageLayer;
+		
 		private final Runnable mUpdateDisplay = new Runnable() {
 
 			@Override
@@ -131,7 +131,7 @@ public class HexatimeService extends WallpaperService{
 						String hexValue;
 						int red=0, green=0, blue=0;
 						float d = hexClock.measureText(hexTime, 0, hexTime.length());
-						horizontalClockOffset = (int) d / 2;
+						int horizontalClockOffset = (int) d / 2;
 						int w = c.getWidth();
 						int h = c.getHeight();
 
@@ -157,7 +157,7 @@ public class HexatimeService extends WallpaperService{
 						c.drawRect(0, 0, w, h, dimLayer);
 
 						if (enableImageOverlayValue) {
-							imageLayer = new Paint();							
+						//	imageLayer = new Paint();							
 							Bitmap initialOverlay = BitmapFactory.decodeResource(getResources(), imageOverlay);
 							Bitmap overlayScaled = Bitmap.createScaledBitmap(initialOverlay, imageOverlayScale, imageOverlayScale, false);
 							
@@ -172,13 +172,13 @@ public class HexatimeService extends WallpaperService{
 						}						
 
 						if (clockVisibilityValue == 0){
-							c.drawText(hexTime, clockHorizontalAlignment, clockVerticalAlignment, hexClock);
+							c.drawText(hexTime, clockHorizontalAlignment - horizontalClockOffset, clockVerticalAlignment, hexClock);
 						}
 						else if (clockVisibilityValue == 1) {
 							KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 							boolean lockscreenShowing = km.inKeyguardRestrictedInputMode();
 							if(!lockscreenShowing){  
-								c.drawText(hexTime, clockHorizontalAlignment, clockVerticalAlignment, hexClock);
+								c.drawText(hexTime, clockHorizontalAlignment - horizontalClockOffset, clockVerticalAlignment, hexClock);
 							}
 						}
 						else if (clockVisibilityValue == 2) {
@@ -340,7 +340,8 @@ public class HexatimeService extends WallpaperService{
 				Point size = new Point();
 				display.getSize(size);
 				int w = size.x;
-				clockHorizontalAlignment = (w * value) - horizontalClockOffset;
+				
+				clockHorizontalAlignment = (w * value);
 			}
 
 			private void changeClockAddons(String value){
