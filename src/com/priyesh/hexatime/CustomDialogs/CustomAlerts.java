@@ -22,21 +22,29 @@ import com.priyesh.hexatime.R.layout;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class CustomAlerts{
 
 	public static void showBasicAlert (String title, String message, Context context) { 
 
-		Dialog help = new Dialog(context);
-
+		final Dialog help = new Dialog(context);
 		help.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		help.setContentView(R.layout.material_dialog_box);	
 		TextView alertTitle = (TextView) help.findViewById(R.id.title);
 		alertTitle.setText(title);
 		TextView alertMessage = (TextView) help.findViewById(R.id.message);
 		alertMessage.setText(message);
+		Button positiveButton = (Button) help.findViewById(R.id.positive_button);
+		positiveButton.setText("OK");
+		positiveButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v){
+				help.dismiss();
+			}			
+		});
 		help.show();
 	}
 }

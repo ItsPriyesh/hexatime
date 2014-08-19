@@ -16,6 +16,7 @@
 
 package com.priyesh.hexatime;
 
+import com.priyesh.hexatime.CustomDialogs.CustomAlerts;
 import com.priyesh.hexatime.InAppBilling.IabHelper;
 import com.priyesh.hexatime.InAppBilling.IabResult;
 import com.priyesh.hexatime.InAppBilling.Inventory;
@@ -30,6 +31,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -83,7 +85,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 			tintManager.setStatusBarTintEnabled(true);
 			tintManager.setStatusBarTintColor(getResources().getColor(R.color.c2));
 		}       
-	
+
 		mPrefs = HexatimeSettings.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
 		String clockAddonIndex = mPrefs.getString("CLOCK_ADDONS", "1");
 		int clockAddonIndexNum = Integer.parseInt(clockAddonIndex);
@@ -95,91 +97,104 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 		else {
 			separatorStyle.setEnabled(true);
 		}
-		
-		clockAddon.setOnPreferenceChangeListener(new
-		Preference.OnPreferenceChangeListener() {
-		  public boolean onPreferenceChange(Preference preference, Object newValue) {
-		    final String val = newValue.toString();
-		    int index = clockAddon.findIndexOfValue(val);
-		    if(index == 0 || index == 1)
-		    	separatorStyle.setEnabled(false);
-		    else
-		    	separatorStyle.setEnabled(true);
-		    return true;
-		  }
+
+		clockAddon.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				final String val = newValue.toString();
+				int index = clockAddon.findIndexOfValue(val);
+				if(index == 0 || index == 1)
+					separatorStyle.setEnabled(false);
+				else
+					separatorStyle.setEnabled(true);
+				return true;
+			}
 		});
-		
-		String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8"
-				+ "AMIIBCgKCAQEAvCkRv5LFEf30z2omRbkygc7gxsDr+i1pd2Scz55/"
-				+ "PO/11a3yt7fEf0zM98wV6JKJITMpbve0RQ7J7M2Yjz8F4QpkkqLZ4"
-				+ "7PM6j0XlkU63dTZoHP0lHQsphr/eE4cjUymFHOyU9b3pQCAMGI2iD"
-				+ "twGzHtOwE12u+UZSmfr8rjEVQGMtlZDuSmJEEx5YlJXrg/BJIHM7W"
-				+ "o2IoyNVdhmuZ6xkpyv1pd8aVuAEddWvQwJHuhE7C5C4gz9zWI6frV"
-				+ "7zTgiIudEECH3PUJUnT5lfK0nk6OZ5Y4ZsyBDFLfT8qhMHgQRy6uB"
-				+ "k9Bv/3hZEMJVDeFER9HFChLLuDqeLc9sQOPewIDAQAB";
 
-				
-		mHelper = new IabHelper(this, base64EncodedPublicKey);
-		mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-			public void onIabSetupFinished(IabResult result) {
-				if (!result.isSuccess()) {
-					Log.d(TAG, "In-app Billing setup failed: " + 
-							result);
-				} else {             
-					Log.d(TAG, "In-app Billing is set up OK");
+		final EditTextPreference customColor = (EditTextPreference)findPreference("SET_CUSTOM_COLOR");
+		customColor.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				if ((newValue.toString().matches("#[A-Fa-f0-9]{6}"))) {
+					return true;
 				}
-				try {
-					mHelper.queryInventoryAsync(mReceivedInventoryListener);
-				}
-				catch (IllegalStateException e) {
-
+				else{
+					CustomAlerts.showBasicAlert("Invalid color",
+							"The hexadecimal color code you entered is invalid. Please use the following format:\n#[ ][ ][ ][ ][ ][ ].",
+							HexatimeSettings.this);
+					return false;
 				}
 			}
 		});
-		
-		Preference contact = (Preference) findPreference("contact");
-		contact.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-			public boolean onPreferenceClick(Preference preference) {
-				Intent email = new Intent();
-				email.setAction(Intent.ACTION_VIEW);
-				email.addCategory(Intent.CATEGORY_BROWSABLE);
-				email.setData(Uri.parse("mailto:priyesh.96@hotmail.com"));
-				startActivity(email);
-				return true; 
-			}
-		});
+				String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8"
+						+ "AMIIBCgKCAQEAvCkRv5LFEf30z2omRbkygc7gxsDr+i1pd2Scz55/"
+						+ "PO/11a3yt7fEf0zM98wV6JKJITMpbve0RQ7J7M2Yjz8F4QpkkqLZ4"
+						+ "7PM6j0XlkU63dTZoHP0lHQsphr/eE4cjUymFHOyU9b3pQCAMGI2iD"
+						+ "twGzHtOwE12u+UZSmfr8rjEVQGMtlZDuSmJEEx5YlJXrg/BJIHM7W"
+						+ "o2IoyNVdhmuZ6xkpyv1pd8aVuAEddWvQwJHuhE7C5C4gz9zWI6frV"
+						+ "7zTgiIudEECH3PUJUnT5lfK0nk6OZ5Y4ZsyBDFLfT8qhMHgQRy6uB"
+						+ "k9Bv/3hZEMJVDeFER9HFChLLuDqeLc9sQOPewIDAQAB";
 
-		Preference xda = (Preference) findPreference("xda");
-		xda.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-			public boolean onPreferenceClick(Preference preference) {
-				Intent git = new Intent();
-				git.setAction(Intent.ACTION_VIEW);
-				git.addCategory(Intent.CATEGORY_BROWSABLE);
-				git.setData(Uri.parse("http://forum.xda-developers.com/android/apps-games/app-hexatime-t2829060"));
-				startActivity(git);
-				return true; 
-			}
-		});
 
-		Preference source = (Preference) findPreference("source");
-		source.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-			public boolean onPreferenceClick(Preference preference) {
-				Intent git = new Intent();
-				git.setAction(Intent.ACTION_VIEW);
-				git.addCategory(Intent.CATEGORY_BROWSABLE);
-				git.setData(Uri.parse("https://github.com/ItsPriyesh/Hexatime"));
-				startActivity(git);
-				return true; 
-			}
-		});
+				mHelper = new IabHelper(this, base64EncodedPublicKey);
+				mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+					public void onIabSetupFinished(IabResult result) {
+						if (!result.isSuccess()) {
+							Log.d(TAG, "In-app Billing setup failed: " + 
+									result);
+						} else {             
+							Log.d(TAG, "In-app Billing is set up OK");
+						}
+						try {
+							mHelper.queryInventoryAsync(mReceivedInventoryListener);
+						}
+						catch (IllegalStateException e) {
 
-		Preference donateInAppBilling = (Preference) findPreference("donate");
-		donateInAppBilling.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-			public boolean onPreferenceClick(Preference preference) {				
-				mHelper.launchPurchaseFlow(HexatimeSettings.this, ITEM_SKU, 10001, mPurchaseFinishedListener, "mypurchasetoken");
-				return true; 
-			}
-		});
+						}
+					}
+				});
+
+				Preference contact = (Preference) findPreference("contact");
+				contact.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+					public boolean onPreferenceClick(Preference preference) {
+						Intent email = new Intent();
+						email.setAction(Intent.ACTION_VIEW);
+						email.addCategory(Intent.CATEGORY_BROWSABLE);
+						email.setData(Uri.parse("mailto:priyesh.96@hotmail.com"));
+						startActivity(email);
+						return true; 
+					}
+				});
+
+				Preference xda = (Preference) findPreference("xda");
+				xda.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+					public boolean onPreferenceClick(Preference preference) {
+						Intent git = new Intent();
+						git.setAction(Intent.ACTION_VIEW);
+						git.addCategory(Intent.CATEGORY_BROWSABLE);
+						git.setData(Uri.parse("http://forum.xda-developers.com/android/apps-games/app-hexatime-t2829060"));
+						startActivity(git);
+						return true; 
+					}
+				});
+
+				Preference source = (Preference) findPreference("source");
+				source.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+					public boolean onPreferenceClick(Preference preference) {
+						Intent git = new Intent();
+						git.setAction(Intent.ACTION_VIEW);
+						git.addCategory(Intent.CATEGORY_BROWSABLE);
+						git.setData(Uri.parse("https://github.com/ItsPriyesh/Hexatime"));
+						startActivity(git);
+						return true; 
+					}
+				});
+
+				Preference donateInAppBilling = (Preference) findPreference("donate");
+				donateInAppBilling.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+					public boolean onPreferenceClick(Preference preference) {				
+						mHelper.launchPurchaseFlow(HexatimeSettings.this, ITEM_SKU, 10001, mPurchaseFinishedListener, "mypurchasetoken");
+						return true; 
+					}
+				});
 	}
 
 	@Override

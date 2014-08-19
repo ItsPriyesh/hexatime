@@ -73,6 +73,9 @@ public class HexatimeService extends WallpaperService{
 	private int imageOverlayOpacity;
 	private int imageOverlayScale;
 
+	private boolean enableSetCustomColorValue;
+	private String customColor;
+
 	@Override
 	public Engine onCreateEngine() {
 		return new HexatimeEngine(this);
@@ -85,7 +88,7 @@ public class HexatimeService extends WallpaperService{
 
 		private Canvas c;
 		private Paint hexClock, bg, dimLayer;
-		
+
 		private final Runnable mUpdateDisplay = new Runnable() {
 
 			@Override
@@ -148,7 +151,17 @@ public class HexatimeService extends WallpaperService{
 							blue = sec;
 						}
 
-						bg.setColor(Color.argb(255, red, green, blue));
+						if (!enableSetCustomColorValue){
+							bg.setColor(Color.argb(255, red, green, blue));
+						}
+						else {
+							try {
+								bg.setColor(Color.parseColor(customColor));
+							}
+							catch (IllegalArgumentException iae){
+								bg.setColor(Color.parseColor("#000000"));
+							}
+						}
 						c.drawRect(0, 0, w, h, bg);
 
 						dimLayer = new Paint();
@@ -159,7 +172,7 @@ public class HexatimeService extends WallpaperService{
 						if (enableImageOverlayValue) {
 							Bitmap initialOverlay = BitmapFactory.decodeResource(getResources(), imageOverlay);
 							Bitmap overlayScaled = Bitmap.createScaledBitmap(initialOverlay, imageOverlayScale, imageOverlayScale, false);
-							
+
 							BitmapDrawable imageOverlay = new BitmapDrawable (overlayScaled); 
 							imageOverlay.setTileModeX(Shader.TileMode.REPEAT); 
 							imageOverlay.setTileModeY(Shader.TileMode.REPEAT);
@@ -268,7 +281,13 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("IMAGE_OVERLAY_SCALE")){
 						changeImageOverlayScale(prefs.getFloat("IMAGE_OVERLAY_SCALE", 0.5f));
 					}
-					
+					else if(key.equals("ENABLE_SET_CUSTOM_COLOR")){
+						enableSetCustomColor(prefs.getBoolean("ENABLE_SET_CUSTOM_COLOR", false));
+					}
+					else if(key.equals("SET_CUSTOM_COLOR")){
+						getCustomColor(prefs.getString("SET_CUSTOM_COLOR", "#000000"));
+					}
+
 				}
 				else {	                        
 					changeFontStyle(prefs.getString("FONT_STYLE", "1"));
@@ -285,6 +304,8 @@ public class HexatimeService extends WallpaperService{
 					changeImageOverlay(prefs.getString("IMAGE_OVERLAY", "0"));
 					changeImageOverlayOpacity(prefs.getFloat("IMAGE_OVERLAY_OPACITY", 0.5f));
 					changeImageOverlayScale(prefs.getFloat("IMAGE_OVERLAY_SCALE", 0.5f));
+					enableSetCustomColor(prefs.getBoolean("ENABLE_SET_CUSTOM_COLOR", false));
+					getCustomColor(prefs.getString("SET_CUSTOM_COLOR", "#000000"));
 				}
 				return;
 			}
@@ -416,8 +437,9 @@ public class HexatimeService extends WallpaperService{
 				else if (imageOverlayValue == 3){
 					imageOverlay = R.drawable.circles;
 				}
-				
+
 			}
+
 			private void changeImageOverlayOpacity(float value){
 				imageOverlayOpacity = (int) (value * 255);
 			}
@@ -427,6 +449,14 @@ public class HexatimeService extends WallpaperService{
 				if (imageOverlayScale == 0) {
 					imageOverlayScale = 1;
 				}
+			}
+
+			private void enableSetCustomColor(boolean value){
+				enableSetCustomColorValue = value;
+			}
+
+			private void getCustomColor(String value){
+				customColor = value;
 			}
 	}
 }

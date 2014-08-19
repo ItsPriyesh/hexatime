@@ -30,6 +30,10 @@
     <string name="image_overlay_opacity_title">Overlay opacity</string>
     <string name="image_overlay_scale_summary">Resize the pattern overlay.</string>
     <string name="image_overlay_scale_title">Overlay scale</string>
+    <string name="enable_set_custom_color_title">Enable custom color</string>
+    <string name="enable_set_custom_color_summary">Set a color of your choice as the background.</string>
+    <string name="set_custom_color_title">Color</string>
+    <string name="set_custom_color_summary">Manually input hexadecimal color code.</string>    
                 
     <string name="clock_appearance">Clock Appearance</string>
     <string name="clock_size_and_position">Clock Size &amp; Position</string>

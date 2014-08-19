@@ -69,6 +69,17 @@
             android:key="DIM_BACKGROUND"
             android:summary="@string/dim_background_summary"
             android:title="@string/dim_background_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="ENABLE_SET_CUSTOM_COLOR"
+            android:summary="@string/enable_set_custom_color_summary"
+            android:title="@string/enable_set_custom_color_title" />
+        <com.priyesh.hexatime.CustomDialogs.NoTitleEditTextPref
+            android:key="SET_CUSTOM_COLOR"
+            android:hint="#123456"
+            android:dependency="ENABLE_SET_CUSTOM_COLOR"
+            android:summary="@string/set_custom_color_summary"
+            android:title="@string/set_custom_color_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/background_overlay" >
         <CheckBoxPreference
