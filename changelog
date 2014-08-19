@@ -21,3 +21,9 @@
 - Lots of behind the scenes code cleanup, refactoring and improvements
 - Fixed crash that some users were experiencing 
 
+1.4 (August 19/14)
+- Fixed horizontal clock alignment getting messed up after rebooting
+- Fixed 12 o'clock showing up as 0 o'clock when 12 hour time format was selected
+- Fixed seconds skipping bug
+- Fixed issue that caused a delay of displaying the clock when the visibility was set to lockscreen only
+- Added option to set custom background color (mainly for testing purposes)
