@@ -41,7 +41,7 @@ public class HexatimeService extends WallpaperService{
 	private static final String TAG = "Wallpaper";
 	public static final String SHARED_PREFS_NAME="hexatime_settings";
 
-	public int wallpaperUpdateInterval = 1;
+	public int wallpaperUpdateInterval = 500;
 	public int day, hour, twelveHour, min, sec;
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
