@@ -40,7 +40,7 @@ public class HexatimeService extends WallpaperService{
 
 	public static final String SHARED_PREFS_NAME="hexatime_settings";
 
-	public int wallpaperUpdateInterval = 1;
+	public int wallpaperUpdateInterval;
 	public int day, hour, twelveHour, min, sec;
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
@@ -286,6 +286,9 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("SET_CUSTOM_COLOR")){
 						getCustomColor(prefs.getString("SET_CUSTOM_COLOR", "#000000"));
 					}
+					else if(key.equals("REDUCE_WALLPAPER_UPDATES")){
+						reduceWallpaperUpdates(prefs.getBoolean("REDUCE_WALLPAPER_UPDATES", false));
+					}
 
 				}
 				else {	                        
@@ -305,6 +308,7 @@ public class HexatimeService extends WallpaperService{
 					changeImageOverlayScale(prefs.getFloat("IMAGE_OVERLAY_SCALE", 0.5f));
 					enableSetCustomColor(prefs.getBoolean("ENABLE_SET_CUSTOM_COLOR", false));
 					getCustomColor(prefs.getString("SET_CUSTOM_COLOR", "#000000"));
+					reduceWallpaperUpdates(prefs.getBoolean("REDUCE_WALLPAPER_UPDATES", false));
 				}
 				return;
 			}
@@ -456,6 +460,16 @@ public class HexatimeService extends WallpaperService{
 
 			private void getCustomColor(String value){
 				customColor = value;
+			}
+			
+			private void reduceWallpaperUpdates(boolean value){
+				boolean wallpaperUpdateIntervalValue = value;
+				if (wallpaperUpdateIntervalValue){
+					wallpaperUpdateInterval = 1000;
+				}
+				else {
+					wallpaperUpdateInterval = 1;
+				}
 			}
 	}
 }

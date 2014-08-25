@@ -33,12 +33,15 @@
     <string name="enable_set_custom_color_title">Enable custom color</string>
     <string name="enable_set_custom_color_summary">Set a color of your choice as the background.</string>
     <string name="set_custom_color_title">Color</string>
-    <string name="set_custom_color_summary">Manually input hexadecimal color code.</string>    
-                
+    <string name="set_custom_color_summary">Manually input hexadecimal color code.</string>   
+    <string name="reduce_wallpaper_updates_title">Reduce wallpaper updates</string>    
+    <string name="reduce_wallpaper_updates_summary">Enable if you are experiencing lag or performance issues.</string>    
+
     <string name="clock_appearance">Clock Appearance</string>
     <string name="clock_size_and_position">Clock Size &amp; Position</string>
     <string name="background_appearance">Background Appearance</string>
     <string name="background_overlay">Background Overlay</string>
+    <string name="advanced">Advanced</string>
     
     <string name="about">About</string>
     <string name="about_developer_summary">This app is written by Priyesh Patel.</string>

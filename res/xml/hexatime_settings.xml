@@ -8,6 +8,7 @@
             android:key="FONT_STYLE"
             android:summary="@string/clock_typeface_summary"
             android:title="@string/clock_typeface_title" />
+
         <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
             android:defaultValue="1"
             android:entries="@array/time_format_names"
@@ -45,11 +46,13 @@
             android:key="CLOCK_SIZE"
             android:summary="@string/clock_dimens_summary"
             android:title="@string/clock_dimens_title" />
+
         <com.priyesh.hexatime.CustomDialogs.VerticalAlignSeekbarPref
             android:defaultValue="0.5"
             android:key="CLOCK_VERTICAL_ALIGNMENT"
             android:summary="@string/clock_vertical_align_summary"
             android:title="@string/clock_vertical_align_title" />
+
         <com.priyesh.hexatime.CustomDialogs.HorizontalAlignSeekbarPref
             android:defaultValue="0.5"
             android:key="CLOCK_HORIZONTAL_ALIGNMENT"
@@ -64,20 +67,23 @@
             android:key="COLOR_RANGE"
             android:summary="@string/color_range_summary"
             android:title="@string/color_range_title" />
+
         <com.priyesh.hexatime.CustomDialogs.DimSeekbarPref
             android:defaultValue="0.0"
             android:key="DIM_BACKGROUND"
             android:summary="@string/dim_background_summary"
             android:title="@string/dim_background_title" />
+
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="ENABLE_SET_CUSTOM_COLOR"
             android:summary="@string/enable_set_custom_color_summary"
             android:title="@string/enable_set_custom_color_title" />
+
         <com.priyesh.hexatime.CustomDialogs.NoTitleEditTextPref
-            android:key="SET_CUSTOM_COLOR"
-            android:hint="#123456"
             android:dependency="ENABLE_SET_CUSTOM_COLOR"
+            android:hint="#123456"
+            android:key="SET_CUSTOM_COLOR"
             android:summary="@string/set_custom_color_summary"
             android:title="@string/set_custom_color_title" />
     </PreferenceCategory>
@@ -87,27 +93,37 @@
             android:key="ENABLE_IMAGE_OVERLAY"
             android:summary="@string/enable_image_overlay_summary"
             android:title="@string/enable_image_overlay_title" />
+
         <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
             android:defaultValue="0"
-            android:key="IMAGE_OVERLAY"
+            android:dependency="ENABLE_IMAGE_OVERLAY"
             android:entries="@array/image_overlay_names"
             android:entryValues="@array/image_overlay_values"
+            android:key="IMAGE_OVERLAY"
             android:summary="@string/image_overlay_summary"
-            android:title="@string/image_overlay_title"
-            android:dependency="ENABLE_IMAGE_OVERLAY" />
+            android:title="@string/image_overlay_title" />
+
         <com.priyesh.hexatime.CustomDialogs.DimSeekbarPref
             android:defaultValue="0.2"
+            android:dependency="ENABLE_IMAGE_OVERLAY"
             android:key="IMAGE_OVERLAY_OPACITY"
             android:summary="@string/image_overlay_opacity_summary"
-            android:title="@string/image_overlay_opacity_title"
-            android:dependency="ENABLE_IMAGE_OVERLAY" />
+            android:title="@string/image_overlay_opacity_title" />
+
         <com.priyesh.hexatime.CustomDialogs.SeekbarPref
             android:defaultValue="0.5"
+            android:dependency="ENABLE_IMAGE_OVERLAY"
             android:key="IMAGE_OVERLAY_SCALE"
             android:summary="@string/image_overlay_scale_summary"
-            android:title="@string/image_overlay_scale_title"
-            android:dependency="ENABLE_IMAGE_OVERLAY" />
-        </PreferenceCategory>
+            android:title="@string/image_overlay_scale_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/advanced" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="REDUCE_WALLPAPER_UPDATES"
+            android:summary="@string/reduce_wallpaper_updates_summary"
+            android:title="@string/reduce_wallpaper_updates_title" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/about" >
         <Preference
             android:summary="@string/about_developer_summary"
