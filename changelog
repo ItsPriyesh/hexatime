@@ -27,3 +27,7 @@
 - Fixed seconds skipping bug
 - Fixed issue that caused a delay of displaying the clock when the visibility was set to lockscreen only
 - Added option to set custom background color (mainly for testing purposes)
+
+1.5 (August 25/14)
+- Added option to fix lag on some devices
+ (Settings > Reduce wallpaper updates)
