@@ -38,10 +38,9 @@ import android.view.WindowManager;
 
 public class HexatimeService extends WallpaperService{
 
-	private static final String TAG = "Wallpaper";
 	public static final String SHARED_PREFS_NAME="hexatime_settings";
 
-	public int wallpaperUpdateInterval = 500;
+	public int wallpaperUpdateInterval = 1;
 	public int day, hour, twelveHour, min, sec;
 	public Calendar cal;
 	private SharedPreferences mPrefs = null;
@@ -179,7 +178,7 @@ public class HexatimeService extends WallpaperService{
 							imageOverlay.setAlpha(imageOverlayOpacity);
 							imageOverlay.setBounds(0, 0, w, h);
 
-							imageOverlay.draw(c);				       
+							imageOverlay.draw(c);		
 							imageOverlay.getBitmap().recycle();
 						}						
 
