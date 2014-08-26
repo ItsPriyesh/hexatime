@@ -53,6 +53,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class VerticalAlignSeekbarPref extends DialogPreference {
 
@@ -62,6 +63,7 @@ public class VerticalAlignSeekbarPref extends DialogPreference {
 	protected int mSeekBarValue;
 	protected CharSequence[] mSummaries;
 	SeekBar seekbar;
+	TextView seekbarProgress;
 	
 	public VerticalAlignSeekbarPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -141,6 +143,9 @@ public class VerticalAlignSeekbarPref extends DialogPreference {
 		seekbar.setMax(SEEKBAR_RESOLUTION);
 		seekbar.setProgress(mSeekBarValue);
 		
+		seekbarProgress = (TextView) view.findViewById(R.id.seekbar_progress);
+		seekbarProgress.setText((mSeekBarValue/100) + "%");
+		
 		Button leftButton = (Button) view.findViewById(R.id.bottomButton);
 		leftButton.setOnClickListener(new OnClickListener() {
 		    public void onClick(View v) {
@@ -176,8 +181,9 @@ public class VerticalAlignSeekbarPref extends DialogPreference {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
-					VerticalAlignSeekbarPref.this.mSeekBarValue = progress;
+					VerticalAlignSeekbarPref.this.mSeekBarValue = progress;					
 				}
+				seekbarProgress.setText((mSeekBarValue/100) + "%");			
 			}
 		});
 		return view;
