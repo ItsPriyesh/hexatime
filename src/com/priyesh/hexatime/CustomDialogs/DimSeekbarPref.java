@@ -51,6 +51,7 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class DimSeekbarPref extends DialogPreference {
 
@@ -59,7 +60,8 @@ public class DimSeekbarPref extends DialogPreference {
 	protected float mValue;
 	protected int mSeekBarValue;
 	protected CharSequence[] mSummaries;
-
+	TextView seekbarProgress;
+	
 	public DimSeekbarPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setup(context, attrs);
@@ -133,9 +135,14 @@ public class DimSeekbarPref extends DialogPreference {
 	protected View onCreateDialogView() {
 		mSeekBarValue = (int) (mValue * SEEKBAR_RESOLUTION);
 		View view = super.onCreateDialogView();
+		
 		SeekBar seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
 		seekbar.setMax(SEEKBAR_RESOLUTION);
 		seekbar.setProgress(mSeekBarValue);
+		
+		seekbarProgress = (TextView) view.findViewById(R.id.seekbar_progress);
+		seekbarProgress.setText((mSeekBarValue/100) + "%");
+		
 		seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
 			@Override
@@ -151,7 +158,7 @@ public class DimSeekbarPref extends DialogPreference {
 				if (fromUser) {
 					DimSeekbarPref.this.mSeekBarValue = progress;
 				}
-
+				seekbarProgress.setText((mSeekBarValue/100) + "%");	
 			}
 		});
 		return view;

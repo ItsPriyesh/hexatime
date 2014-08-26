@@ -138,8 +138,8 @@ public class VerticalAlignSeekbarPref extends DialogPreference {
 	protected View onCreateDialogView() {
 		mSeekBarValue = (int) (mValue * SEEKBAR_RESOLUTION);
 		View view = super.onCreateDialogView();
-		seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
 		
+		seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
 		seekbar.setMax(SEEKBAR_RESOLUTION);
 		seekbar.setProgress(mSeekBarValue);
 		

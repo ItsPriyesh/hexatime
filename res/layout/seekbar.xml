@@ -12,21 +12,26 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="8dip"
-    android:paddingLeft="16dip" 
+    android:paddingLeft="16dip"
     android:paddingRight="16dip"
     android:paddingTop="8dip" >
 
     <TextView
-        android:id="@+android:id/message"
+        android:id="@+id/seekbar_progress"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-thin"
+        android:textColor="@color/c2"
+        android:textSize="16sp" />
 
     <SeekBar
-        android:thumb="@drawable/seekbar_scrubber"
         android:id="@+id/slider_preference_seekbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="12dip"
-        android:paddingTop="12dip" />
+        android:paddingTop="12dip"
+        android:thumb="@drawable/seekbar_scrubber" />
 
 </LinearLayout>

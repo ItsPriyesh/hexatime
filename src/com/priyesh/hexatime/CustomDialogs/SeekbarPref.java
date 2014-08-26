@@ -40,10 +40,6 @@
 
 package com.priyesh.hexatime.CustomDialogs;
 
-import com.priyesh.hexatime.R;
-import com.priyesh.hexatime.R.id;
-import com.priyesh.hexatime.R.layout;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -51,6 +47,9 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.priyesh.hexatime.R;
 
 public class SeekbarPref extends DialogPreference {
 
@@ -59,7 +58,8 @@ public class SeekbarPref extends DialogPreference {
 	protected float mValue;
 	protected int mSeekBarValue;
 	protected CharSequence[] mSummaries;
-
+	TextView seekbarProgress;
+	
 	public SeekbarPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setup(context, attrs);
@@ -133,11 +133,15 @@ public class SeekbarPref extends DialogPreference {
 	protected View onCreateDialogView() {
 		mSeekBarValue = (int) (mValue * SEEKBAR_RESOLUTION);
 		View view = super.onCreateDialogView();
+		
 		SeekBar seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
 		seekbar.setMax(SEEKBAR_RESOLUTION);
 		seekbar.setProgress(mSeekBarValue);
+		
+		seekbarProgress = (TextView) view.findViewById(R.id.seekbar_progress);
+		seekbarProgress.setText((mSeekBarValue/100) + "%");
+		
 		seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 			}
@@ -151,7 +155,7 @@ public class SeekbarPref extends DialogPreference {
 				if (fromUser) {
 					SeekbarPref.this.mSeekBarValue = progress;
 				}
-
+				seekbarProgress.setText((mSeekBarValue/100) + "%");
 			}
 		});
 		return view;

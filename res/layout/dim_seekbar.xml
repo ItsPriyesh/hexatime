@@ -17,9 +17,14 @@
     android:paddingTop="8dip" >
 
     <TextView
-        android:id="@+android:id/message"
+        android:id="@+id/seekbar_progress"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/c2"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-thin"
+        android:layout_marginTop="12dp" />
 
     <SeekBar
         android:progressDrawable="@drawable/dim_seekbar_bg"

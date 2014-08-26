@@ -40,10 +40,6 @@
 
 package com.priyesh.hexatime.CustomDialogs;
 
-import com.priyesh.hexatime.R;
-import com.priyesh.hexatime.R.id;
-import com.priyesh.hexatime.R.layout;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -53,6 +49,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.priyesh.hexatime.R;
 
 public class HorizontalAlignSeekbarPref extends DialogPreference {
 
@@ -62,6 +61,7 @@ public class HorizontalAlignSeekbarPref extends DialogPreference {
 	protected int mSeekBarValue;
 	protected CharSequence[] mSummaries;
 	SeekBar seekbar;
+	TextView seekbarProgress;
 	
 	public HorizontalAlignSeekbarPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -136,10 +136,13 @@ public class HorizontalAlignSeekbarPref extends DialogPreference {
 	protected View onCreateDialogView() {
 		mSeekBarValue = (int) (mValue * SEEKBAR_RESOLUTION);
 		View view = super.onCreateDialogView();
-		seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
 		
+		seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
 		seekbar.setMax(SEEKBAR_RESOLUTION);
 		seekbar.setProgress(mSeekBarValue);
+		
+		seekbarProgress = (TextView) view.findViewById(R.id.seekbar_progress);
+		seekbarProgress.setText((mSeekBarValue/100) + "%");
 		
 		Button leftButton = (Button) view.findViewById(R.id.leftButton);
 		leftButton.setOnClickListener(new OnClickListener() {
@@ -178,7 +181,7 @@ public class HorizontalAlignSeekbarPref extends DialogPreference {
 				if (fromUser) {
 					HorizontalAlignSeekbarPref.this.mSeekBarValue = progress;
 				}
-
+				seekbarProgress.setText((mSeekBarValue/100) + "%");
 			}
 		});
 		return view;

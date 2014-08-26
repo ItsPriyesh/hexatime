@@ -17,9 +17,14 @@
     android:paddingTop="8dip" >
 
     <TextView
-        android:id="@+android:id/message"
+        android:id="@+id/seekbar_progress"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-thin"
+        android:textColor="@color/c2"
+        android:textSize="16sp" />
 
     <SeekBar
         android:id="@+id/slider_preference_seekbar"
@@ -42,10 +47,18 @@
 
             <Button
                 android:id="@+id/leftButton"
-                android:layout_width="85dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/left" />
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:minHeight="36dp"
+                android:minWidth="88dp"
+                android:text="@string/left"
+                android:textAllCaps="true"
+                android:textColor="@color/c2"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -56,10 +69,18 @@
 
             <Button
                 android:id="@+id/centerButton"
-                android:layout_width="85dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/center" />
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:minHeight="36dp"
+                android:minWidth="88dp"
+                android:text="@string/center"
+                android:textAllCaps="true"
+                android:textColor="@color/c2"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,10 +91,18 @@
 
             <Button
                 android:id="@+id/rightButton"
-                android:layout_width="85dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/right" />
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:minHeight="36dp"
+                android:minWidth="88dp"
+                android:text="@string/right"
+                android:textAllCaps="true"
+                android:textColor="@color/c2"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
