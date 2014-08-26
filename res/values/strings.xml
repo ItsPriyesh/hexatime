@@ -16,10 +16,8 @@
     <string name="clock_visibility_title">Clock visibility</string>
     <string name="time_format_summary">Switch between 24 and 12 hour.</string>
     <string name="time_format_title">Time format</string>    
-    <string name="show_number_sign_summary">Toggle the display of the number sign</string>    
+    <string name="show_number_sign_summary">Toggle the visibility of the number sign</string>    
     <string name="show_number_sign_title">Show number sign</string>
-   <!-- <string name="clock_addon_summary">Miscellaneous format changes for clock.</string>    
-    <string name="clock_addon_title">Clock addons</string> --> 
     <string name="separator_style_summary">Choose the character used as the separator.</string>  
     <string name="separator_style_title">Separator style</string>
     <string name="color_range_summary">Incorporate date to stretch color spectrum.</string>
@@ -84,10 +82,6 @@
 	<string name="image_overlay_circles">Circles</string>      
     <string name="decimal">Decimal</string>
     <string name="hexadecimal">Hexadecimal</string>
-    <string name="hide_number_sign">Hide all</string>
-    <string name="show_number_sign">Show number sign</string>
-    <string name="show_separator">Show separators</string>
-    <string name="number_sign_separator">Number sign &amp; separators</string>
     
     <string name="separator_colon">Colon</string>
     <string name="separator_space">Space</string>

@@ -56,8 +56,8 @@ public class HexatimeService extends WallpaperService{
 
 	private boolean showNumberSignValue;
 	private int colorCodeNotationValue;
-	//private int clockAddonsValue = 1;
-	private String clockAddons;
+
+	private String clockStringFormat;
 
 	private int separatorStyleValue = 1;
 	private String separatorStyle;
@@ -145,10 +145,10 @@ public class HexatimeService extends WallpaperService{
 						// Time Format
 						if (colorCodeNotationValue == 0){
 							if (timeFormatValue == 0){
-								hexTime = String.format(clockAddons, twelveHour, min, sec); 
+								hexTime = String.format(clockStringFormat, twelveHour, min, sec); 
 							}						
 							else {
-								hexTime = String.format(clockAddons, hour, min, sec);
+								hexTime = String.format(clockStringFormat, hour, min, sec);
 							}
 						}
 						else if (colorCodeNotationValue == 1){
@@ -285,9 +285,6 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("COLOR_CODE_NOTATION")){
 						changeColorCodeNotation(prefs.getString("COLOR_CODE_NOTATION", "0"));
 					}
-					//			else if(key.equals("CLOCK_ADDONS")){
-					//			changeClockAddons(prefs.getString("CLOCK_ADDONS", "1"));
-					//	}
 					else if(key.equals("SEPARATOR_STYLE")){
 						changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
 					}
@@ -327,7 +324,6 @@ public class HexatimeService extends WallpaperService{
 					changeColorRange(prefs.getString("COLOR_RANGE", "0"));
 					showNumberSign(prefs.getBoolean("SHOW_NUMBER_SIGN", true));
 					changeColorCodeNotation(prefs.getString("COLOR_CODE_NOTATION", "0"));
-					//	changeClockAddons(prefs.getString("CLOCK_ADDONS", "1"));
 					changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
 					changeDimBackground(prefs.getFloat("DIM_BACKGROUND", 0.0f)); 
 					enableImageOverlay(prefs.getBoolean("ENABLE_IMAGE_OVERLAY", false));
@@ -401,47 +397,32 @@ public class HexatimeService extends WallpaperService{
 			private void changeColorCodeNotation(String value){
 				colorCodeNotationValue = Integer.parseInt(value);
 			}
-			/*		private void changeClockAddons(String value){
-				clockAddonsValue = Integer.parseInt(value);
-				if(clockAddonsValue == 0){
-					clockAddons = "%02d%02d%02d";
-				}
-				else if (clockAddonsValue == 1){ 
-					clockAddons = "#%02d%02d%02d";
-				}
-				else if (clockAddonsValue == 2){ 
-					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
-				}
-				else if (clockAddonsValue == 3){ 
-					clockAddons = "#%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
-				}
-			}*/
 
 			private void changeSeparatorStyle(String value){
 				separatorStyleValue = Integer.parseInt(value);
 				if(separatorStyleValue == 0){ 
 					separatorStyle = ":";
-					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
+					clockStringFormat = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 				else if (separatorStyleValue == 1){
 					separatorStyle = " ";
-					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
+					clockStringFormat = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 				else if (separatorStyleValue == 2){
 					separatorStyle = ".";
-					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
+					clockStringFormat = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 				else if (separatorStyleValue == 3){
 					separatorStyle = "|";
-					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
+					clockStringFormat = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 				else if (separatorStyleValue == 4){
 					separatorStyle = "/";
-					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
+					clockStringFormat = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 				else if (separatorStyleValue == 5){
 					separatorStyle = "";
-					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
+					clockStringFormat = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 			}
 
@@ -479,7 +460,6 @@ public class HexatimeService extends WallpaperService{
 				else if (imageOverlayValue == 3){
 					imageOverlay = R.drawable.circles;
 				}
-
 			}
 
 			private void changeImageOverlayOpacity(float value){
