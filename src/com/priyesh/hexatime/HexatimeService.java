@@ -54,7 +54,9 @@ public class HexatimeService extends WallpaperService{
 	private float clockHorizontalAlignment;
 	private float clockVerticalAlignment;
 
-	private int clockAddonsValue = 1;
+	private boolean showNumberSignValue;
+	private int colorCodeNotationValue;
+	//private int clockAddonsValue = 1;
 	private String clockAddons;
 
 	private int separatorStyleValue = 1;
@@ -123,33 +125,48 @@ public class HexatimeService extends WallpaperService{
 						hexClock.setColor(Color.WHITE);
 						hexClock.setAntiAlias(true);
 
-						String hexTime;
-						if (timeFormatValue == 0){
-							hexTime = String.format(clockAddons, twelveHour, min, sec); 
-						}
-						else {
-							hexTime = String.format(clockAddons, hour, min, sec);
-						}
-						String hexValue;
+						// Color Code Production
+						String hexTime = null, hexValue;
 						int red=0, green=0, blue=0;
-						float d = hexClock.measureText(hexTime, 0, hexTime.length());
-						int horizontalClockOffset = (int) d / 2;
-						int w = c.getWidth();
-						int h = c.getHeight();
-
 						if(colorRangeValue == 1) {
 							Double tempTime = ((day * 86400) + (hour * 3600) + (min * 60) + sec) * 0.53200202942669;
-							hexValue = String.format("%6s", Integer.toHexString(tempTime.intValue())).replace(" ", "0");
+							hexValue = String.format("%6S", Integer.toHexString(tempTime.intValue())).replace(" ", "0");
 							red = Integer.parseInt(hexValue.substring(0, 2), 16);
 							green = Integer.parseInt(hexValue.substring(2, 4), 16);
 							blue = Integer.parseInt(hexValue.substring(4, 6), 16);
-						} else {
-							hexValue = String.format("%02d%02d%02d", hour, min, sec);
+						} 
+						else {
+							hexValue = String.format("%02X%02X%02X", hour, min, sec);
 							red = hour;
 							green = min;
 							blue = sec;
 						}
 
+						// Time Format
+						if (colorCodeNotationValue == 0){
+							if (timeFormatValue == 0){
+								hexTime = String.format(clockAddons, twelveHour, min, sec); 
+							}						
+							else {
+								hexTime = String.format(clockAddons, hour, min, sec);
+							}
+						}
+						else if (colorCodeNotationValue == 1){
+							hexTime = hexValue;
+						}
+						
+						// Toggle number sign visibility
+						if (showNumberSignValue){
+							hexTime = "#" + hexTime;					
+						}
+						
+						// Calculate clock offset
+						float d = hexClock.measureText(hexTime, 0, hexTime.length());
+						int horizontalClockOffset = (int) d / 2;
+						int w = c.getWidth();
+						int h = c.getHeight();
+
+						// Colored Background Drawing
 						if (!enableSetCustomColorValue){
 							bg.setColor(Color.argb(255, red, green, blue));
 						}
@@ -163,11 +180,13 @@ public class HexatimeService extends WallpaperService{
 						}
 						c.drawRect(0, 0, w, h, bg);
 
+						// Dim Layer
 						dimLayer = new Paint();
 						dimLayer.setColor(Color.BLACK);
 						dimLayer.setAlpha(amountToDim);
 						c.drawRect(0, 0, w, h, dimLayer);
 
+						// Image Overlay
 						if (enableImageOverlayValue) {
 							Bitmap initialOverlay = BitmapFactory.decodeResource(getResources(), imageOverlay);
 							Bitmap overlayScaled = Bitmap.createScaledBitmap(initialOverlay, imageOverlayScale, imageOverlayScale, false);
@@ -182,6 +201,7 @@ public class HexatimeService extends WallpaperService{
 							imageOverlay.getBitmap().recycle();
 						}						
 
+						// Clock Visibility
 						if (clockVisibilityValue == 0){
 							c.drawText(hexTime, clockHorizontalAlignment - horizontalClockOffset, clockVerticalAlignment, hexClock);
 						}
@@ -259,9 +279,15 @@ public class HexatimeService extends WallpaperService{
 					else if(key.equals("COLOR_RANGE")){
 						changeColorRange(prefs.getString("COLOR_RANGE", "0"));
 					}
-					else if(key.equals("CLOCK_ADDONS")){
-						changeClockAddons(prefs.getString("CLOCK_ADDONS", "1"));
+					else if(key.equals("SHOW_NUMBER_SIGN")){
+						showNumberSign(prefs.getBoolean("SHOW_NUMBER_SIGN", true));
 					}
+					else if(key.equals("COLOR_CODE_NOTATION")){
+						changeColorCodeNotation(prefs.getString("COLOR_CODE_NOTATION", "0"));
+					}
+					//			else if(key.equals("CLOCK_ADDONS")){
+					//			changeClockAddons(prefs.getString("CLOCK_ADDONS", "1"));
+					//	}
 					else if(key.equals("SEPARATOR_STYLE")){
 						changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
 					}
@@ -299,7 +325,9 @@ public class HexatimeService extends WallpaperService{
 					changeClockVisibility(prefs.getString("CLOCK_VISIBILITY", "0"));
 					changeTimeFormat(prefs.getString("TIME_FORMAT", "1"));
 					changeColorRange(prefs.getString("COLOR_RANGE", "0"));
-					changeClockAddons(prefs.getString("CLOCK_ADDONS", "1"));
+					showNumberSign(prefs.getBoolean("SHOW_NUMBER_SIGN", true));
+					changeColorCodeNotation(prefs.getString("COLOR_CODE_NOTATION", "0"));
+					//	changeClockAddons(prefs.getString("CLOCK_ADDONS", "1"));
 					changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
 					changeDimBackground(prefs.getFloat("DIM_BACKGROUND", 0.0f)); 
 					enableImageOverlay(prefs.getBoolean("ENABLE_IMAGE_OVERLAY", false));
@@ -366,7 +394,14 @@ public class HexatimeService extends WallpaperService{
 				clockHorizontalAlignment = (w * value);
 			}
 
-			private void changeClockAddons(String value){
+			private void showNumberSign(boolean value){
+				showNumberSignValue = value;
+			}
+
+			private void changeColorCodeNotation(String value){
+				colorCodeNotationValue = Integer.parseInt(value);
+			}
+			/*		private void changeClockAddons(String value){
 				clockAddonsValue = Integer.parseInt(value);
 				if(clockAddonsValue == 0){
 					clockAddons = "%02d%02d%02d";
@@ -380,29 +415,33 @@ public class HexatimeService extends WallpaperService{
 				else if (clockAddonsValue == 3){ 
 					clockAddons = "#%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
-			}
+			}*/
 
 			private void changeSeparatorStyle(String value){
 				separatorStyleValue = Integer.parseInt(value);
 				if(separatorStyleValue == 0){ 
 					separatorStyle = ":";
-					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
+					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 				else if (separatorStyleValue == 1){
 					separatorStyle = " ";
-					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
+					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 				else if (separatorStyleValue == 2){
 					separatorStyle = ".";
-					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
+					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 				else if (separatorStyleValue == 3){
 					separatorStyle = "|";
-					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
+					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 				else if (separatorStyleValue == 4){
 					separatorStyle = "/";
-					changeClockAddons(mPrefs.getString("CLOCK_ADDONS", "1"));
+					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
+				}
+				else if (separatorStyleValue == 5){
+					separatorStyle = "";
+					clockAddons = "%02d" + separatorStyle + "%02d" + separatorStyle + "%02d";
 				}
 			}
 
@@ -461,7 +500,7 @@ public class HexatimeService extends WallpaperService{
 			private void getCustomColor(String value){
 				customColor = value;
 			}
-			
+
 			private void reduceWallpaperUpdates(boolean value){
 				boolean wallpaperUpdateIntervalValue = value;
 				if (wallpaperUpdateIntervalValue){

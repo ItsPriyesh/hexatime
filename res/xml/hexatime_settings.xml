@@ -16,15 +16,27 @@
             android:key="TIME_FORMAT"
             android:summary="@string/time_format_summary"
             android:title="@string/time_format_title" />
-        <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
+       	<CheckBoxPreference
+            android:defaultValue="true"
+            android:key="SHOW_NUMBER_SIGN"
+            android:summary="@string/show_number_sign_summary"
+            android:title="@string/show_number_sign_title" />
+       	<com.priyesh.hexatime.CustomDialogs.NoTitleListPref
+            android:defaultValue="0"
+            android:entries="@array/color_code_notation_names"
+            android:entryValues="@array/color_code_notation_values"
+            android:key="COLOR_CODE_NOTATION"
+            android:summary="@string/color_code_notation_summary"
+            android:title="@string/color_code_notation_title" />
+  <!--        <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
             android:defaultValue="1"
             android:entries="@array/clock_addon_names"
             android:entryValues="@array/clock_addon_values"
             android:key="CLOCK_ADDONS"
             android:summary="@string/clock_addon_summary"
-            android:title="@string/clock_addon_title" />
+            android:title="@string/clock_addon_title" />-->
         <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
-            android:defaultValue="1"
+            android:defaultValue="5"
             android:entries="@array/separator_style_names"
             android:entryValues="@array/separator_style_values"
             android:key="SEPARATOR_STYLE"

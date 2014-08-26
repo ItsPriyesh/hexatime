@@ -86,7 +86,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 			tintManager.setStatusBarTintColor(getResources().getColor(R.color.c2));
 		}       
 
-		mPrefs = HexatimeSettings.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
+		/*mPrefs = HexatimeSettings.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
 		String clockAddonIndex = mPrefs.getString("CLOCK_ADDONS", "1");
 		int clockAddonIndexNum = Integer.parseInt(clockAddonIndex);
 		final ListPreference clockAddon = (ListPreference)findPreference("CLOCK_ADDONS");
@@ -108,7 +108,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 					separatorStyle.setEnabled(true);
 				return true;
 			}
-		});
+		});*/
 
 		final EditTextPreference customColor = (EditTextPreference)findPreference("SET_CUSTOM_COLOR");
 		customColor.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {

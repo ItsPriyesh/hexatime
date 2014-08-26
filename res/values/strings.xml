@@ -16,8 +16,10 @@
     <string name="clock_visibility_title">Clock visibility</string>
     <string name="time_format_summary">Switch between 24 and 12 hour.</string>
     <string name="time_format_title">Time format</string>    
-    <string name="clock_addon_summary">Miscellaneous format changes for clock.</string>    
-    <string name="clock_addon_title">Clock addons</string>
+    <string name="show_number_sign_summary">Toggle the display of the number sign</string>    
+    <string name="show_number_sign_title">Show number sign</string>
+   <!-- <string name="clock_addon_summary">Miscellaneous format changes for clock.</string>    
+    <string name="clock_addon_title">Clock addons</string> --> 
     <string name="separator_style_summary">Choose the character used as the separator.</string>  
     <string name="separator_style_title">Separator style</string>
     <string name="color_range_summary">Incorporate date to stretch color spectrum.</string>
@@ -36,6 +38,8 @@
     <string name="set_custom_color_summary">Manually input hexadecimal color code.</string>   
     <string name="reduce_wallpaper_updates_title">Reduce wallpaper updates</string>    
     <string name="reduce_wallpaper_updates_summary">Enable if you are experiencing lag or performance issues.</string>    
+    <string name="color_code_notation_summary">Switch between decimal and hexadecimal format.</string>    
+    <string name="color_code_notation_title">Color code notation</string>
 
     <string name="clock_appearance">Clock Appearance</string>
     <string name="clock_size_and_position">Clock Size &amp; Position</string>
@@ -78,17 +82,19 @@
     <string name="image_overlay_grid">Grid</string> 
     <string name="image_overlay_dots">Dots</string> 
 	<string name="image_overlay_circles">Circles</string>      
-    
+    <string name="decimal">Decimal</string>
+    <string name="hexadecimal">Hexadecimal</string>
     <string name="hide_number_sign">Hide all</string>
     <string name="show_number_sign">Show number sign</string>
     <string name="show_separator">Show separators</string>
     <string name="number_sign_separator">Number sign &amp; separators</string>
     
-    <string name="separator_colon">"Colon (12:34:56)"</string>
-    <string name="separator_space">"Space (12 34 56)"</string>
-    <string name="separator_dot">"Dot     (12.34.56)"</string>
-    <string name="separator_pipe">"Pipe   (12|34|56)"</string>    
-    <string name="separator_slash">"Slash (12/34/56)"</string>
+    <string name="separator_colon">Colon</string>
+    <string name="separator_space">Space</string>
+    <string name="separator_dot">Dot</string>
+    <string name="separator_pipe">Pipe</string>    
+    <string name="separator_slash">Slash</string>
+    <string name="separator_none">None</string>
     
     <string name="always_visible">Always visible</string>
     <string name="lockscreen_hidden">Hidden on lockscreen</string>
