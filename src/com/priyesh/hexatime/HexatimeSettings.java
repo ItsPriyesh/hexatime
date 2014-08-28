@@ -82,7 +82,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 			tintManager.setStatusBarTintColor(getResources().getColor(R.color.c2));
 		}       
 
-		final EditTextPreference customColor = (EditTextPreference)findPreference("SET_CUSTOM_COLOR");
+	/*	final EditTextPreference customColor = (EditTextPreference)findPreference("SET_CUSTOM_COLOR");
 		customColor.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				if ((newValue.toString().matches("#[A-Fa-f0-9]{6}"))) {
@@ -95,7 +95,7 @@ public class HexatimeSettings extends PreferenceActivity implements SharedPrefer
 					return false;
 				}
 			}
-		});
+		});*/
 		
 		String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8"
 				+ "AMIIBCgKCAQEAvCkRv5LFEf30z2omRbkygc7gxsDr+i1pd2Scz55/"

@@ -172,7 +172,7 @@ public class HexatimeService extends WallpaperService{
 						}
 						else {
 							try {
-								bg.setColor(Color.parseColor(customColor));
+								bg.setColor(Color.parseColor("#" + customColor));
 							}
 							catch (IllegalArgumentException iae){
 								bg.setColor(Color.parseColor("#000000"));

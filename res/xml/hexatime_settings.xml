@@ -87,10 +87,10 @@
             android:summary="@string/enable_set_custom_color_summary"
             android:title="@string/enable_set_custom_color_title" />
 
-        <com.priyesh.hexatime.CustomDialogs.NoTitleEditTextPref
+        <com.priyesh.hexatime.CustomDialogs.ColorCreatorPref
             android:dependency="ENABLE_SET_CUSTOM_COLOR"
-            android:hint="#123456"
             android:key="SET_CUSTOM_COLOR"
+            android:defaultValue="000000"
             android:summary="@string/set_custom_color_summary"
             android:title="@string/set_custom_color_title" />
     </PreferenceCategory>
