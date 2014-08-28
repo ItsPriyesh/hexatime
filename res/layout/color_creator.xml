@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- AndroidSliderPreference Library originally Copyright (C) 2012 Jay Weisskopf
- and licensed under the MIT license.
- 
- Additions to AndroidSliderPreference Library Copyright (C) 2014 Priyesh Patel
- and licensed under Apache License, Version 2.0.
--->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/slider_preference_layout"
     android:layout_width="wrap_content"
@@ -150,7 +143,10 @@
         <EditText
             android:id="@+id/color_code_et"
             android:layout_width="100dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:digits="0123456789ABCDEF"
+			android:inputType="textCapCharacters|textNoSuggestions|textVisiblePassword"
+			android:maxLength="6" />
 
         <com.priyesh.hexatime.InterfaceUtils.CircularImageView
             android:id="@+id/color_sample"
