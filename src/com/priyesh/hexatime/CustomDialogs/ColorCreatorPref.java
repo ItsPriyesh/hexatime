@@ -23,26 +23,27 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.preference.DialogPreference;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.priyesh.hexatime.R;
-import com.priyesh.hexatime.InterfaceUtils.CircularImageView;
 
 public class ColorCreatorPref extends DialogPreference {
 
 	protected final static int SEEKBAR_RESOLUTION = 10000;
-
 	protected float mValue;
 	protected int mSeekBarValue;
+	SeekBar redSeekbar, greenSeekbar, blueSeekbar;
 	TextView redSeekbarProgress, greenSeekbarProgress, blueSeekbarProgress;
 	EditText colorCode;
-	CircularImageView colorSample;
-	String colorCodeString;
+	ImageView colorSample;
 	
 	public ColorCreatorPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -52,6 +53,7 @@ public class ColorCreatorPref extends DialogPreference {
 
 	@Override
 	protected View onCreateDialogView() {
+		
 		mSeekBarValue = (int) (mValue * SEEKBAR_RESOLUTION);
 		View view = super.onCreateDialogView();
 		
@@ -61,10 +63,10 @@ public class ColorCreatorPref extends DialogPreference {
 	    String colorCodeInPrefs = sharedPreferences.getString("SET_CUSTOM_COLOR", "000000");
 		colorCode.setText(colorCodeInPrefs);
 		
-		colorSample = (CircularImageView)view.findViewById(R.id.color_sample);
+		colorSample = (ImageView)view.findViewById(R.id.color_sample);
 		colorSample.setImageDrawable(new ColorDrawable (Color.parseColor("#" + colorCode.getText().toString())));
 		
-		SeekBar redSeekbar = (SeekBar) view.findViewById(R.id.red_seekbar);
+		redSeekbar = (SeekBar) view.findViewById(R.id.red_seekbar);
 		redSeekbar.setMax(SEEKBAR_RESOLUTION);
 		redSeekbar.setProgress((int) ((Integer.parseInt(colorCode.getText().toString().substring(0,2), 16)) * 39.2156862745));
 		
@@ -73,28 +75,27 @@ public class ColorCreatorPref extends DialogPreference {
 		
 		redSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-			}
+			public void onStopTrackingTouch(SeekBar seekBar) {}
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
+			public void onStartTrackingTouch(SeekBar seekBar) {}
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
 					ColorCreatorPref.this.mSeekBarValue = progress;
+					
+					redSeekbarProgress.setText((int) (mSeekBarValue/39.2156862745) + "");
+					
+					String old = colorCode.getText().toString();
+					String rValHex = String.format("%02X",(Integer.parseInt(redSeekbarProgress.getText().toString())));
+					String rVal = rValHex + old.substring(2, 6);
+					colorCode.setText(rVal);
+					
+					colorSample.setImageDrawable(new ColorDrawable (Color.parseColor("#" + colorCode.getText().toString())));
 				}
-				redSeekbarProgress.setText((int) (mSeekBarValue/39.2156862745) + "");
-				
-				String old = colorCode.getText().toString();
-				String rValHex = String.format("%02X",(Integer.parseInt(redSeekbarProgress.getText().toString())));
-				String rVal = rValHex + old.substring(2, 6);
-				colorCode.setText(rVal);
-				
-				colorSample.setImageDrawable(new ColorDrawable (Color.parseColor("#" + colorCode.getText().toString())));
 			}
 		});
 		
-		SeekBar greenSeekbar = (SeekBar) view.findViewById(R.id.green_seekbar);
+		greenSeekbar = (SeekBar) view.findViewById(R.id.green_seekbar);
 		greenSeekbar.setMax(SEEKBAR_RESOLUTION);
 		greenSeekbar.setProgress((int) ((Integer.parseInt(colorCode.getText().toString().substring(2,4), 16)) * 39.2156862745));
 		
@@ -103,28 +104,27 @@ public class ColorCreatorPref extends DialogPreference {
 		
 		greenSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-			}
+			public void onStopTrackingTouch(SeekBar seekBar) {}
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
+			public void onStartTrackingTouch(SeekBar seekBar) {}
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
 					ColorCreatorPref.this.mSeekBarValue = progress;
+
+					greenSeekbarProgress.setText((int) (mSeekBarValue/39.2156862745) + "");
+					
+					String old = colorCode.getText().toString();
+					String gValHex = String.format("%02X",(Integer.parseInt(greenSeekbarProgress.getText().toString())));
+					String gVal = old.substring(0, 2) + gValHex + old.substring(4, 6);
+					colorCode.setText(gVal);
+					
+					colorSample.setImageDrawable(new ColorDrawable (Color.parseColor("#" + colorCode.getText().toString())));
 				}
-				greenSeekbarProgress.setText((int) (mSeekBarValue/39.2156862745) + "");
-				
-				String old = colorCode.getText().toString();
-				String gValHex = String.format("%02X",(Integer.parseInt(greenSeekbarProgress.getText().toString())));
-				String gVal = old.substring(0, 2) + gValHex + old.substring(4, 6);
-				colorCode.setText(gVal);
-				
-				colorSample.setImageDrawable(new ColorDrawable (Color.parseColor("#" + colorCode.getText().toString())));
 			}
 		});
 		
-		SeekBar blueSeekbar = (SeekBar) view.findViewById(R.id.blue_seekbar);
+		blueSeekbar = (SeekBar) view.findViewById(R.id.blue_seekbar);
 		blueSeekbar.setMax(SEEKBAR_RESOLUTION);
 		blueSeekbar.setProgress((int) ((Integer.parseInt(colorCode.getText().toString().substring(4,6), 16)) * 39.2156862745));
 		
@@ -133,44 +133,92 @@ public class ColorCreatorPref extends DialogPreference {
 		
 		blueSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-			}
+			public void onStopTrackingTouch(SeekBar seekBar) {}
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
+			public void onStartTrackingTouch(SeekBar seekBar) {}
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
 					ColorCreatorPref.this.mSeekBarValue = progress;
+					
+					blueSeekbarProgress.setText((int) (mSeekBarValue/39.2156862745) + "");
+					
+					String old = colorCode.getText().toString();
+					String bValHex = String.format("%02X",(Integer.parseInt(blueSeekbarProgress.getText().toString())));
+					String bVal = old.substring(0, 4) + bValHex;
+					colorCode.setText(bVal);
+					
+					colorSample.setImageDrawable(new ColorDrawable (Color.parseColor("#" + colorCode.getText().toString())));
 				}
-				blueSeekbarProgress.setText((int) (mSeekBarValue/39.2156862745) + "");
-				
-				String old = colorCode.getText().toString();
-				String bValHex = String.format("%02X",(Integer.parseInt(blueSeekbarProgress.getText().toString())));
-				String bVal = old.substring(0, 4) + bValHex;
-				colorCode.setText(bVal);
-				
-				colorSample.setImageDrawable(new ColorDrawable (Color.parseColor("#" + colorCode.getText().toString())));
+
 			}
 		});
+		
+		colorCode.addTextChangedListener(new TextWatcher(){
+	        public void afterTextChanged(Editable s) {}
+	        public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+	        public void onTextChanged(CharSequence s, int start, int before, int count){
+	        	// Disable stuff if the hex code is invalid
+	        	if (!(s.toString().matches("[A-Fa-f0-9]{6}"))) {
+	        		AlertDialog dialog = (AlertDialog) getDialog();
+	        		Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+	        		positiveButton.setEnabled(false);	        		
+	        		redSeekbar.setEnabled(false);
+	        		greenSeekbar.setEnabled(false);
+	        		blueSeekbar.setEnabled(false);
+				}
+	        	else {
+	        		AlertDialog dialog = (AlertDialog) getDialog();
+	        		Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+	        		positiveButton.setEnabled(true);
+	        		redSeekbar.setEnabled(true);
+	        		greenSeekbar.setEnabled(true);
+	        		blueSeekbar.setEnabled(true);
+	        	}
+	        	
+	        	// Updates view when user types in a custom hex code
+	        	if (s.toString().length() == 6){
+					colorSample.setImageDrawable(new ColorDrawable (Color.parseColor("#" + colorCode.getText().toString())));
+					
+					redSeekbar.setProgress((int) ((Integer.parseInt(colorCode.getText().toString().substring(0,2), 16)) * 39.2156862745));
+					greenSeekbar.setProgress((int) ((Integer.parseInt(colorCode.getText().toString().substring(2,4), 16)) * 39.2156862745));
+					blueSeekbar.setProgress((int) ((Integer.parseInt(colorCode.getText().toString().substring(4,6), 16)) * 39.2156862745));
+
+					redSeekbarProgress.setText(Integer.parseInt(colorCode.getText().toString().substring(0,2), 16) + "");
+					greenSeekbarProgress.setText(Integer.parseInt(colorCode.getText().toString().substring(2,4), 16) + "");	
+					blueSeekbarProgress.setText(Integer.parseInt(colorCode.getText().toString().substring(4,6), 16) + "");	
+				}
+	        }
+	    }); 
+		
+		// Close dialog
+		Button negativeButton = (Button) view.findViewById(R.id.negative_button);
+		negativeButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v){
+		        getDialog().dismiss();
+			}			
+		});
+		
+		// Save new color into SharedPreferences
+		Button positiveButton = (Button) view.findViewById(R.id.positive_button);
+		positiveButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v){
+		        Editor editor = getEditor();
+		        editor.putString("SET_CUSTOM_COLOR", colorCode.getText().toString());
+		        editor.commit();
+		        getDialog().dismiss();
+			}			
+		});
+		
 		return view;
 	}
 	
 	@Override
 	protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
 		super.onPrepareDialogBuilder(builder);
+		builder.setPositiveButton(null,null);
 		builder.setNegativeButton(null,null);
 		builder.setTitle(null);
 	}
 	
-	@Override
-	protected void onDialogClosed(boolean positiveResult) {
-		if (positiveResult) {
-	        Editor editor = getEditor();
-	        editor.putString("SET_CUSTOM_COLOR", colorCode.getText().toString());
-	        editor.commit();
-	    }
-		super.onDialogClosed(positiveResult);
-	}
-
 }
