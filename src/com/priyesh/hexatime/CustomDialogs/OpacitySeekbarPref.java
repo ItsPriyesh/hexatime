@@ -57,7 +57,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class DimSeekbarPref extends DialogPreference {
+public class OpacitySeekbarPref extends DialogPreference {
 
 	protected final static int SEEKBAR_RESOLUTION = 10000;
 
@@ -66,18 +66,18 @@ public class DimSeekbarPref extends DialogPreference {
 	protected CharSequence[] mSummaries;
 	TextView seekbarProgress;
 
-	public DimSeekbarPref(Context context, AttributeSet attrs) {
+	public OpacitySeekbarPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setDialogLayoutResource(R.layout.dim_seekbar);
+		setDialogLayoutResource(R.layout.opacity_seekbar);
 	}
-
+	
 	@Override
 	protected View onCreateDialogView() {
 		mSeekBarValue = (int) (mValue * SEEKBAR_RESOLUTION);
 		View view = super.onCreateDialogView();
 		
 		SharedPreferences sharedPreferences = getSharedPreferences();
-		float dimLevel = sharedPreferences.getFloat("DIM_BACKGROUND", 0.0f);
+		float dimLevel = sharedPreferences.getFloat("IMAGE_OVERLAY_OPACITY", 0.0f);
 	    int dimLevelInPrefs = (int) (dimLevel * SEEKBAR_RESOLUTION);
 	    
 		SeekBar seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
@@ -95,7 +95,7 @@ public class DimSeekbarPref extends DialogPreference {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
-					DimSeekbarPref.this.mSeekBarValue = progress;
+					OpacitySeekbarPref.this.mSeekBarValue = progress;
 				}
 				seekbarProgress.setText((mSeekBarValue/100) + "%");	
 			}
@@ -107,7 +107,7 @@ public class DimSeekbarPref extends DialogPreference {
 				double newVal = (Integer.parseInt((String) seekbarProgress.getText().toString().subSequence(0, seekbarProgress.getText().toString().length() - 1)))/100.00;
 				float newValFloat = (float) newVal;
 		        Editor editor = getEditor();
-		        editor.putFloat("DIM_BACKGROUND", newValFloat);
+		        editor.putFloat("IMAGE_OVERLAY_OPACITY", newValFloat);
 		        editor.commit();
 		        getDialog().dismiss();
 			}			

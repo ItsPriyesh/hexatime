@@ -110,7 +110,7 @@
             android:summary="@string/image_overlay_summary"
             android:title="@string/image_overlay_title" />
 
-        <com.priyesh.hexatime.CustomDialogs.DimSeekbarPref
+        <com.priyesh.hexatime.CustomDialogs.OpacitySeekbarPref
             android:defaultValue="0.2"
             android:dependency="ENABLE_IMAGE_OVERLAY"
             android:key="IMAGE_OVERLAY_OPACITY"
