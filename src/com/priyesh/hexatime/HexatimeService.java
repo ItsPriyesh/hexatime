@@ -286,7 +286,7 @@ public class HexatimeService extends WallpaperService{
 						changeColorCodeNotation(prefs.getString("COLOR_CODE_NOTATION", "0"));
 					}
 					else if(key.equals("SEPARATOR_STYLE")){
-						changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
+						changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "5"));
 					}
 					else if(key.equals("DIM_BACKGROUND")){
 						changeDimBackground(prefs.getFloat("DIM_BACKGROUND", 0.0f));
@@ -324,7 +324,7 @@ public class HexatimeService extends WallpaperService{
 					changeColorRange(prefs.getString("COLOR_RANGE", "0"));
 					showNumberSign(prefs.getBoolean("SHOW_NUMBER_SIGN", true));
 					changeColorCodeNotation(prefs.getString("COLOR_CODE_NOTATION", "0"));
-					changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "1"));
+					changeSeparatorStyle(prefs.getString("SEPARATOR_STYLE", "5"));
 					changeDimBackground(prefs.getFloat("DIM_BACKGROUND", 0.0f)); 
 					enableImageOverlay(prefs.getBoolean("ENABLE_IMAGE_OVERLAY", false));
 					changeImageOverlay(prefs.getString("IMAGE_OVERLAY", "0"));
