@@ -16,18 +16,19 @@
 
 package com.priyesh.hexatime.CustomDialogs;
 
-import com.priyesh.hexatime.R;
-import com.priyesh.hexatime.InterfaceUtils.CustomTypefaceSpan;
-import com.priyesh.hexatime.R.string;
-
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.ListPreference;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
+
+import com.priyesh.hexatime.R;
+import com.priyesh.hexatime.InterfaceUtils.CustomTypefaceSpan;
 
 public class FontPickerDialogPref extends ListPreference {
 	
@@ -37,7 +38,7 @@ public class FontPickerDialogPref extends ListPreference {
 
     @Override
     protected View onCreateDialogView() {
-
+    	
         String font1 = getContext().getResources().getString(R.string.lato_regular);
         String font2 = getContext().getResources().getString(R.string.lato_light);
         String font3 = getContext().getResources().getString(R.string.roboto_regular);

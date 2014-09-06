@@ -102,6 +102,7 @@
     <string name="blue">b</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="ok">OK</string>
     
     <string name="thanks">Thanks :)</string>
 </resources>

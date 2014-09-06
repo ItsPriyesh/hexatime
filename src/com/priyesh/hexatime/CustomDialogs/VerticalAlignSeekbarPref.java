@@ -46,6 +46,8 @@ import com.priyesh.hexatime.R.layout;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
@@ -54,6 +56,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class VerticalAlignSeekbarPref extends DialogPreference {
 
@@ -67,10 +70,11 @@ public class VerticalAlignSeekbarPref extends DialogPreference {
 	
 	public VerticalAlignSeekbarPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setup(context, attrs);
+		setDialogLayoutResource(R.layout.vertical_align_seekbar);
+	//	setup(context, attrs);
 	}
 
-	public VerticalAlignSeekbarPref(Context context, AttributeSet attrs, int defStyle) {
+	/*	public VerticalAlignSeekbarPref(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		setup(context, attrs);
 	}
@@ -132,19 +136,23 @@ public class VerticalAlignSeekbarPref extends DialogPreference {
 			mValue = value;
 			notifyChanged();
 		}
-	}
+	}*/
 
 	@Override
 	protected View onCreateDialogView() {
 		mSeekBarValue = (int) (mValue * SEEKBAR_RESOLUTION);
 		View view = super.onCreateDialogView();
 		
+		SharedPreferences sharedPreferences = getSharedPreferences();
+		float vAlignFloat = sharedPreferences.getFloat("CLOCK_VERTICAL_ALIGNMENT", 0.5f);
+	    int verticalAlignInPrefs = (int) (vAlignFloat * SEEKBAR_RESOLUTION);
+	    
 		seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
 		seekbar.setMax(SEEKBAR_RESOLUTION);
-		seekbar.setProgress(mSeekBarValue);
+		seekbar.setProgress(verticalAlignInPrefs);
 		
 		seekbarProgress = (TextView) view.findViewById(R.id.seekbar_progress);
-		seekbarProgress.setText((mSeekBarValue/100) + "%");
+		seekbarProgress.setText((verticalAlignInPrefs/100) + "%");
 		
 		Button leftButton = (Button) view.findViewById(R.id.bottomButton);
 		leftButton.setOnClickListener(new OnClickListener() {
@@ -169,15 +177,10 @@ public class VerticalAlignSeekbarPref extends DialogPreference {
 		});
 		
 		seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-			}
-
+			public void onStopTrackingTouch(SeekBar seekBar) {}
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-
+			public void onStartTrackingTouch(SeekBar seekBar) {}
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
@@ -186,6 +189,19 @@ public class VerticalAlignSeekbarPref extends DialogPreference {
 				seekbarProgress.setText((mSeekBarValue/100) + "%");			
 			}
 		});
+		
+		Button positiveButton = (Button) view.findViewById(R.id.positive_button);
+		positiveButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v){
+				double newVal = (Integer.parseInt((String) seekbarProgress.getText().toString().subSequence(0, seekbarProgress.getText().toString().length() - 1)))/100.00;
+				float newValFloat = (float) newVal;
+		        Editor editor = getEditor();
+		        editor.putFloat("CLOCK_VERTICAL_ALIGNMENT", newValFloat);
+		        editor.commit();
+		        getDialog().dismiss();
+			}			
+		});
+		
 		return view;
 	}
 
@@ -193,16 +209,17 @@ public class VerticalAlignSeekbarPref extends DialogPreference {
 	protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
 		super.onPrepareDialogBuilder(builder);
 		builder.setNegativeButton(null,null);
+		builder.setPositiveButton(null,null);
 		builder.setTitle(null);
 	}
 	
-	@Override
+	/*@Override
 	protected void onDialogClosed(boolean positiveResult) {
 		final float newValue = (float) mSeekBarValue / SEEKBAR_RESOLUTION;
 		if (positiveResult && callChangeListener(newValue)) {
 			setValue(newValue);
 		}
 		super.onDialogClosed(positiveResult);
-	}
+	}*/
 
 }
