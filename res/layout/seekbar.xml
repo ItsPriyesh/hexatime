@@ -7,31 +7,69 @@
  and licensed under Apache License, Version 2.0.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/slider_preference_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="8dip"
-    android:paddingLeft="16dip"
-    android:paddingRight="16dip"
-    android:paddingTop="8dip" >
+    android:background="@android:color/white"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/seekbar_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-thin"
-        android:textColor="@color/c2"
+        android:textColor="#4d4d4d"
         android:textSize="16sp" />
 
     <SeekBar
         android:id="@+id/slider_preference_seekbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="12dip"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:paddingTop="12dip"
-        android:thumb="@drawable/seekbar_scrubber" />
+        android:thumb="@drawable/grey_seekbar_scrubber"
+        android:progressDrawable="@drawable/grey_seekbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center|right"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/negative_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="36dp"
+            android:minWidth="88dp"
+            android:text="@string/cancel"
+            android:textAllCaps="true"
+            android:textColor="#4d4d4d"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/positive_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:minHeight="36dp"
+            android:minWidth="88dp"
+            android:text="@string/ok"
+            android:textAllCaps="true"
+            android:textColor="#2196f3"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="4"
-            android:progressDrawable="@drawable/colorpicker_seekbar"
+            android:progressDrawable="@drawable/grey_seekbar"
             android:thumb="@drawable/grey_seekbar_scrubber" />
 
         <TextView
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="4"
-            android:progressDrawable="@drawable/colorpicker_seekbar"
+            android:progressDrawable="@drawable/grey_seekbar"
             android:thumb="@drawable/grey_seekbar_scrubber" />
 
         <TextView
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="4"
-            android:progressDrawable="@drawable/colorpicker_seekbar"
+            android:progressDrawable="@drawable/grey_seekbar"
             android:thumb="@drawable/grey_seekbar_scrubber" />
 
         <TextView

@@ -42,10 +42,13 @@ package com.priyesh.hexatime.CustomDialogs;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -59,97 +62,33 @@ public class SeekbarPref extends DialogPreference {
 	protected int mSeekBarValue;
 	protected CharSequence[] mSummaries;
 	TextView seekbarProgress;
-	
+
 	public SeekbarPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setup(context, attrs);
-	}
-
-	public SeekbarPref(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		setup(context, attrs);
-	}
-
-	private void setup(Context context, AttributeSet attrs) {
 		setDialogLayoutResource(R.layout.seekbar);
 	}
-
-	@Override
-	protected Object onGetDefaultValue(TypedArray a, int index) {
-		return a.getFloat(index, 0);
-	}
-
-	@Override
-	protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-		setValue(restoreValue ? getPersistedFloat(mValue) : (Float) defaultValue);
-	}
-
-	@Override
-	public CharSequence getSummary() {
-		if (mSummaries != null && mSummaries.length > 0) {
-			int index = (int) (mValue * mSummaries.length);
-			index = Math.min(index, mSummaries.length - 1);
-			return mSummaries[index];
-		} else {
-			return super.getSummary();
-		}
-	}
-
-	public void setSummary(CharSequence[] summaries) {
-		mSummaries = summaries;
-	}
-
-	@Override
-	public void setSummary(CharSequence summary) {
-		super.setSummary(summary);
-		mSummaries = null;
-	}
-
-	@Override
-	public void setSummary(int summaryResId) {
-		try {
-			setSummary(getContext().getResources().getStringArray(summaryResId));
-		} catch (Exception e) {
-			super.setSummary(summaryResId);
-		}
-	}
-
-	public float getValue() {
-		return mValue;
-	}
-
-	public void setValue(float value) {
-		value = Math.max(0, Math.min(value, 1)); // clamp to [0, 1]
-		if (shouldPersist()) {
-			persistFloat(value);
-		}
-		if (value != mValue) {
-			mValue = value;
-			notifyChanged();
-		}
-	}
-
+	
 	@Override
 	protected View onCreateDialogView() {
 		mSeekBarValue = (int) (mValue * SEEKBAR_RESOLUTION);
 		View view = super.onCreateDialogView();
 		
+		SharedPreferences sharedPreferences = getSharedPreferences();
+		float overlayScale = sharedPreferences.getFloat("IMAGE_OVERLAY_SCALE", 0.5f);
+	    int overlayScaleInPrefs = (int) (overlayScale * SEEKBAR_RESOLUTION);
+	    
 		SeekBar seekbar = (SeekBar) view.findViewById(R.id.slider_preference_seekbar);
 		seekbar.setMax(SEEKBAR_RESOLUTION);
-		seekbar.setProgress(mSeekBarValue);
-		
+		seekbar.setProgress(overlayScaleInPrefs);
+
 		seekbarProgress = (TextView) view.findViewById(R.id.seekbar_progress);
-		seekbarProgress.setText((mSeekBarValue/100) + "%");
-		
+		seekbarProgress.setText((overlayScaleInPrefs/100) + "%");
+
 		seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-			}
-
+			public void onStopTrackingTouch(SeekBar seekBar) {}
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-
+			public void onStartTrackingTouch(SeekBar seekBar) {}
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				if (fromUser) {
@@ -158,6 +97,26 @@ public class SeekbarPref extends DialogPreference {
 				seekbarProgress.setText((mSeekBarValue/100) + "%");
 			}
 		});
+		
+		Button positiveButton = (Button) view.findViewById(R.id.positive_button);
+		positiveButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v){
+				double newVal = (Integer.parseInt((String) seekbarProgress.getText().toString().subSequence(0, seekbarProgress.getText().toString().length() - 1)))/100.00;
+				float newValFloat = (float) newVal;
+		        Editor editor = getEditor();
+		        editor.putFloat("IMAGE_OVERLAY_SCALE", newValFloat);
+		        editor.commit();
+		        getDialog().dismiss();
+			}			
+		});
+		
+		Button negativeButton = (Button) view.findViewById(R.id.negative_button);
+		negativeButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v){
+		        getDialog().dismiss();
+			}			
+		});
+		
 		return view;
 	}
 
@@ -165,16 +124,7 @@ public class SeekbarPref extends DialogPreference {
 	protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
 		super.onPrepareDialogBuilder(builder);
 		builder.setNegativeButton(null,null);
+		builder.setPositiveButton(null,null);
 		builder.setTitle(null);
 	}
-	
-	@Override
-	protected void onDialogClosed(boolean positiveResult) {
-		final float newValue = (float) mSeekBarValue / SEEKBAR_RESOLUTION;
-		if (positiveResult && callChangeListener(newValue)) {
-			setValue(newValue);
-		}
-		super.onDialogClosed(positiveResult);
-	}
-
 }
