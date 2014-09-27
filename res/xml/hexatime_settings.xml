@@ -5,11 +5,11 @@
     <PreferenceCategory android:title="@string/clock_appearance" >
         <com.priyesh.hexatime.CustomDialogs.FontPickerDialogPref
             android:defaultValue="1"
-            android:key="FONT_STYLE"
+            android:key="FONT_STYLE"           
             android:summary="@string/clock_typeface_summary"
             android:title="@string/clock_typeface_title" />
 
-        <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
+        <com.priyesh.hexatime.CustomDialogs.CustomListPref
             android:defaultValue="1"
             android:entries="@array/time_format_names"
             android:entryValues="@array/time_format_values"
@@ -23,21 +23,21 @@
             android:summary="@string/show_number_sign_summary"
             android:title="@string/show_number_sign_title" />
 
-        <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
+        <com.priyesh.hexatime.CustomDialogs.CustomListPref
             android:defaultValue="0"
             android:entries="@array/color_code_notation_names"
             android:entryValues="@array/color_code_notation_values"
             android:key="COLOR_CODE_NOTATION"
             android:summary="@string/color_code_notation_summary"
             android:title="@string/color_code_notation_title" />
-        <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
+        <com.priyesh.hexatime.CustomDialogs.CustomListPref
             android:defaultValue="5"
             android:entries="@array/separator_style_names"
             android:entryValues="@array/separator_style_values"
             android:key="SEPARATOR_STYLE"
             android:summary="@string/separator_style_summary"
             android:title="@string/separator_style_title" />
-        <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
+        <com.priyesh.hexatime.CustomDialogs.CustomListPref
             android:defaultValue="0"
             android:entries="@array/clock_visibility_names"
             android:entryValues="@array/clock_visibility_values"
@@ -46,7 +46,7 @@
             android:title="@string/clock_visibility_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/clock_size_and_position" >
-        <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
+        <com.priyesh.hexatime.CustomDialogs.CustomListPref
             android:defaultValue="1"
             android:entries="@array/clock_size_names"
             android:entryValues="@array/clock_size_values"
@@ -67,7 +67,7 @@
             android:title="@string/clock_horizontal_align_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/background_appearance" >
-        <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
+        <com.priyesh.hexatime.CustomDialogs.CustomListPref
             android:defaultValue="0"
             android:entries="@array/color_range_names"
             android:entryValues="@array/color_range_values"
@@ -101,7 +101,7 @@
             android:summary="@string/enable_image_overlay_summary"
             android:title="@string/enable_image_overlay_title" />
 
-        <com.priyesh.hexatime.CustomDialogs.NoTitleListPref
+        <com.priyesh.hexatime.CustomDialogs.CustomListPref
             android:defaultValue="0"
             android:dependency="ENABLE_IMAGE_OVERLAY"
             android:entries="@array/image_overlay_names"

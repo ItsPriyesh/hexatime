@@ -16,5 +16,8 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->        
     </style>
-
+<style name="ListPrefBG" parent="@android:style/Theme.Holo.Light.Dialog">
+    <item name="android:colorBackground">#fff0f0f0</item>
+    <item name="android:background">#fff0f0f0</item>
+</style>
 </resources>

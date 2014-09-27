@@ -17,7 +17,9 @@
 package com.priyesh.hexatime.CustomDialogs;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.ListPreference;
@@ -25,20 +27,29 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.priyesh.hexatime.R;
 import com.priyesh.hexatime.InterfaceUtils.CustomTypefaceSpan;
 
-public class FontPickerDialogPref extends ListPreference {
+public class FontPickerDialogPref extends ListPreference implements OnItemClickListener {
 	
+    private int entryIndexNum;
+
 	public FontPickerDialogPref(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
+	
+	public FontPickerDialogPref(Context context) {
+        super(context);
+    }
 
     @Override
     protected View onCreateDialogView() {
-    	
         String font1 = getContext().getResources().getString(R.string.lato_regular);
         String font2 = getContext().getResources().getString(R.string.lato_light);
         String font3 = getContext().getResources().getString(R.string.roboto_regular);
@@ -74,14 +85,47 @@ public class FontPickerDialogPref extends ListPreference {
 		CharSequence[] entryValues = { "0", "1", "2", "3", "4", "5"};
         setEntries(entries);
         setEntryValues(entryValues);
+        
+    	View view = View.inflate(getContext(), R.layout.list_pref, null);
 
-        return null;
+        ListView list = (ListView) view.findViewById(android.R.id.list);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getContext(), R.layout.list_item, getEntries());
+        list.setAdapter(adapter);
+        list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        list.setItemChecked(findIndexOfValue(getValue()), true);
+        list.setOnItemClickListener(this);
+
+        return view;
     }
-    
-	@Override
-	protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
-		super.onPrepareDialogBuilder(builder);
-		builder.setNegativeButton(null,null);
-		builder.setTitle(null);		
-	}
+    @Override
+    protected void onPrepareDialogBuilder(Builder builder) {
+        if (getEntries() == null || getEntryValues() == null) {
+            super.onPrepareDialogBuilder(builder);
+            return;
+        }
+
+        entryIndexNum = findIndexOfValue(getValue());
+        builder.setTitle(null);
+        builder.setPositiveButton(null, null);
+        builder.setNegativeButton(null, null);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    	entryIndexNum = position;
+        FontPickerDialogPref.this.onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
+        getDialog().dismiss();
+    }
+
+    @Override
+    protected void onDialogClosed(boolean positiveResult) {
+        super.onDialogClosed(positiveResult);
+
+        if (positiveResult && entryIndexNum >= 0 && getEntryValues() != null) {
+            String value = getEntryValues()[entryIndexNum].toString();
+            if (callChangeListener(value)) {
+                setValue(value);
+            }
+        }
+    }   
 }
