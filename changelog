@@ -31,3 +31,8 @@
 1.5 (August 25/14)
 - Added option to fix lag on some devices
  (Settings > Reduce wallpaper updates)
+ 
+ 1.6 (September 27/14)
+ - Big material redesign of settings
+ - Added option to show real hexadecimal code instead of decimal code
+ - Squash bugs
