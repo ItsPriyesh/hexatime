@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<set android:interpolator="@android:interpolator/decelerate_quint"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <scale android:interpolator="@android:interpolator/decelerate_quint" android:duration="500" android:pivotX="90.0%" android:pivotY="10.0%" android:fillAfter="true" android:fromXScale="0.0" android:toXScale="1.0" android:fromYScale="0.0" android:toYScale="1.0" />
-</set>
