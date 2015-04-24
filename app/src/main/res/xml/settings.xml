@@ -39,11 +39,17 @@
 
         <ListPreference
             android:defaultValue="0"
-            android:key="clock_size"
+            android:key="clock_divider"
             android:title="Divider style"
             android:summary="Pick the character to use as a divider"
             android:entries="@array/clock_divider_entries"
             android:entryValues="@array/clock_divider_values" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_hex_format"
+            android:title="Format as hexadecimal"
+            android:summary="Display time as a hexadecimal string" />
 
         <SwitchPreference
             android:defaultValue="true"
