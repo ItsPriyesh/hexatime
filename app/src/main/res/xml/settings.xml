@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015 Priyesh Patel
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,17 +14,34 @@
   ~ limitations under the License.
   -->
 
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="General">
+    <PreferenceCategory android:title="Clock Appearance">
 
-        <CheckBoxPreference
-            android:key="checkbox_preference"
-            android:title="Title"
-            android:summary="Summary" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_24_hour"
+            android:title="Use 24-hour format" />
 
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="enable_number_sign"
+            android:title="Show number sign"
+            android:summary="Toggle the visibility of the number sign" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:key="divider"
+            android:title="Divider style"
+            android:summary="Pick the character to use as a divider"
+            android:entries="@array/divider_entries"
+            android:entryValues="@array/divider_values" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="disable_clock"
+            android:title="Hide clock"
+            android:summary="Don't display the clock" />
     </PreferenceCategory>
 
 </PreferenceScreen>

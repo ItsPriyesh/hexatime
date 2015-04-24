@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime
+package com.priyesh.hexatime.ui
 
 import android.app.WallpaperManager
 import android.content.ComponentName
@@ -24,6 +24,9 @@ import android.support.v7.app.ActionBarActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import com.priyesh.hexatime
+import com.priyesh.hexatime.core.HexatimeService
+import com.priyesh.hexatime.R
 
 public class SettingsActivity : ActionBarActivity() {
 
@@ -36,7 +39,7 @@ public class SettingsActivity : ActionBarActivity() {
 
         getFragmentManager().beginTransaction()
                 .add(R.id.container, SettingsFragment())
-                .commit();
+                .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

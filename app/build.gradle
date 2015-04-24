@@ -6,7 +6,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.priyesh.hexatime"
+        applicationId "com.priyesh.hexatime2"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
@@ -29,6 +29,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.jakewharton.timber:timber:3.0.1'
+
 }
 
 buildscript {

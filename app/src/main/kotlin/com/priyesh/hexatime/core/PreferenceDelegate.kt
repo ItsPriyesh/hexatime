@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime
+package com.priyesh.hexatime.core
 
-import android.os.Bundle
-import android.preference.PreferenceFragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.content.SharedPreferences
 
-public class SettingsFragment : PreferenceFragment() {
+trait PreferenceDelegate {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    fun onPreferenceChange(prefs: SharedPreferences, key: String)
 
-        addPreferencesFromResource(R.xml.settings)
-    }
 }
