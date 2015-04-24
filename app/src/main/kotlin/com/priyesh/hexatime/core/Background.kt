@@ -23,4 +23,5 @@ public class Background : PreferenceDelegate {
     override fun onPreferenceChange(prefs: SharedPreferences, key: String) {
 
     }
+
 }

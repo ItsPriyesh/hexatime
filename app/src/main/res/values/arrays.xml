@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string-array name="divider_entries">
+    <string-array name="clock_divider_entries">
         <item>None</item>
         <item>Dot</item>
         <item>Colon</item>
@@ -24,12 +24,28 @@
         <item>Slash</item>
     </string-array>
 
-    <string-array name="divider_values">
+    <string-array name="clock_divider_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
         <item>5</item>
+    </string-array>
+
+    <string-array name="clock_size_entries">
+        <item>Tiny</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>Huge</item>
+    </string-array>
+
+    <string-array name="clock_size_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
     </string-array>
 </resources>

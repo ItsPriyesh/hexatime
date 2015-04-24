@@ -16,21 +16,23 @@
 
 package com.priyesh.hexatime.core
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
-import com.priyesh.hexatime.KEY_DIVIDER
-import com.priyesh.hexatime.KEY_ENABLE_24_HOUR
-import com.priyesh.hexatime.KEY_ENABLE_NUMBER_SIGN
-import timber.log.Timber
+import android.graphics.Typeface
+import com.priyesh.hexatime.*
 import java.util.Calendar
 import kotlin.properties.Delegates
 
-public class Clock() : PreferenceDelegate {
+public class Clock(context: Context) : PreferenceDelegate {
 
-    private var enable24Hour = false;
-    private var enableNumberSign = true;
-    private var dividerStyle = 0;
+    private val context = context
+
+    private var enable24Hour = false
+    private var enableNumberSign = true
+    private var dividerStyle = 0
 
     private final val HOUR = Calendar.HOUR
     private final val HOUR_24 = Calendar.HOUR_OF_DAY
@@ -57,26 +59,54 @@ public class Clock() : PreferenceDelegate {
         else -> ""
     }
 
+    init {
+        paint.setAntiAlias(true)
+        paint.setTextAlign(Paint.Align.CENTER)
+        paint.setColor(Color.WHITE)
+        paint.setTextSize(context.getPixels(50).toFloat())
+        paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "Lato-Hairline.ttf"))
+    }
+
     override fun onPreferenceChange(prefs: SharedPreferences, key: String) {
         when (key) {
             KEY_ENABLE_24_HOUR -> enable24Hour = prefs.getBoolean(key, false)
             KEY_ENABLE_NUMBER_SIGN -> enableNumberSign = prefs.getBoolean(key, true)
-            KEY_DIVIDER -> dividerStyle = prefs.getString(key, "0").toInt()
+            KEY_CLOCK_DIVIDER -> dividerStyle = prefs.getString(key, "0").toInt()
+            KEY_CLOCK_SIZE -> updateClockSize(prefs.getString(key, "2").toInt())
         }
     }
 
+    private fun updateClockSize(sizeReference: Int) {
+        paint.setTextSize(when (sizeReference) {
+            0 -> context.getPixels(10)
+            1 -> context.getPixels(30)
+            2 -> context.getPixels(50)
+            3 -> context.getPixels(70)
+            4 -> context.getPixels(90)
+            else -> context.getPixels(50)
+        })
+    }
+
+    public fun getHexString(): String =
+            "#${formatTwoDigit(hour())}${formatTwoDigit(minute())}${formatTwoDigit(second())}"
+
     public fun getTime(): String {
         updateCalendar()
-        return "${numberSign()}${hour()}${divider()}${minute()}${divider()}${second()}"
+        return "${numberSign()}" +
+                "${formatTwoDigit(hour())}" +
+                "${divider()}" +
+                "${formatTwoDigit(minute())}" +
+                "${divider()}" +
+                "${formatTwoDigit(second())}"
     }
+
+    private fun formatTwoDigit(num: Int) = java.lang.String.format("%02d", num)
 
     private fun updateCalendar() {
         calendar = Calendar.getInstance()
     }
 
-    public fun getPaint(): Paint {
-        return paint
-    }
+    public fun getPaint(): Paint = paint
 
     public fun getX(): Float = (canvas.getWidth() / 2).toFloat()
 

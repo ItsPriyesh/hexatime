@@ -30,18 +30,27 @@
             android:summary="Toggle the visibility of the number sign" />
 
         <ListPreference
+            android:defaultValue="2"
+            android:key="clock_size"
+            android:title="Clock size"
+            android:summary="Adjust the size of the clock"
+            android:entries="@array/clock_size_entries"
+            android:entryValues="@array/clock_size_values" />
+
+        <ListPreference
             android:defaultValue="0"
-            android:key="divider"
+            android:key="clock_size"
             android:title="Divider style"
             android:summary="Pick the character to use as a divider"
-            android:entries="@array/divider_entries"
-            android:entryValues="@array/divider_values" />
+            android:entries="@array/clock_divider_entries"
+            android:entryValues="@array/clock_divider_values" />
 
         <SwitchPreference
-            android:defaultValue="false"
-            android:key="disable_clock"
-            android:title="Hide clock"
-            android:summary="Don't display the clock" />
+            android:defaultValue="true"
+            android:key="enable_clock"
+            android:title="Enable clock"
+            android:summary="Display the clock" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -49,7 +49,7 @@ public class SettingsActivity : ActionBarActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.getItemId()) {
-            R.id.action_done -> startActivity(wallpaperPicker())
+            R.id.action_done -> finish()
         }
 
         return super.onOptionsItemSelected(item)

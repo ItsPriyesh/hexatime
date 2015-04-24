@@ -41,7 +41,7 @@ public class HexatimeService : WallpaperService() {
         private final val updater = Runnable { draw() }
 
         private final var clockDelegate: PreferenceDelegate by Delegates.notNull()
-        private final var backgroundDelegate: PreferenceDelegate by Delegates.notNull()
+     //   private final var backgroundDelegate: PreferenceDelegate by Delegates.notNull()
 
         private final val UPDATE_FREQ: Long = 1000
 
@@ -49,10 +49,10 @@ public class HexatimeService : WallpaperService() {
 
         private var canvas: Canvas? = null
 
-        private var clock = Clock()
-        private var background = Background()
+        private var clock = Clock(getBaseContext())
+        //private var background = Background()
 
-        private var disableClock = false
+        private var enableClock = true
 
         init {
             PreferenceManager
@@ -60,15 +60,15 @@ public class HexatimeService : WallpaperService() {
                     .registerOnSharedPreferenceChangeListener(this)
 
             clockDelegate = clock
-            backgroundDelegate = background
+         //   backgroundDelegate = background
         }
 
         override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
             clockDelegate.onPreferenceChange(prefs, key)
-            backgroundDelegate.onPreferenceChange(prefs, key)
+        //    backgroundDelegate.onPreferenceChange(prefs, key)
 
             when (key) {
-                KEY_DISABLE_CLOCK -> disableClock = prefs.getBoolean(key, false)
+                KEY_DISABLE_CLOCK -> enableClock = prefs.getBoolean(key, true)
             }
         }
 
@@ -102,9 +102,10 @@ public class HexatimeService : WallpaperService() {
         }
 
         private fun draw(canvas: Canvas) {
-            if (!disableClock) {
+            canvas.drawColor(Color.parseColor(clock.getHexString()))
+
+            if (enableClock) {
                 clock.updateCanvas(canvas)
-                canvas.drawColor(Color.DKGRAY)
                 canvas.drawText(clock.getTime(), clock.getX(), clock.getY(), clock.getPaint())
             }
         }

@@ -17,9 +17,11 @@
 package com.priyesh.hexatime
 
 import android.app.Application
+import android.content.Context
 import timber.log.Timber
 
 public class HexatimeApp : Application() {
+
     override fun onCreate() {
         super.onCreate();
 
