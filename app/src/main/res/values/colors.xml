@@ -18,4 +18,48 @@
 <resources>
     <color name="primary">#172734</color>
     <color name="primary_dark">#ff13212c</color>
+
+    <color name="white_0_opacity">#00FFFFFF</color>
+    <color name="white_5_opacity">#0DFFFFFF</color>
+    <color name="white_10_opacity">#1AFFFFFF</color>
+    <color name="white_15_opacity">#26FFFFFF</color>
+    <color name="white_20_opacity">#33FFFFFF</color>
+    <color name="white_25_opacity">#40FFFFFF</color>
+    <color name="white_30_opacity">#4DFFFFFF</color>
+    <color name="white_35_opacity">#59FFFFFF</color>
+    <color name="white_40_opacity">#66FFFFFF</color>
+    <color name="white_45_opacity">#73FFFFFF</color>
+    <color name="white_50_opacity">#80FFFFFF</color>
+    <color name="white_55_opacity">#8CFFFFFF</color>
+    <color name="white_60_opacity">#99FFFFFF</color>
+    <color name="white_65_opacity">#A6FFFFFF</color>
+    <color name="white_70_opacity">#B3FFFFFF</color>
+    <color name="white_75_opacity">#BFFFFFFF</color>
+    <color name="white_80_opacity">#CCFFFFFF</color>
+    <color name="white_85_opacity">#D9FFFFFF</color>
+    <color name="white_90_opacity">#E6FFFFFF</color>
+    <color name="white_95_opacity">#F2FFFFFF</color>
+    <color name="white_100_opacity">#FFFFFFFF</color>
+
+    <color name="black_0_opacity">#00000000</color>
+    <color name="black_5_opacity">#0D000000</color>
+    <color name="black_10_opacity">#1A000000</color>
+    <color name="black_15_opacity">#26000000</color>
+    <color name="black_20_opacity">#33000000</color>
+    <color name="black_25_opacity">#40000000</color>
+    <color name="black_30_opacity">#4D000000</color>
+    <color name="black_35_opacity">#59000000</color>
+    <color name="black_40_opacity">#66000000</color>
+    <color name="black_45_opacity">#73000000</color>
+    <color name="black_50_opacity">#80000000</color>
+    <color name="black_55_opacity">#8C000000</color>
+    <color name="black_60_opacity">#99000000</color>
+    <color name="black_65_opacity">#A6000000</color>
+    <color name="black_70_opacity">#B3000000</color>
+    <color name="black_75_opacity">#BF000000</color>
+    <color name="black_80_opacity">#CC000000</color>
+    <color name="black_85_opacity">#D9000000</color>
+    <color name="black_90_opacity">#E6000000</color>
+    <color name="black_95_opacity">#F2000000</color>
+    <color name="black_100_opacity">#FF000000</color>
 </resources>

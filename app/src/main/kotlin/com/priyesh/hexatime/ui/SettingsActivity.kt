@@ -16,19 +16,14 @@
 
 package com.priyesh.hexatime.ui
 
-import android.app.WallpaperManager
-import android.content.ComponentName
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.ActionBarActivity
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import com.priyesh.hexatime
-import com.priyesh.hexatime.core.HexatimeService
 import com.priyesh.hexatime.R
 
-public class SettingsActivity : ActionBarActivity() {
+public class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,18 +43,8 @@ public class SettingsActivity : ActionBarActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            R.id.action_done -> finish()
-        }
+        if (item.getItemId() == R.id.action_done) finishAffinity()
 
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun wallpaperPicker(): Intent {
-        val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
-        intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-                ComponentName(this, HexatimeService().javaClass))
-
-        return intent
     }
 }

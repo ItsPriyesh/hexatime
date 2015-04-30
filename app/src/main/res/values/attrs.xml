@@ -14,7 +14,21 @@
   ~ limitations under the License.
   -->
 
-<wallpaper xmlns:android="http://schemas.android.com/apk/res/android"
-    android:thumbnail="@mipmap/ic_launcher"
-    android:description="@string/app_name"
-    android:settingsActivity="com.priyesh.hexatime.ui.SettingsActivity" />
+<resources>
+    <declare-styleable name="IntroView">
+        <attr name="strokeWidth" format="float" />
+        <attr name="strokeColor" format="color|reference" />
+        <attr name="phase" format="float" />
+        <attr name="duration" format="integer" />
+        <attr name="fadeFactor" format="float" />
+        <attr name="waitRadius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="StateView">
+        <attr name="strokeWidth" />
+        <attr name="strokeColor" />
+        <attr name="phase" />
+        <attr name="duration" />
+        <attr name="fadeFactor" />
+    </declare-styleable>
+</resources>

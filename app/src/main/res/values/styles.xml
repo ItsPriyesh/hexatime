@@ -5,4 +5,7 @@
         <item name="colorPrimaryDark">@color/primary_dark</item>
     </style>
 
+    <style name="AppTheme.MainActivity" parent="AppTheme">
+        <item name="android:navigationBarColor">@color/primary_dark</item>
+    </style>
 </resources>
