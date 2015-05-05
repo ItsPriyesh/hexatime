@@ -37,6 +37,11 @@
             android:entries="@array/clock_size_entries"
             android:entryValues="@array/clock_size_values" />
 
+        <Preference
+            android:key="clock_position"
+            android:title="Clock position"
+            android:summary="Set horizontal &amp; vertical placement" />
+
         <ListPreference
             android:defaultValue="0"
             android:key="clock_divider"
