@@ -44,7 +44,6 @@ public class SettingsActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.getItemId() == R.id.action_done) finishAffinity()
-
         return super.onOptionsItemSelected(item)
     }
 }

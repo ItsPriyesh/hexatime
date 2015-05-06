@@ -24,6 +24,8 @@ public val KEY_CLOCK_DIVIDER: String = "clock_divider"
 public val KEY_CLOCK_SIZE: String = "clock_size"
 public val KEY_ENABLE_HEX_FORMAT: String = "enable_hex_format"
 public val KEY_DISABLE_CLOCK: String = "enable_clock"
+public val KEY_CLOCK_POSITION_X: String = "clock_position_x"
+public val KEY_CLOCK_POSITION_Y: String = "clock_position_y"
 
 public fun Context.getPixels(dpValue: Int): Float =
         (dpValue * getResources().getDisplayMetrics().density + 0.5f)

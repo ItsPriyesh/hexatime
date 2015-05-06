@@ -38,7 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/center_vertical" />
+            android:layout_toLeftOf="@+id/center_vertical"
+            android:max="100" />
 
         <ImageView
             android:id="@id/center_vertical"
@@ -73,7 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/center_horizontal" />
+            android:layout_toLeftOf="@+id/center_horizontal"
+            android:max="100" />
 
         <ImageView
             android:id="@id/center_horizontal"

@@ -16,33 +16,24 @@
 
 package com.priyesh.hexatime.ui
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.preference.PreferenceFragment
+import android.widget.Toast
 import com.priyesh.hexatime.R
 
-public class SettingsFragment : PreferenceFragment() {
+public class SettingsFragment : PreferenceFragment(), ClockPositionDialog.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super<PreferenceFragment>.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.settings)
 
         findPreference("clock_position").setOnPreferenceClickListener {
-            openClockPositionDialog()
+            ClockPositionDialog(getActivity(), this).create().show()
             true
         }
     }
 
-    private fun openClockPositionDialog() {
-        AlertDialog.Builder(getActivity())
-                .setView(R.layout.clock_position_dialog)
-                .setTitle("Clock position")
-                .setNegativeButton("Cancel", { dialog, id ->
-
-                })
-                .setPositiveButton("OK", { dialog, ide ->
-
-                }).create().show()
+    override fun onClockPositionSaved(positionX: Int, positionY: Int) {
+        Toast.makeText(getActivity(), "${positionX} ${positionY}", Toast.LENGTH_SHORT).show()
     }
-
 }
