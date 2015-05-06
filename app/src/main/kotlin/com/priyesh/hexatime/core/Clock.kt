@@ -36,6 +36,8 @@ public class Clock(context: Context) : PreferenceDelegate {
     private var enableNumberSign = true
     private var dividerStyle = 0
     private var enableHexFormat = false;
+    private var positionX = 50
+    private var positionY = 50
 
     private final val HOUR = Calendar.HOUR
     private final val HOUR_24 = Calendar.HOUR_OF_DAY
@@ -76,6 +78,8 @@ public class Clock(context: Context) : PreferenceDelegate {
         enableNumberSign = prefs.getBoolean(KEY_ENABLE_NUMBER_SIGN, true)
         dividerStyle = prefs.getString(KEY_CLOCK_DIVIDER, "0").toInt()
         enableHexFormat = prefs.getBoolean(KEY_ENABLE_HEX_FORMAT, false)
+        positionX = prefs.getInt(KEY_CLOCK_POSITION_X, 50)
+        positionY = prefs.getInt(KEY_CLOCK_POSITION_Y, 50)
         updateClockSize(prefs.getString(KEY_CLOCK_SIZE, "2").toInt())
     }
 
@@ -86,6 +90,8 @@ public class Clock(context: Context) : PreferenceDelegate {
             KEY_CLOCK_DIVIDER -> dividerStyle = prefs.getString(key, "0").toInt()
             KEY_ENABLE_HEX_FORMAT -> enableHexFormat = prefs.getBoolean(key, false)
             KEY_CLOCK_SIZE -> updateClockSize(prefs.getString(key, "2").toInt())
+            KEY_CLOCK_POSITION_X -> positionX = prefs.getInt(key, 50)
+            KEY_CLOCK_POSITION_Y -> positionY = prefs.getInt(key, 50)
         }
     }
 
@@ -127,9 +133,12 @@ public class Clock(context: Context) : PreferenceDelegate {
 
     public fun getPaint(): Paint = paint
 
-    public fun getX(): Float = (canvas.getWidth() / 2).toFloat()
+    public fun getX(): Float =
+            (canvas.getWidth() * (positionX / 100.0)).toFloat()
 
-    public fun getY(): Float = (canvas.getHeight() / 2) - (paint.descent() + paint.ascent()) / 2
+    public fun getY(): Float =
+            ((canvas.getHeight() - (paint.descent() + paint.ascent()) / 2)
+                    * (positionY / 100.0)).toFloat()
 
     public fun updateCanvas(canvas: Canvas) {
         this.canvas = canvas
