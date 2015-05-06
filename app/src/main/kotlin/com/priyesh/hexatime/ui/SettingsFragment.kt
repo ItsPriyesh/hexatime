@@ -21,19 +21,15 @@ import android.preference.PreferenceFragment
 import android.widget.Toast
 import com.priyesh.hexatime.R
 
-public class SettingsFragment : PreferenceFragment(), ClockPositionDialog.OnClickListener {
+public class SettingsFragment : PreferenceFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super<PreferenceFragment>.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.settings)
 
         findPreference("clock_position").setOnPreferenceClickListener {
-            ClockPositionDialog(getActivity(), this).create().show()
+            ClockPositionDialog(getActivity()).create().show()
             true
         }
-    }
-
-    override fun onClockPositionSaved(positionX: Int, positionY: Int) {
-        Toast.makeText(getActivity(), "${positionX} ${positionY}", Toast.LENGTH_SHORT).show()
     }
 }

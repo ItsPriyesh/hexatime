@@ -26,13 +26,7 @@ import com.priyesh.hexatime.KEY_CLOCK_POSITION_Y
 import com.priyesh.hexatime.R
 import kotlin.properties.Delegates
 
-public class ClockPositionDialog(
-        context: Context,
-        listener: ClockPositionDialog.OnClickListener) : AlertDialog.Builder(context) {
-
-    trait OnClickListener {
-        fun onClockPositionSaved(positionX: Int, positionY: Int)
-    }
+public class ClockPositionDialog(context: Context) : AlertDialog.Builder(context) {
 
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
@@ -57,7 +51,6 @@ public class ClockPositionDialog(
         setPositiveButton("OK", { dialog, ide ->
             prefs.edit().putInt(KEY_CLOCK_POSITION_X, sliderX.getProgress()).commit()
             prefs.edit().putInt(KEY_CLOCK_POSITION_Y, sliderY.getProgress()).commit()
-            listener.onClockPositionSaved(sliderX.getProgress(), sliderY.getProgress())
         })
     }
 
