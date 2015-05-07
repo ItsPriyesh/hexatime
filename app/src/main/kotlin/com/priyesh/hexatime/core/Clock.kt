@@ -138,7 +138,7 @@ public class Clock(context: Context) : PreferenceDelegate {
 
     public fun getY(): Float =
             ((canvas.getHeight() - (paint.descent() + paint.ascent()) / 2)
-                    * (positionY / 100.0)).toFloat()
+                    * ((100 - positionY) / 100.0)).toFloat()
 
     public fun updateCanvas(canvas: Canvas) {
         this.canvas = canvas
