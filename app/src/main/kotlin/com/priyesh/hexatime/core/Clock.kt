@@ -96,14 +96,14 @@ public class Clock(context: Context) : PreferenceDelegate {
     }
 
     private fun updateClockSize(sizeReference: Int) {
-        paint.setTextSize(when (sizeReference) {
-            0 -> context.getPixels(10)
-            1 -> context.getPixels(30)
-            2 -> context.getPixels(50)
-            3 -> context.getPixels(70)
-            4 -> context.getPixels(90)
-            else -> context.getPixels(50)
-        })
+        paint.setTextSize(context.getPixels(when (sizeReference) {
+            0 -> 10
+            1 -> 30
+            2 -> 50
+            3 -> 70
+            4 -> 90
+            else -> 50
+        }))
     }
 
     public fun getHexString(): String =
