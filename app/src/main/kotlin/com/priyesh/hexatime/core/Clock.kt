@@ -39,10 +39,10 @@ public class Clock(context: Context) : PreferenceDelegate {
     private var positionX = 50
     private var positionY = 50
 
-    private final val HOUR = Calendar.HOUR
-    private final val HOUR_24 = Calendar.HOUR_OF_DAY
-    private final val MINUTE = Calendar.MINUTE
-    private final val SECOND = Calendar.SECOND
+    private val HOUR = Calendar.HOUR
+    private val HOUR_24 = Calendar.HOUR_OF_DAY
+    private val MINUTE = Calendar.MINUTE
+    private val SECOND = Calendar.SECOND
 
     private var calendar = Calendar.getInstance()
     private var paint = Paint()
@@ -111,17 +111,8 @@ public class Clock(context: Context) : PreferenceDelegate {
 
     public fun getTime(): String {
         updateCalendar()
-        return "${numberSign()}" +
-
-                "${if (enableHexFormat) convertToHex(hour()) else formatTwoDigit(hour())}" +
-
-                "${divider()}" +
-
-                "${if (enableHexFormat) convertToHex(minute()) else formatTwoDigit(minute())}" +
-
-                "${divider()}" +
-
-                "${if (enableHexFormat) convertToHex(second()) else formatTwoDigit(second())}"
+        fun formatter(i: Int) = if (enableHexFormat) convertToHex(i) else formatTwoDigit(i)
+        return "${numberSign()}${formatter(hour())}${divider()}${formatter(minute())}${divider()}${formatter(second())}"
     }
 
     private fun convertToHex(num: Int): String = Integer.toHexString(formatTwoDigit(num).toInt())

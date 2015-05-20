@@ -55,6 +55,7 @@ public class HexatimeService : WallpaperService() {
         private var enableClock = true
 
         init {
+
             PreferenceManager
                     .getDefaultSharedPreferences(getBaseContext())
                     .registerOnSharedPreferenceChangeListener(this)

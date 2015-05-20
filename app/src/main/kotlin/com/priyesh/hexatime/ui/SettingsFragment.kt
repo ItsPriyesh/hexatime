@@ -16,19 +16,34 @@
 
 package com.priyesh.hexatime.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceFragment
-import android.widget.Toast
+import com.priyesh.hexatime.BuildConfig
 import com.priyesh.hexatime.R
 
 public class SettingsFragment : PreferenceFragment() {
 
+    private final val VERSION_STRING = "${BuildConfig.VERSION_NAME} - ${BuildConfig.BUILD_TYPE}"
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super<PreferenceFragment>.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.settings)
 
         findPreference("clock_position").setOnPreferenceClickListener {
             ClockPositionDialog(getActivity()).create().show()
+            true
+        }
+
+        findPreference("version").setSummary(VERSION_STRING)
+
+        findPreference("source").setOnPreferenceClickListener {
+            val intent = Intent()
+            intent.setAction(Intent.ACTION_VIEW)
+            intent.addCategory(Intent.CATEGORY_BROWSABLE)
+            intent.setData(Uri.parse("https://github.com/ItsPriyesh/HexaTime"))
+            startActivity(intent)
             true
         }
     }
