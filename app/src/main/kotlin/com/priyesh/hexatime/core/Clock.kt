@@ -48,7 +48,11 @@ public class Clock(context: Context) : PreferenceDelegate {
     private var paint = Paint()
     private var canvas: Canvas by Delegates.notNull()
 
-    private fun hour() = if (enable24Hour) calendar.get(HOUR_24) else calendar.get(HOUR)
+    private fun hour() =
+            if (enable24Hour) calendar.get(HOUR_24)
+            else if (calendar.get(HOUR) == 0) 12
+            else calendar.get(HOUR)
+
     private fun minute() = calendar.get(MINUTE)
     private fun second() = calendar.get(SECOND)
 
