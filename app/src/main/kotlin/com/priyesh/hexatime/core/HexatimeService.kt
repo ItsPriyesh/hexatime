@@ -16,6 +16,8 @@
 
 package com.priyesh.hexatime.core
 
+import android.app.KeyguardManager
+import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.graphics.Color
@@ -23,10 +25,8 @@ import android.os.Handler
 import android.preference.PreferenceManager
 import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
-import com.priyesh.hexatime.core.Background
-import com.priyesh.hexatime.core.Clock
 import com.priyesh.hexatime.EngineIntermediate
-import com.priyesh.hexatime.KEY_DISABLE_CLOCK
+import com.priyesh.hexatime.KEY_CLOCK_VISIBILITY
 import kotlin.properties.Delegates
 
 public class HexatimeService : WallpaperService() {
@@ -41,35 +41,30 @@ public class HexatimeService : WallpaperService() {
         private final val updater = Runnable { draw() }
 
         private final var clockDelegate: PreferenceDelegate by Delegates.notNull()
-     //   private final var backgroundDelegate: PreferenceDelegate by Delegates.notNull()
 
         private final val UPDATE_FREQ: Long = 1000
 
         private var visible = false
-
         private var canvas: Canvas? = null
-
         private var clock = Clock(getBaseContext())
-        //private var background = Background()
+        private var clockVisibility = 0
 
-        private var enableClock = true
+        private val ALWAYS_VISIBLE = 0
+        private val HIDDEN_LOCK_SCREEN = 2
 
         init {
-
             PreferenceManager
                     .getDefaultSharedPreferences(getBaseContext())
                     .registerOnSharedPreferenceChangeListener(this)
 
             clockDelegate = clock
-         //   backgroundDelegate = background
         }
 
         override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
             clockDelegate.onPreferenceChange(prefs, key)
-        //    backgroundDelegate.onPreferenceChange(prefs, key)
 
             when (key) {
-                KEY_DISABLE_CLOCK -> enableClock = prefs.getBoolean(key, true)
+                KEY_CLOCK_VISIBILITY -> clockVisibility = prefs.getString(key, "0").toInt()
             }
         }
 
@@ -105,10 +100,19 @@ public class HexatimeService : WallpaperService() {
         private fun draw(canvas: Canvas) {
             canvas.drawColor(Color.parseColor(clock.getHexString()))
 
-            if (enableClock) {
+            if (shouldDrawClock()) {
                 clock.updateCanvas(canvas)
                 canvas.drawText(clock.getTime(), clock.getX(), clock.getY(), clock.getPaint())
             }
         }
+
+        private fun shouldDrawClock() =
+                clockVisibility == ALWAYS_VISIBLE
+                        || (clockVisibility == HIDDEN_LOCK_SCREEN && !isOnLockScreen())
+
+        private fun isOnLockScreen() =
+                (getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager)
+                        .inKeyguardRestrictedInputMode()
+
     }
 }

@@ -48,4 +48,16 @@
         <item>3</item>
         <item>4</item>
     </string-array>
+
+    <string-array name="clock_visibility_entries">
+        <item>Always visible</item>
+        <item>Always hidden</item>
+        <item>Hidden on lock screen</item>
+    </string-array>
+
+    <string-array name="clock_visibility_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

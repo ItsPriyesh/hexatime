@@ -56,11 +56,13 @@
             android:summary="Display time as a hexadecimal string"
             android:title="Format as hexadecimal" />
 
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="enable_clock"
-            android:summary="Display the clock"
-            android:title="Enable clock" />
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/clock_visibility_entries"
+            android:entryValues="@array/clock_visibility_values"
+            android:key="clock_visibility"
+            android:summary="Set when the clock is shown"
+            android:title="Clock visibility" />
 
     </PreferenceCategory>
 
