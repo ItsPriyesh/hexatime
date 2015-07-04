@@ -17,7 +17,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="Clock Appearance">
-
         <SwitchPreference
             android:defaultValue="false"
             android:key="enable_24_hour"
@@ -29,6 +28,22 @@
             android:summary="Toggle the visibility of the number sign"
             android:title="Show number sign" />
 
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/clock_divider_entries"
+            android:entryValues="@array/clock_divider_values"
+            android:key="clock_divider"
+            android:summary="Pick the character to use as a divider"
+            android:title="Divider style" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_hex_format"
+            android:summary="Display time as a hexadecimal string"
+            android:title="Format as hexadecimal" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Clock Size &amp; Position">
         <ListPreference
             android:defaultValue="2"
             android:entries="@array/clock_size_entries"
@@ -44,26 +59,11 @@
 
         <ListPreference
             android:defaultValue="0"
-            android:entries="@array/clock_divider_entries"
-            android:entryValues="@array/clock_divider_values"
-            android:key="clock_divider"
-            android:summary="Pick the character to use as a divider"
-            android:title="Divider style" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="enable_hex_format"
-            android:summary="Display time as a hexadecimal string"
-            android:title="Format as hexadecimal" />
-
-        <ListPreference
-            android:defaultValue="0"
             android:entries="@array/clock_visibility_entries"
             android:entryValues="@array/clock_visibility_values"
             android:key="clock_visibility"
             android:summary="Set when the clock is shown"
             android:title="Clock visibility" />
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="About">

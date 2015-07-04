@@ -57,7 +57,9 @@ public class HexatimeService : WallpaperService() {
                     .getDefaultSharedPreferences(getBaseContext())
                     .registerOnSharedPreferenceChangeListener(this)
 
+            val prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext())
             clockDelegate = clock
+            clockVisibility = prefs.getString(KEY_CLOCK_VISIBILITY, "0").toInt()
         }
 
         override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
@@ -70,10 +72,8 @@ public class HexatimeService : WallpaperService() {
 
         override fun onVisibilityChanged(visible: Boolean) {
             this.visible = visible
-            when {
-                visible -> handler.post(updater)
-                !visible -> handler.removeCallbacks(updater)
-            }
+            if (visible) handler.post(updater)
+            else handler.removeCallbacks(updater)
         }
 
         override fun onSurfaceDestroyed(holder: SurfaceHolder) {
