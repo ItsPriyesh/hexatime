@@ -66,6 +66,13 @@
             android:title="Clock visibility" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="Background Appearance">
+        <Preference
+            android:key="background_dim"
+            android:summary="Darken the background color"
+            android:title="Dim background" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="About">
         <Preference
             android:key="version"

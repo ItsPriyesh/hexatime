@@ -25,14 +25,21 @@ import com.priyesh.hexatime.R
 
 public class SettingsFragment : PreferenceFragment() {
 
-    private final val VERSION_STRING = "${BuildConfig.VERSION_NAME} - ${BuildConfig.BUILD_TYPE}"
+    private val VERSION_STRING = "${BuildConfig.VERSION_NAME} - ${BuildConfig.BUILD_TYPE}"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.settings)
 
+        val context = getActivity()
+
         findPreference("clock_position").setOnPreferenceClickListener {
-            ClockPositionDialog(getActivity()).create().show()
+            ClockPositionDialog(context).create().show()
+            true
+        }
+
+        findPreference("background_dim").setOnPreferenceClickListener {
+            SliderPreference("Background dim", "background_dim", context).display()
             true
         }
 
