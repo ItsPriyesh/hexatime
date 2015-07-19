@@ -110,6 +110,8 @@ public class Clock(context: Context) : PreferenceDelegate {
         }))
     }
 
+    public fun getColor(): Int = Color.parseColor(getHexString())
+
     public fun getHexString(): String =
             "#${formatTwoDigit(hour())}${formatTwoDigit(minute())}${formatTwoDigit(second())}"
 
@@ -137,6 +139,10 @@ public class Clock(context: Context) : PreferenceDelegate {
 
     public fun updateCanvas(canvas: Canvas) {
         this.canvas = canvas
+    }
+
+    public fun getContext(): Context {
+        return context
     }
 
 }

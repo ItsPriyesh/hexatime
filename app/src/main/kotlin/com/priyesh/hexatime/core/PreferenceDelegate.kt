@@ -18,7 +18,7 @@ package com.priyesh.hexatime.core
 
 import android.content.SharedPreferences
 
-trait PreferenceDelegate {
+interface PreferenceDelegate {
 
     fun onPreferenceChange(prefs: SharedPreferences, key: String)
 

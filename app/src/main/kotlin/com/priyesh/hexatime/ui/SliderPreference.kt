@@ -38,7 +38,7 @@ public class SliderPreference(val title: String, val key: String, context: Conte
         progressLabel = view.findViewById(R.id.progress_label) as TextView
         val slider = view.findViewById(R.id.seekbar) as SeekBar
 
-        val currentProgress = prefs.getInt(key, 50)
+        val currentProgress = prefs.getInt(key, 0)
         updateProgressLabel(currentProgress)
         slider.setProgress(currentProgress)
 

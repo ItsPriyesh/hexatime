@@ -26,6 +26,7 @@ public val KEY_ENABLE_HEX_FORMAT: String = "enable_hex_format"
 public val KEY_CLOCK_VISIBILITY: String = "clock_visibility"
 public val KEY_CLOCK_POSITION_X: String = "clock_position_x"
 public val KEY_CLOCK_POSITION_Y: String = "clock_position_y"
+public val KEY_BACKGROUND_DIM: String = "background_dim"
 
 public fun Context.getPixels(dpValue: Int): Float =
         dpValue * getResources().getDisplayMetrics().density + 0.5f

@@ -41,12 +41,14 @@ public class HexatimeService : WallpaperService() {
         private final val updater = Runnable { draw() }
 
         private final var clockDelegate: PreferenceDelegate by Delegates.notNull()
+        private final var backgroundDelegate: PreferenceDelegate by Delegates.notNull()
 
         private final val UPDATE_FREQ: Long = 1000
 
         private var visible = false
         private var canvas: Canvas? = null
         private var clock = Clock(getBaseContext())
+        private var background = Background(clock)
         private var clockVisibility = 0
 
         private val ALWAYS_VISIBLE = 0
@@ -59,11 +61,13 @@ public class HexatimeService : WallpaperService() {
 
             val prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext())
             clockDelegate = clock
+            backgroundDelegate = background
             clockVisibility = prefs.getString(KEY_CLOCK_VISIBILITY, "0").toInt()
         }
 
         override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
             clockDelegate.onPreferenceChange(prefs, key)
+            backgroundDelegate.onPreferenceChange(prefs, key)
 
             when (key) {
                 KEY_CLOCK_VISIBILITY -> clockVisibility = prefs.getString(key, "0").toInt()
@@ -98,7 +102,7 @@ public class HexatimeService : WallpaperService() {
         }
 
         private fun draw(canvas: Canvas) {
-            canvas.drawColor(Color.parseColor(clock.getHexString()))
+            canvas.drawColor(background.getColor())
 
             if (shouldDrawClock()) {
                 clock.updateCanvas(canvas)

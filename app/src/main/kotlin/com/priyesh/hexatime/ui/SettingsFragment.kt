@@ -21,6 +21,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceFragment
 import com.priyesh.hexatime.BuildConfig
+import com.priyesh.hexatime.KEY_BACKGROUND_DIM
 import com.priyesh.hexatime.R
 
 public class SettingsFragment : PreferenceFragment() {
@@ -38,8 +39,8 @@ public class SettingsFragment : PreferenceFragment() {
             true
         }
 
-        findPreference("background_dim").setOnPreferenceClickListener {
-            SliderPreference("Background dim", "background_dim", context).display()
+        findPreference(KEY_BACKGROUND_DIM).setOnPreferenceClickListener {
+            SliderPreference("Background dim", KEY_BACKGROUND_DIM, context).display()
             true
         }
 
