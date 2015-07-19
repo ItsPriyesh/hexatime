@@ -22,4 +22,4 @@ import android.util.Log
 public fun Context.getPixels(dpValue: Int): Float =
         dpValue * getResources().getDisplayMetrics().density + 0.5f
 
-public fun log(message: String): Int = Log.d("HexaTime", message)
+public fun log(message: String): Int = if (BuildConfig.DEBUG) Log.d("HexaTime", message) else 0
