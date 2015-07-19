@@ -92,7 +92,6 @@
     <orderEntry type="library" exported="" name="appcompat-v7-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="kotlin-runtime-0.12.613" level="project" />
     <orderEntry type="library" exported="" name="svg-android-2.0.6" level="project" />
-    <orderEntry type="library" exported="" name="timber-3.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.1.1" level="project" />
     <orderEntry type="library" exported="" name="kotlin-stdlib-0.12.613" level="project" />

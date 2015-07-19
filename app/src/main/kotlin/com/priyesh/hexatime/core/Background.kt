@@ -21,7 +21,6 @@ import android.graphics.Color
 import android.preference.PreferenceManager
 import android.support.v4.graphics.ColorUtils
 import com.priyesh.hexatime.KEY_BACKGROUND_DIM
-import timber.log.Timber
 
 public class Background(clock: Clock) : PreferenceDelegate {
 

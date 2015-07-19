@@ -24,7 +24,6 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.preference.PreferenceManager
 import com.priyesh.hexatime.*
-import timber.log.Timber
 import java.util.Calendar
 import kotlin.properties.Delegates
 

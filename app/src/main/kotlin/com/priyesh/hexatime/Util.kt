@@ -17,7 +17,9 @@
 package com.priyesh.hexatime
 
 import android.content.Context
+import android.util.Log
 
 public fun Context.getPixels(dpValue: Int): Float =
         dpValue * getResources().getDisplayMetrics().density + 0.5f
 
+public fun log(message: String): Int = Log.d("HexaTime", message)
