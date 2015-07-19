@@ -28,10 +28,6 @@ public class Background(clock: Clock) : PreferenceDelegate {
     private val clock = clock
     private var dimAmount: Int = 0
 
-    private fun getDimColor(): Int {
-        return Color.argb(dimAmount / 100 * 255, 0, 0, 0)
-    }
-
     init {
         initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(clock.getContext()))
     }
@@ -39,6 +35,8 @@ public class Background(clock: Clock) : PreferenceDelegate {
     private fun initializeFromPrefs(prefs: SharedPreferences) {
         dimAmount = prefs.getInt(KEY_BACKGROUND_DIM, 0)
     }
+
+    private fun getDimColor(): Int = Color.argb(dimAmount / 100 * 255, 0, 0, 0)
 
     override fun onPreferenceChange(prefs: SharedPreferences, key: String) {
         when (key) {

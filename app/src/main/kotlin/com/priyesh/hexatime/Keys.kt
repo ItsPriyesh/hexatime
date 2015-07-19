@@ -16,8 +16,12 @@
 
 package com.priyesh.hexatime
 
-import android.content.Context
-
-public fun Context.getPixels(dpValue: Int): Float =
-        dpValue * getResources().getDisplayMetrics().density + 0.5f
-
+public val KEY_ENABLE_24_HOUR: String = "enable_24_hour"
+public val KEY_ENABLE_NUMBER_SIGN: String = "enable_number_sign"
+public val KEY_CLOCK_DIVIDER: String = "clock_divider"
+public val KEY_CLOCK_SIZE: String = "clock_size"
+public val KEY_ENABLE_HEX_FORMAT: String = "enable_hex_format"
+public val KEY_CLOCK_VISIBILITY: String = "clock_visibility"
+public val KEY_CLOCK_POSITION_X: String = "clock_position_x"
+public val KEY_CLOCK_POSITION_Y: String = "clock_position_y"
+public val KEY_BACKGROUND_DIM: String = "background_dim"
