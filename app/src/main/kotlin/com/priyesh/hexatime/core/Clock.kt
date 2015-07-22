@@ -71,10 +71,8 @@ public class Clock(context: Context) : PreferenceDelegate {
     }
 
     init {
-        startOfDay.set(Calendar.HOUR_OF_DAY, 0);
-        startOfDay.set(Calendar.MINUTE, 0);
-        startOfDay.set(Calendar.SECOND, 0);
-        startOfDay.set(Calendar.MILLISECOND, 0);
+        val x = arrayOf(Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND, Calendar.MILLISECOND)
+        for (y in x) startOfDay.set(y, 0)
 
         paint.setAntiAlias(true)
         paint.setTextAlign(Paint.Align.CENTER)
@@ -85,12 +83,10 @@ public class Clock(context: Context) : PreferenceDelegate {
     }
 
     private fun initializeFromPrefs(prefs: SharedPreferences) {
-        enable24Hour = prefs.getBoolean(KEY_ENABLE_24_HOUR, false)
-        enableNumberSign = prefs.getBoolean(KEY_ENABLE_NUMBER_SIGN, true)
-        dividerStyle = prefs.getString(KEY_CLOCK_DIVIDER, "0").toInt()
-        enableHexFormat = prefs.getBoolean(KEY_ENABLE_HEX_FORMAT, false)
-        positionX = prefs.getInt(KEY_CLOCK_POSITION_X, 50)
-        positionY = prefs.getInt(KEY_CLOCK_POSITION_Y, 50)
+        val keys = arrayOf(KEY_ENABLE_24_HOUR, KEY_ENABLE_NUMBER_SIGN, KEY_CLOCK_DIVIDER,
+                KEY_ENABLE_HEX_FORMAT, KEY_CLOCK_POSITION_X, KEY_CLOCK_POSITION_Y, KEY_CLOCK_SIZE)
+        for (key in keys) onPreferenceChange(prefs, key)
+        
         updateClockSize(prefs.getString(KEY_CLOCK_SIZE, "2").toInt())
     }
 
