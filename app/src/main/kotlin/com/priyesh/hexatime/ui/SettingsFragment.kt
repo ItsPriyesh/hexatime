@@ -49,23 +49,28 @@ public class SettingsFragment : PreferenceFragment() {
         val colorMode = findPreference(KEY_COLOR_MODE) as ListPreference
         updateHSLPrefs(colorMode.getValue() equals "1")
 
-        findPreference(KEY_COLOR_MODE).setOnPreferenceChangeListener { preference, newValue ->
+        findPreference(KEY_COLOR_MODE) setOnPreferenceChangeListener { preference, newValue ->
             updateHSLPrefs(newValue as String equals "1")
             true
         }
 
-        findPreference(KEY_BACKGROUND_LIGHTNESS).setOnPreferenceClickListener {
+        findPreference(KEY_BACKGROUND_SATURATION) setOnPreferenceClickListener {
+            SliderPreference("Saturation", KEY_BACKGROUND_SATURATION, context).display()
+            true
+        }
+
+        findPreference(KEY_BACKGROUND_LIGHTNESS) setOnPreferenceClickListener {
             SliderPreference("Lightness", KEY_BACKGROUND_LIGHTNESS, context).display()
             true
         }
 
-        findPreference("version").setSummary(VERSION_STRING)
+        findPreference("version") setSummary(VERSION_STRING)
 
-        findPreference("source").setOnPreferenceClickListener {
+        findPreference("source") setOnPreferenceClickListener {
             val intent = Intent()
-            intent.setAction(Intent.ACTION_VIEW)
-            intent.addCategory(Intent.CATEGORY_BROWSABLE)
-            intent.setData(Uri.parse("https://github.com/ItsPriyesh/HexaTime"))
+            intent setAction Intent.ACTION_VIEW
+            intent addCategory Intent.CATEGORY_BROWSABLE
+            intent setData Uri.parse("https://github.com/ItsPriyesh/HexaTime")
             startActivity(intent)
             true
         }

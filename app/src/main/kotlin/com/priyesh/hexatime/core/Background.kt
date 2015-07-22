@@ -19,26 +19,45 @@ package com.priyesh.hexatime.core
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.preference.PreferenceManager
-import android.support.v4.graphics.ColorUtils
+import com.priyesh.hexatime.KEY_BACKGROUND_LIGHTNESS
+import com.priyesh.hexatime.KEY_BACKGROUND_SATURATION
+import com.priyesh.hexatime.KEY_COLOR_MODE
 import com.priyesh.hexatime.log
+import org.joda.time.DateTime
+import org.joda.time.Duration
 
 public class Background(clock: Clock) : PreferenceDelegate {
 
     private val clock = clock
+    private var colorMode = 0
+    private var saturation: Float = 0.5f
+    private var lightness: Float = 0.5f
+
+    private fun rgbEnabled() = colorMode == 0
 
     init {
         initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(clock.getContext()))
     }
 
     private fun initializeFromPrefs(prefs: SharedPreferences) {
+        val keys = arrayOf(KEY_COLOR_MODE, KEY_BACKGROUND_SATURATION, KEY_BACKGROUND_LIGHTNESS)
+        for (key in keys) onPreferenceChange(prefs, key)
     }
 
     override fun onPreferenceChange(prefs: SharedPreferences, key: String) {
         when (key) {
-
+            KEY_COLOR_MODE -> colorMode = prefs.getString(KEY_COLOR_MODE, "0").toInt()
+            KEY_BACKGROUND_SATURATION -> saturation = (prefs.getInt(KEY_BACKGROUND_SATURATION, 50) / 100.0).toFloat()
+            KEY_BACKGROUND_LIGHTNESS -> lightness = (prefs.getInt(KEY_BACKGROUND_LIGHTNESS, 50) / 100.0).toFloat()
         }
     }
 
-    public fun getColor(): Int = clock.getColor()
+    public fun getColor(): Int = if (rgbEnabled()) getRGBColor() else getHSLColor()
+
+    private fun getRGBColor() = clock.getColor()
+    private fun getHSLColor(): Int {
+        log("HUE: ${clock.getHue()} SATURATION: ${saturation} LIGHTNESS: ${lightness}")
+        return Color.HSVToColor(floatArrayOf(clock.getHue(), saturation, lightness))
+    }
 
 }
