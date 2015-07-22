@@ -25,24 +25,17 @@ import com.priyesh.hexatime.log
 public class Background(clock: Clock) : PreferenceDelegate {
 
     private val clock = clock
-    private var dimAmount: Int = 0
 
     init {
         initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(clock.getContext()))
     }
 
     private fun initializeFromPrefs(prefs: SharedPreferences) {
-      //  dimAmount = prefs.getInt(KEY_BACKGROUND_DIM, 0)
-    }
-
-    private fun getDimColor(): Int {
-        log("Dim amount: " + dimAmount)
-        return Color.argb(dimAmount / 100 * 255, 0, 0, 0)
     }
 
     override fun onPreferenceChange(prefs: SharedPreferences, key: String) {
         when (key) {
-           // KEY_BACKGROUND_DIM -> dimAmount = prefs.getInt(KEY_BACKGROUND_DIM, 0)
+
         }
     }
 
