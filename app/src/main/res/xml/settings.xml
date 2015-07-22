@@ -43,7 +43,7 @@
             android:title="Format as hexadecimal" />
 
         <com.priyesh.hexatime.ui.FontListPreference
-            android:defaultValue="0"
+            android:defaultValue="Lato"
             android:key="clock_font"
             android:title="Font"
             android:summary="Choose the clocks typeface" />

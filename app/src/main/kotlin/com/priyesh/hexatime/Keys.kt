@@ -20,6 +20,7 @@ public val KEY_ENABLE_24_HOUR: String = "enable_24_hour"
 public val KEY_ENABLE_NUMBER_SIGN: String = "enable_number_sign"
 public val KEY_CLOCK_DIVIDER: String = "clock_divider"
 public val KEY_ENABLE_HEX_FORMAT: String = "enable_hex_format"
+public val KEY_CLOCK_FONT: String = "clock_font"
 
 public val KEY_CLOCK_SIZE: String = "clock_size"
 public val KEY_CLOCK_VISIBILITY: String = "clock_visibility"
