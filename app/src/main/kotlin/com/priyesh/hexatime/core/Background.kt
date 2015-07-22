@@ -20,7 +20,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.preference.PreferenceManager
 import android.support.v4.graphics.ColorUtils
-import com.priyesh.hexatime.KEY_BACKGROUND_DIM
+import com.priyesh.hexatime.log
 
 public class Background(clock: Clock) : PreferenceDelegate {
 
@@ -32,24 +32,20 @@ public class Background(clock: Clock) : PreferenceDelegate {
     }
 
     private fun initializeFromPrefs(prefs: SharedPreferences) {
-        dimAmount = prefs.getInt(KEY_BACKGROUND_DIM, 0)
+      //  dimAmount = prefs.getInt(KEY_BACKGROUND_DIM, 0)
     }
 
-    private fun getDimColor(): Int = Color.argb(dimAmount / 100 * 255, 0, 0, 0)
+    private fun getDimColor(): Int {
+        log("Dim amount: " + dimAmount)
+        return Color.argb(dimAmount / 100 * 255, 0, 0, 0)
+    }
 
     override fun onPreferenceChange(prefs: SharedPreferences, key: String) {
         when (key) {
-            KEY_BACKGROUND_DIM -> dimAmount = prefs.getInt(KEY_BACKGROUND_DIM, 0)
+           // KEY_BACKGROUND_DIM -> dimAmount = prefs.getInt(KEY_BACKGROUND_DIM, 0)
         }
     }
 
-    public fun getColor(): Int = mergeColors(getDimColor(), clock.getColor())
+    public fun getColor(): Int = clock.getColor()
 
-    private fun mergeColors(foreground: Int, background: Int): Int {
-        val dimAlpha = Color.alpha(foreground)
-        val mergedRed = (Color.red(foreground) * dimAlpha + Color.red(background) * (255 - dimAlpha)) / 255
-        val mergedGreen = (Color.green(foreground) * dimAlpha + Color.green(background) * (255 - dimAlpha)) / 255
-        val mergedBlue = (Color.blue(foreground) * dimAlpha + Color.blue(background) * (255 - dimAlpha)) / 255
-        return Color.rgb(mergedRed, mergedGreen, mergedBlue)
-    }
 }

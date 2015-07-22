@@ -19,10 +19,9 @@ package com.priyesh.hexatime.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.preference.ListPreference
 import android.preference.PreferenceFragment
-import com.priyesh.hexatime.BuildConfig
-import com.priyesh.hexatime.KEY_BACKGROUND_DIM
-import com.priyesh.hexatime.R
+import com.priyesh.hexatime.*
 
 public class SettingsFragment : PreferenceFragment() {
 
@@ -39,8 +38,24 @@ public class SettingsFragment : PreferenceFragment() {
             true
         }
 
-        findPreference(KEY_BACKGROUND_DIM).setOnPreferenceClickListener {
-            SliderPreference("Background dim", KEY_BACKGROUND_DIM, context).display()
+        val saturation = findPreference(KEY_BACKGROUND_SATURATION)
+        val lightness = findPreference(KEY_BACKGROUND_LIGHTNESS)
+
+        fun updateHSLPrefs(hslEnabled: Boolean): Unit {
+            saturation setEnabled hslEnabled
+            lightness setEnabled hslEnabled
+        }
+
+        val colorMode = findPreference(KEY_COLOR_MODE) as ListPreference
+        updateHSLPrefs(colorMode.getValue() equals "1")
+
+        findPreference(KEY_COLOR_MODE).setOnPreferenceChangeListener { preference, newValue ->
+            updateHSLPrefs(newValue as String equals "1")
+            true
+        }
+
+        findPreference(KEY_BACKGROUND_LIGHTNESS).setOnPreferenceClickListener {
+            SliderPreference("Lightness", KEY_BACKGROUND_LIGHTNESS, context).display()
             true
         }
 
@@ -55,4 +70,5 @@ public class SettingsFragment : PreferenceFragment() {
             true
         }
     }
+
 }

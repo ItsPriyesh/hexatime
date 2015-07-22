@@ -67,10 +67,23 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Background Appearance">
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/color_mode_entries"
+            android:entryValues="@array/color_mode_values"
+            android:key="color_mode"
+            android:summary="Switch between RGB and HSL color modes"
+            android:title="Color mode" />
         <Preference
-            android:key="background_dim"
-            android:summary="Darken the background color"
-            android:title="Dim background" />
+            android:enabled="false"
+            android:key="background_saturation"
+            android:summary="Set the saturation level"
+            android:title="Saturation" />
+        <Preference
+            android:enabled="false"
+            android:key="background_lightness"
+            android:summary="Set the lightness level"
+            android:title="Lightness" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="About">
