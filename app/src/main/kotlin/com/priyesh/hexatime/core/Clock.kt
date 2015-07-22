@@ -86,7 +86,7 @@ public class Clock(context: Context) : PreferenceDelegate {
         val keys = arrayOf(KEY_ENABLE_24_HOUR, KEY_ENABLE_NUMBER_SIGN, KEY_CLOCK_DIVIDER,
                 KEY_ENABLE_HEX_FORMAT, KEY_CLOCK_POSITION_X, KEY_CLOCK_POSITION_Y, KEY_CLOCK_SIZE)
         for (key in keys) onPreferenceChange(prefs, key)
-        
+
         updateClockSize(prefs.getString(KEY_CLOCK_SIZE, "2").toInt())
     }
 
@@ -131,7 +131,7 @@ public class Clock(context: Context) : PreferenceDelegate {
     private fun convertToHex(num: Int): String = Integer.toHexString(formatTwoDigit(num).toInt())
     private fun formatTwoDigit(num: Int): String = java.lang.String.format("%02d", num)
 
-    private fun updateCalendar() {
+    public fun updateCalendar() {
         calendar = Calendar.getInstance()
     }
 

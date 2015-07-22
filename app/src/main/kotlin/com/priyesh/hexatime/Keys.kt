@@ -28,4 +28,4 @@ public val KEY_CLOCK_POSITION_Y: String = "clock_position_y"
 
 public val KEY_COLOR_MODE: String = "color_mode"
 public val KEY_BACKGROUND_SATURATION: String = "background_saturation"
-public val KEY_BACKGROUND_LIGHTNESS: String = "background_lightness"
+public val KEY_BACKGROUND_BRIGHTNESS: String = "background_brightness"

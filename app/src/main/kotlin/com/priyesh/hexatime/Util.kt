@@ -17,9 +17,17 @@
 package com.priyesh.hexatime
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 
 public fun Context.getPixels(dpValue: Int): Float =
         dpValue * getResources().getDisplayMetrics().density + 0.5f
 
 public fun log(message: String): Int = if (BuildConfig.DEBUG) Log.d("HexaTime", message) else 0
+
+public fun darkenColor(color: Int, factor: Float): Int {
+    var hsv = FloatArray(3)
+    Color.colorToHSV(color, hsv)
+    hsv[2] *= factor
+    return Color.HSVToColor(hsv);
+}

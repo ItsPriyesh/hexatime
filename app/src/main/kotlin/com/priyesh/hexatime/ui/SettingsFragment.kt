@@ -39,7 +39,7 @@ public class SettingsFragment : PreferenceFragment() {
         }
 
         val saturation = findPreference(KEY_BACKGROUND_SATURATION)
-        val lightness = findPreference(KEY_BACKGROUND_LIGHTNESS)
+        val lightness = findPreference(KEY_BACKGROUND_BRIGHTNESS)
 
         fun updateHSLPrefs(hslEnabled: Boolean): Unit {
             saturation setEnabled hslEnabled
@@ -59,8 +59,8 @@ public class SettingsFragment : PreferenceFragment() {
             true
         }
 
-        findPreference(KEY_BACKGROUND_LIGHTNESS) setOnPreferenceClickListener {
-            SliderPreference("Lightness", KEY_BACKGROUND_LIGHTNESS, context).display()
+        findPreference(KEY_BACKGROUND_BRIGHTNESS) setOnPreferenceClickListener {
+            SliderPreference("Lightness", KEY_BACKGROUND_BRIGHTNESS, context).display()
             true
         }
 

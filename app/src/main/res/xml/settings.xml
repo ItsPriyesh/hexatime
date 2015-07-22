@@ -81,9 +81,9 @@
             android:title="Saturation" />
         <Preference
             android:enabled="false"
-            android:key="background_lightness"
-            android:summary="Set the lightness level"
-            android:title="Lightness" />
+            android:key="background_brightness"
+            android:summary="Set the brightness level"
+            android:title="Brightness" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="About">

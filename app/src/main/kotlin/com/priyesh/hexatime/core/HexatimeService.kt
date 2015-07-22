@@ -27,6 +27,7 @@ import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
 import com.priyesh.hexatime.EngineIntermediate
 import com.priyesh.hexatime.KEY_CLOCK_VISIBILITY
+import com.priyesh.hexatime.log
 import kotlin.properties.Delegates
 
 public class HexatimeService : WallpaperService() {
