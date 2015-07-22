@@ -41,6 +41,12 @@
             android:key="enable_hex_format"
             android:summary="Display time as a hexadecimal string"
             android:title="Format as hexadecimal" />
+
+        <com.priyesh.hexatime.ui.FontListPreference
+            android:defaultValue="0"
+            android:key="clock_font"
+            android:title="Font"
+            android:summary="Choose the clocks typeface" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Clock Size &amp; Position">

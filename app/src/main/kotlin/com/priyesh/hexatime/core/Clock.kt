@@ -77,7 +77,7 @@ public class Clock(context: Context) : PreferenceDelegate {
         paint.setAntiAlias(true)
         paint.setTextAlign(Paint.Align.CENTER)
         paint.setColor(Color.WHITE)
-        paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "Lato-Hairline.ttf"))
+        paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "Lato.ttf"))
 
         initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(context))
     }

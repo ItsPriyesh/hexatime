@@ -61,7 +61,7 @@ public class MainActivity : AppCompatActivity() {
         activateButton.setOnClickListener { activate() }
         settingsButton.setOnClickListener { openSettings() }
 
-        activateButton.setTypeface(Typeface.createFromAsset(getAssets(), "Lato-Light.ttf"))
+        activateButton.setTypeface(Typeface.createFromAsset(getAssets(), "Lato.ttf"))
 
         logoView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         logoView.setImageDrawable(getLogoDrawable())
