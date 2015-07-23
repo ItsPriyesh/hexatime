@@ -45,7 +45,7 @@ public class FontListPreference : ListPreference, AdapterView.OnItemClickListene
 
     override fun onCreateDialogView(): View {
         val assets = getContext().getAssets()
-        val fonts = arrayOf("Lato", "Roboto")
+        val fonts = arrayOf("Lato", "Roboto", "Advent Pro")
         val spannables = Array<Spannable>(fonts.size(), { i ->
             val spannable = SpannableString(fonts[i])
             spannable.setSpan(CustomTypefaceSpan("sans-serif",
