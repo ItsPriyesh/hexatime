@@ -74,7 +74,7 @@ public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedP
                 handler.postDelayed(this, 1000)
             }
         }
-        handler.post(updateToolbar)
+        handler.postDelayed(updateToolbar, 1000)
     }
 
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
