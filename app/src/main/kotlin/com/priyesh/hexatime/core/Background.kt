@@ -23,8 +23,6 @@ import com.priyesh.hexatime.KEY_BACKGROUND_BRIGHTNESS
 import com.priyesh.hexatime.KEY_BACKGROUND_SATURATION
 import com.priyesh.hexatime.KEY_COLOR_MODE
 import com.priyesh.hexatime.log
-import org.joda.time.DateTime
-import org.joda.time.Duration
 
 public class Background(clock: Clock) : PreferenceDelegate {
 

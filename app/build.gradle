@@ -30,7 +30,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.github.japgolly.android:svg-android:2.0.6'
-    compile 'joda-time:joda-time:2.3'
 }
 
 buildscript {
