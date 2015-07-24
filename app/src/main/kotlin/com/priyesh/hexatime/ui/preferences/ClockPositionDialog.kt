@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime.ui
+package com.priyesh.hexatime.ui.preferences
 
 import android.app.AlertDialog
 import android.content.Context

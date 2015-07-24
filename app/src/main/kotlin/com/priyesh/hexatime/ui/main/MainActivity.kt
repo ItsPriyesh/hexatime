@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime.ui
+package com.priyesh.hexatime.ui.main
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -37,6 +37,7 @@ import com.larvalabs.svgandroid.SVGBuilder
 import com.priyesh.hexatime.R
 import com.priyesh.hexatime.core.HexatimeService
 import com.priyesh.hexatime.getPixels
+import com.priyesh.hexatime.ui
 import kotlin.properties.Delegates
 
 public class MainActivity : AppCompatActivity() {
@@ -70,38 +71,30 @@ public class MainActivity : AppCompatActivity() {
     }
 
     private fun animateIn() {
-        val backgroundAlpha = ObjectAnimator
-                .ofFloat(parentLayout, View.ALPHA, 1f)
+        val backgroundAlpha = ObjectAnimator.ofFloat(parentLayout, View.ALPHA, 1f)
                 .setDuration(500)
 
-        val logoAlpha = ObjectAnimator
-                .ofFloat(logoView, View.ALPHA, 1f)
+        val logoAlpha = ObjectAnimator.ofFloat(logoView, View.ALPHA, 1f)
                 .setDuration(400)
 
-        val logoTranslation = ObjectAnimator
-                .ofFloat(logoView, View.TRANSLATION_Y, -logoView.getHeight().toFloat())
+        val logoTranslation = ObjectAnimator.ofFloat(logoView, View.TRANSLATION_Y, -logoView.getHeight().toFloat())
                 .setDuration(400)
 
-        val activateAlpha = ObjectAnimator
-                .ofFloat(activateButton, View.ALPHA, 1f)
+        val activateAlpha = ObjectAnimator.ofFloat(activateButton, View.ALPHA, 1f)
                 .setDuration(250)
 
-        val activateTranslation = ObjectAnimator
-                .ofFloat(activateButton, View.TRANSLATION_Y,
-                        logoView.getHeight().toFloat() - activateButton.getHeight().toFloat())
+        val activateTranslation = ObjectAnimator.ofFloat(activateButton, View.TRANSLATION_Y,
+                logoView.getHeight().toFloat() - activateButton.getHeight().toFloat())
                 .setDuration(300)
 
-        val settingsAlpha = ObjectAnimator
-                .ofFloat(settingsButton, View.ALPHA, 1f)
+        val settingsAlpha = ObjectAnimator.ofFloat(settingsButton, View.ALPHA, 1f)
                 .setDuration(200)
 
-        val settingsTranslation = ObjectAnimator
-                .ofFloat(settingsButton, View.TRANSLATION_Y,
-                        logoView.getHeight().toFloat() + getPixels(24))
+        val settingsTranslation = ObjectAnimator.ofFloat(settingsButton, View.TRANSLATION_Y,
+                logoView.getHeight().toFloat() + getPixels(24))
                 .setDuration(500)
 
-        val settingsRotation = ObjectAnimator
-                .ofFloat(settingsButton, View.ROTATION, 180f)
+        val settingsRotation = ObjectAnimator.ofFloat(settingsButton, View.ROTATION, 180f)
                 .setDuration(500)
 
         val setOne = AnimatorSet()

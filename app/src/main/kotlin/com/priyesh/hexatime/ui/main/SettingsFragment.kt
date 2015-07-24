@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime.ui
+package com.priyesh.hexatime.ui.main
 
 import android.content.Intent
 import android.net.Uri
@@ -22,6 +22,8 @@ import android.os.Bundle
 import android.preference.ListPreference
 import android.preference.PreferenceFragment
 import com.priyesh.hexatime.*
+import com.priyesh.hexatime.ui.ClockPositionDialog
+import com.priyesh.hexatime.ui.preferences.SliderPreference
 
 public class SettingsFragment : PreferenceFragment() {
 

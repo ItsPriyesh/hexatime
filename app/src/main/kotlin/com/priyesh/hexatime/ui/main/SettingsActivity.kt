@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.priyesh.hexatime.ui
+package com.priyesh.hexatime.ui.main
 
 import android.content.SharedPreferences
 import android.graphics.drawable.ColorDrawable
@@ -42,8 +42,7 @@ public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedP
         super<AppCompatActivity>.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        PreferenceManager
-                .getDefaultSharedPreferences(getBaseContext())
+        PreferenceManager.getDefaultSharedPreferences(getBaseContext())
                 .registerOnSharedPreferenceChangeListener(this)
 
         val toolbar = findViewById(R.id.toolbar) as Toolbar
