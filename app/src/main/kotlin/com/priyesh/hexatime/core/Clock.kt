@@ -24,8 +24,6 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.preference.PreferenceManager
 import com.priyesh.hexatime.*
-import org.joda.time.DateTime
-import org.joda.time.Duration
 import java.util.Calendar
 import kotlin.properties.Delegates
 
