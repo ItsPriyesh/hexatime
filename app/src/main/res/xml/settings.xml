@@ -51,7 +51,7 @@
 
     <PreferenceCategory android:title="Clock Size &amp; Position">
         <ListPreference
-            android:defaultValue="2"
+            android:defaultValue="50"
             android:entries="@array/clock_size_entries"
             android:entryValues="@array/clock_size_values"
             android:key="clock_size"

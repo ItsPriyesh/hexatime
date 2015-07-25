@@ -42,11 +42,11 @@
     </string-array>
 
     <string-array name="clock_size_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
+        <item>10</item>
+        <item>30</item>
+        <item>50</item>
+        <item>70</item>
+        <item>90</item>
     </string-array>
 
     <string-array name="clock_visibility_entries">

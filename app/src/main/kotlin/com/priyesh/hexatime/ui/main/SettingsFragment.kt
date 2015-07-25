@@ -22,7 +22,7 @@ import android.os.Bundle
 import android.preference.ListPreference
 import android.preference.PreferenceFragment
 import com.priyesh.hexatime.*
-import com.priyesh.hexatime.ui.ClockPositionDialog
+import com.priyesh.hexatime.ui.preferences.ClockPositionDialog
 import com.priyesh.hexatime.ui.preferences.SliderPreference
 
 public class SettingsFragment : PreferenceFragment() {

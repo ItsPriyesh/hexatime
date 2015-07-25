@@ -34,7 +34,7 @@ public class Clock(context: Context) : PreferenceDelegate {
     private var enable24Hour = false
     private var enableNumberSign = true
     private var dividerStyle = 0
-    private var enableHexFormat = false;
+    private var enableHexFormat = false
     private var positionX = 50
     private var positionY = 50
 
@@ -75,7 +75,6 @@ public class Clock(context: Context) : PreferenceDelegate {
         paint.setAntiAlias(true)
         paint.setTextAlign(Paint.Align.CENTER)
         paint.setColor(Color.WHITE)
-        paint.setTypeface(createFont("Lato"))
 
         initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(context))
     }
@@ -93,22 +92,11 @@ public class Clock(context: Context) : PreferenceDelegate {
             KEY_ENABLE_NUMBER_SIGN -> enableNumberSign = prefs.getBoolean(key, true)
             KEY_CLOCK_DIVIDER -> dividerStyle = prefs.getString(key, "0").toInt()
             KEY_ENABLE_HEX_FORMAT -> enableHexFormat = prefs.getBoolean(key, false)
-            KEY_CLOCK_SIZE -> updateClockSize(prefs.getString(key, "2").toInt())
+            KEY_CLOCK_SIZE -> paint.setTextSize(context.getPixels(prefs.getString(key, "50").toInt()))
             KEY_CLOCK_POSITION_X -> positionX = prefs.getInt(key, 50)
             KEY_CLOCK_POSITION_Y -> positionY = prefs.getInt(key, 50)
             KEY_CLOCK_FONT -> paint.setTypeface(createFont(prefs.getString(key, "Lato")))
         }
-    }
-
-    private fun updateClockSize(sizeReference: Int) {
-        paint.setTextSize(context.getPixels(when (sizeReference) {
-            0 -> 10
-            1 -> 30
-            2 -> 50
-            3 -> 70
-            4 -> 90
-            else -> 50
-        }))
     }
 
     private fun getSecondOfDay(): Int =
