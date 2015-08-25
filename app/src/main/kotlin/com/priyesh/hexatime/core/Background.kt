@@ -33,9 +33,7 @@ public class Background(clock: Clock) : PreferenceDelegate {
 
     private fun rgbEnabled() = colorMode == 0
 
-    init {
-        initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(clock.getContext()))
-    }
+    init { initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(clock.getContext())) }
 
     private fun initializeFromPrefs(prefs: SharedPreferences) {
         val keys = arrayOf(KEY_COLOR_MODE, KEY_BACKGROUND_SATURATION, KEY_BACKGROUND_BRIGHTNESS)
@@ -43,10 +41,12 @@ public class Background(clock: Clock) : PreferenceDelegate {
     }
 
     override fun onPreferenceChange(prefs: SharedPreferences, key: String) {
+        fun getSliderValue(key: String) = (prefs.getInt(key, 50) / 100.0).toFloat()
+
         when (key) {
             KEY_COLOR_MODE -> colorMode = prefs.getString(KEY_COLOR_MODE, "0").toInt()
-            KEY_BACKGROUND_SATURATION -> saturation = (prefs.getInt(KEY_BACKGROUND_SATURATION, 50) / 100.0).toFloat()
-            KEY_BACKGROUND_BRIGHTNESS -> brightness = (prefs.getInt(KEY_BACKGROUND_BRIGHTNESS, 50) / 100.0).toFloat()
+            KEY_BACKGROUND_SATURATION -> saturation = getSliderValue(KEY_BACKGROUND_SATURATION)
+            KEY_BACKGROUND_BRIGHTNESS -> brightness = getSliderValue(KEY_BACKGROUND_BRIGHTNESS)
         }
     }
 
@@ -55,6 +55,9 @@ public class Background(clock: Clock) : PreferenceDelegate {
     private fun getRGBColor() = clock.getColor()
     private fun getHSLColor() = colorFromHSV(clock.getHue(), saturation, brightness)
 
-    private fun colorFromHSV(vararg i: Float) = Color.HSVToColor(floatArrayOf(i[0], i[1], i[2]))
+    private fun colorFromHSV(vararg i: Float): Int {
+        log("H:${i[0]} S:${i[1]} L:${i[2]}")
+        return Color.HSVToColor(floatArrayOf(i[0], i[1], i[2]))
+    }
 
 }

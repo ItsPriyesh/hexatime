@@ -43,7 +43,6 @@ public class Clock(context: Context) : PreferenceDelegate {
     private val MINUTE = Calendar.MINUTE
     private val SECOND = Calendar.SECOND
 
-    private var startOfDay = Calendar.getInstance()
     private var calendar = Calendar.getInstance()
     private var paint = Paint()
     private var canvas: Canvas by Delegates.notNull()
@@ -69,9 +68,6 @@ public class Clock(context: Context) : PreferenceDelegate {
     }
 
     init {
-        val x = arrayOf(Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND, Calendar.MILLISECOND)
-        for (y in x) startOfDay.set(y, 0)
-
         paint.setAntiAlias(true)
         paint.setTextAlign(Paint.Align.CENTER)
         paint.setColor(Color.WHITE)
@@ -99,8 +95,9 @@ public class Clock(context: Context) : PreferenceDelegate {
         }
     }
 
-    private fun getSecondOfDay(): Int =
-            ((calendar.getTimeInMillis() - startOfDay.getTimeInMillis()) / 1000).toInt()
+    private fun getSecondOfDay() = calendar.get(Calendar.HOUR_OF_DAY) * 3600 +
+            calendar.get(Calendar.MINUTE) * 60 +
+            calendar.get(Calendar.SECOND)
 
     public fun getColor(): Int = Color.parseColor(getHexString())
     public fun getHue(): Float = getSecondOfDay() / 240f
@@ -135,8 +132,6 @@ public class Clock(context: Context) : PreferenceDelegate {
         this.canvas = canvas
     }
 
-    public fun getContext(): Context {
-        return context
-    }
+    public fun getContext(): Context = context
 
 }
