@@ -63,7 +63,7 @@
 
     <string-array name="color_mode_entries">
         <item>RGB</item>
-        <item>HSL</item>
+        <item>HSB</item>
     </string-array>
 
     <string-array name="color_mode_values">

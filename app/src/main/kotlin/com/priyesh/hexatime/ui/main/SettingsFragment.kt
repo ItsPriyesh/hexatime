@@ -41,18 +41,18 @@ public class SettingsFragment : PreferenceFragment() {
         }
 
         val saturation = findPreference(KEY_BACKGROUND_SATURATION)
-        val lightness = findPreference(KEY_BACKGROUND_BRIGHTNESS)
+        val brightness = findPreference(KEY_BACKGROUND_BRIGHTNESS)
 
-        fun updateHSLPrefs(hslEnabled: Boolean): Unit {
+        fun updateHSBPrefs(hslEnabled: Boolean): Unit {
             saturation setEnabled hslEnabled
-            lightness setEnabled hslEnabled
+            brightness setEnabled hslEnabled
         }
 
         val colorMode = findPreference(KEY_COLOR_MODE) as ListPreference
-        updateHSLPrefs(colorMode.getValue() equals "1")
+        updateHSBPrefs(colorMode.getValue() equals "1")
 
         findPreference(KEY_COLOR_MODE) setOnPreferenceChangeListener { preference, newValue ->
-            updateHSLPrefs(newValue as String equals "1")
+            updateHSBPrefs(newValue as String equals "1")
             true
         }
 
@@ -62,7 +62,7 @@ public class SettingsFragment : PreferenceFragment() {
         }
 
         findPreference(KEY_BACKGROUND_BRIGHTNESS) setOnPreferenceClickListener {
-            SliderPreference("Lightness", KEY_BACKGROUND_BRIGHTNESS, context).display()
+            SliderPreference("Brightness", KEY_BACKGROUND_BRIGHTNESS, context).display()
             true
         }
 

@@ -78,7 +78,7 @@
             android:entries="@array/color_mode_entries"
             android:entryValues="@array/color_mode_values"
             android:key="color_mode"
-            android:summary="Switch between RGB and HSL color modes"
+            android:summary="Switch between RGB and HSB color modes"
             android:title="Color mode" />
         <Preference
             android:enabled="false"

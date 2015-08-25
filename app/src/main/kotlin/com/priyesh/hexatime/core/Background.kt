@@ -50,12 +50,12 @@ public class Background(clock: Clock) : PreferenceDelegate {
         }
     }
 
-    public fun getColor(): Int = if (rgbEnabled()) getRGBColor() else getHSLColor()
+    public fun getColor(): Int = if (rgbEnabled()) getRGBColor() else getHSBColor()
 
     private fun getRGBColor() = clock.getColor()
-    private fun getHSLColor() = colorFromHSV(clock.getHue(), saturation, brightness)
+    private fun getHSBColor() = colorFromHSB(clock.getHue(), saturation, brightness)
 
-    private fun colorFromHSV(vararg i: Float): Int {
+    private fun colorFromHSB(vararg i: Float): Int {
         log("H:${i[0]} S:${i[1]} L:${i[2]}")
         return Color.HSVToColor(floatArrayOf(i[0], i[1], i[2]))
     }

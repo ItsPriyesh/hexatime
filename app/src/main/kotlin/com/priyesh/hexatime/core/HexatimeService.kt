@@ -103,6 +103,7 @@ public class HexatimeService : WallpaperService() {
         }
 
         private fun draw(canvas: Canvas) {
+
             canvas.drawColor(background.getColor())
 
             if (shouldDrawClock()) {
@@ -111,9 +112,8 @@ public class HexatimeService : WallpaperService() {
             }
         }
 
-        private fun shouldDrawClock() =
-                clockVisibility == ALWAYS_VISIBLE
-                        || (clockVisibility == HIDDEN_LOCK_SCREEN && !isOnLockScreen())
+        private fun shouldDrawClock() = clockVisibility == ALWAYS_VISIBLE ||
+                (clockVisibility == HIDDEN_LOCK_SCREEN && !isOnLockScreen())
 
         private fun isOnLockScreen() =
                 (getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager)
