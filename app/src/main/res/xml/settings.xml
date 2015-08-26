@@ -21,13 +21,11 @@
             android:defaultValue="false"
             android:key="enable_24_hour"
             android:title="Use 24-hour format" />
-
         <SwitchPreference
             android:defaultValue="true"
             android:key="enable_number_sign"
             android:summary="Toggle the visibility of the number sign"
             android:title="Show number sign" />
-
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/clock_divider_entries"
@@ -35,13 +33,11 @@
             android:key="clock_divider"
             android:summary="Pick the character to use as a divider"
             android:title="Divider style" />
-
         <SwitchPreference
             android:defaultValue="false"
             android:key="enable_hex_format"
             android:summary="Display time as a hexadecimal string"
             android:title="Format as hexadecimal" />
-
         <com.priyesh.hexatime.ui.FontListPreference
             android:defaultValue="Lato"
             android:key="clock_font"
@@ -57,12 +53,10 @@
             android:key="clock_size"
             android:summary="Adjust the size of the clock"
             android:title="Clock size" />
-
         <Preference
             android:key="clock_position"
             android:summary="Set horizontal &amp; vertical placement"
             android:title="Clock position" />
-
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/clock_visibility_entries"
@@ -99,19 +93,29 @@
             android:summary="Displays pattern above colored background"
             android:title="Enable image overlay" />
         <ListPreference
-            android:key="background_overlay"
             android:defaultValue="0"
             android:dependency="enable_background_overlay"
             android:entries="@array/background_overlay_entries"
             android:entryValues="@array/background_overlay_values"
+            android:key="background_overlay"
             android:summary="Select the pattern to overlay"
             android:title="Overlay pattern" />
+        <Preference
+            android:dependency="enable_background_overlay"
+            android:key="background_overlay_opacity"
+            android:summary="Adjust transparency of overlay pattern"
+            android:title="Overlay opacity" />
+        <Preference
+            android:dependency="enable_background_overlay"
+            android:key="background_overlay_scale"
+            android:summary="Resize overlay pattern"
+            android:title="Overlay scale" />
     </PreferenceCategory>
+
     <PreferenceCategory android:title="About">
         <Preference
             android:key="version"
             android:title="Version" />
-
         <Preference
             android:key="source"
             android:summary="View this apps source code"

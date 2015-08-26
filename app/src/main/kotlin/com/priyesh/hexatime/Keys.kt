@@ -33,3 +33,5 @@ public val KEY_BACKGROUND_BRIGHTNESS: String = "background_brightness"
 
 public val KEY_ENABLE_BACKGROUND_OVERLAY: String = "enable_background_overlay"
 public val KEY_BACKGROUND_OVERLAY: String = "background_overlay"
+public val KEY_BACKGROUND_OVERLAY_OPACITY: String = "background_overlay_opacity"
+public val KEY_BACKGROUND_OVERLAY_SCALE: String = "background_overlay_scale"

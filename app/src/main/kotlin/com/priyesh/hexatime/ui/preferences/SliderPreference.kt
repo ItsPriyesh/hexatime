@@ -25,7 +25,7 @@ import android.widget.TextView
 import com.priyesh.hexatime.R
 import kotlin.properties.Delegates
 
-public class SliderPreference(val title: String, val key: String, context: Context) :
+public class SliderPreference(val title: String, val key: String, val def: Int, context: Context) :
         AlertDialog.Builder(context) {
 
     private var progressLabel: TextView by Delegates.notNull()
@@ -38,7 +38,7 @@ public class SliderPreference(val title: String, val key: String, context: Conte
         progressLabel = view.findViewById(R.id.progress_label) as TextView
         val slider = view.findViewById(R.id.seekbar) as SeekBar
 
-        val currentProgress = prefs.getInt(key, 50)
+        val currentProgress = prefs.getInt(key, def)
         updateProgressLabel(currentProgress)
         slider.setProgress(currentProgress)
 

@@ -35,11 +35,6 @@ public class SettingsFragment : PreferenceFragment() {
 
         val context = getActivity()
 
-        findPreference("clock_position").setOnPreferenceClickListener {
-            ClockPositionDialog(context).create().show()
-            true
-        }
-
         val saturation = findPreference(KEY_BACKGROUND_SATURATION)
         val brightness = findPreference(KEY_BACKGROUND_BRIGHTNESS)
 
@@ -56,24 +51,42 @@ public class SettingsFragment : PreferenceFragment() {
             true
         }
 
-        findPreference(KEY_BACKGROUND_SATURATION) setOnPreferenceClickListener {
-            SliderPreference("Saturation", KEY_BACKGROUND_SATURATION, context).display()
-            true
+        onPreferenceClick("clock_position", { ClockPositionDialog(context).create().show() })
+
+        fun displaySlider(title: String, key: String, def: Int): Unit {
+            SliderPreference(title, key, def, context).display()
         }
 
-        findPreference(KEY_BACKGROUND_BRIGHTNESS) setOnPreferenceClickListener {
-            SliderPreference("Brightness", KEY_BACKGROUND_BRIGHTNESS, context).display()
-            true
-        }
+        onPreferenceClick(KEY_BACKGROUND_SATURATION, {
+            displaySlider("Saturation", KEY_BACKGROUND_SATURATION, 50)
+        })
 
-        findPreference("version") setSummary(VERSION_STRING)
+        onPreferenceClick(KEY_BACKGROUND_BRIGHTNESS, {
+            displaySlider("Brightness", KEY_BACKGROUND_BRIGHTNESS, 50)
+        })
 
-        findPreference("source") setOnPreferenceClickListener {
+        onPreferenceClick(KEY_BACKGROUND_OVERLAY_OPACITY, {
+            displaySlider("Overlay opacity", KEY_BACKGROUND_OVERLAY_OPACITY, 10)
+        })
+
+        onPreferenceClick(KEY_BACKGROUND_OVERLAY_SCALE, {
+            displaySlider("Overlay scale", KEY_BACKGROUND_OVERLAY_SCALE, 50)
+        })
+
+        onPreferenceClick("source", {
             val intent = Intent()
             intent setAction Intent.ACTION_VIEW
             intent addCategory Intent.CATEGORY_BROWSABLE
             intent setData Uri.parse("https://github.com/ItsPriyesh/HexaTime")
             startActivity(intent)
+        })
+
+        findPreference("version") setSummary(VERSION_STRING)
+    }
+
+    private fun onPreferenceClick(key: String, onClick: () -> Unit) {
+        findPreference(key) setOnPreferenceClickListener {
+            onClick()
             true
         }
     }
