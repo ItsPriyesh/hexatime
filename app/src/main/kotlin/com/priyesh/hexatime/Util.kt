@@ -18,6 +18,7 @@ package com.priyesh.hexatime
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Point
 import android.util.Log
 import android.view.WindowManager
 
@@ -33,6 +34,12 @@ public fun darkenColor(color: Int, factor: Float): Int {
     return Color.HSVToColor(hsv);
 }
 
-public fun getScreenWidth(c: Context): Int = getDisplayMetrics(c).widthPixels
-public fun getScreenHeight(c: Context): Int = getDisplayMetrics(c).heightPixels
-private fun getDisplayMetrics(c: Context) = c.getResources().getDisplayMetrics()
+public fun getScreenWidth(c: Context): Int = getScreenSize(c).x
+public fun getScreenHeight(c: Context): Int = getScreenSize(c).y
+
+private fun getScreenSize(c: Context): Point {
+    val display = (c.getSystemService(Context.WINDOW_SERVICE) as WindowManager).getDefaultDisplay()
+    val point = Point()
+    display.getRealSize(point)
+    return point
+}
