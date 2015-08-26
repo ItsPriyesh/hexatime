@@ -16,6 +16,8 @@
 
 package com.priyesh.hexatime
 
+public val KEY_FIRST_RUN: String = "first_run"
+
 public val KEY_ENABLE_24_HOUR: String = "enable_24_hour"
 public val KEY_ENABLE_NUMBER_SIGN: String = "enable_number_sign"
 public val KEY_CLOCK_DIVIDER: String = "clock_divider"

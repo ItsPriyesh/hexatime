@@ -25,6 +25,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -34,10 +35,10 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import com.larvalabs.svgandroid.SVGBuilder
+import com.priyesh.hexatime.KEY_FIRST_RUN
 import com.priyesh.hexatime.R
 import com.priyesh.hexatime.core.HexatimeService
 import com.priyesh.hexatime.getPixels
-import com.priyesh.hexatime.ui
 import kotlin.properties.Delegates
 
 public class MainActivity : AppCompatActivity() {
@@ -70,32 +71,46 @@ public class MainActivity : AppCompatActivity() {
         parentLayout.post { handler.postDelayed({ animateIn() }, 400) }
     }
 
+    private fun firstRun(): Boolean {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        if (prefs.getBoolean(KEY_FIRST_RUN, true)) {
+            prefs.edit().putBoolean(KEY_FIRST_RUN, false).commit()
+            return true
+        } else return false
+    }
+
     private fun animateIn() {
+        fun Int.percentOf(l: Long): Long = ((this / 100.0) * l).toLong()
+
+        val firstRun = firstRun()
+        val setOneDuration: Long = if (firstRun) 1850 else 50 percentOf 1850
+        val setTwoDuration: Long = if (firstRun) 500 else 50 percentOf 500
+
         val backgroundAlpha = ObjectAnimator.ofFloat(parentLayout, View.ALPHA, 1f)
-                .setDuration(500)
+                .setDuration(27 percentOf setOneDuration)
 
         val logoAlpha = ObjectAnimator.ofFloat(logoView, View.ALPHA, 1f)
-                .setDuration(400)
+                .setDuration(22 percentOf setOneDuration)
 
         val logoTranslation = ObjectAnimator.ofFloat(logoView, View.TRANSLATION_Y, -logoView.getHeight().toFloat())
-                .setDuration(400)
+                .setDuration(22 percentOf setOneDuration)
 
         val activateAlpha = ObjectAnimator.ofFloat(activateButton, View.ALPHA, 1f)
-                .setDuration(250)
+                .setDuration(14 percentOf setOneDuration)
 
         val activateTranslation = ObjectAnimator.ofFloat(activateButton, View.TRANSLATION_Y,
                 logoView.getHeight().toFloat() - activateButton.getHeight().toFloat())
-                .setDuration(300)
+                .setDuration(15 percentOf setOneDuration)
 
         val settingsAlpha = ObjectAnimator.ofFloat(settingsButton, View.ALPHA, 1f)
-                .setDuration(200)
+                .setDuration(40 percentOf setTwoDuration)
 
         val settingsTranslation = ObjectAnimator.ofFloat(settingsButton, View.TRANSLATION_Y,
                 logoView.getHeight().toFloat() + getPixels(24))
-                .setDuration(500)
+                .setDuration(setTwoDuration)
 
         val settingsRotation = ObjectAnimator.ofFloat(settingsButton, View.ROTATION, 180f)
-                .setDuration(500)
+                .setDuration(setTwoDuration)
 
         val setOne = AnimatorSet()
         setOne.setInterpolator(AccelerateDecelerateInterpolator())
@@ -109,7 +124,7 @@ public class MainActivity : AppCompatActivity() {
 
         val setTwo = AnimatorSet()
         setTwo.setInterpolator(FastOutSlowInInterpolator())
-        setTwo.setStartDelay(500 + 400 + 400 + 250 + 300)
+        setTwo.setStartDelay(setOneDuration)
         setTwo.playTogether(
                 settingsAlpha,
                 settingsTranslation,
