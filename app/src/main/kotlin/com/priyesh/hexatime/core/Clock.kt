@@ -45,7 +45,7 @@ public class Clock(context: Context) : PreferenceDelegate {
 
     private var calendar = Calendar.getInstance()
     private var paint = Paint()
-    private var canvas: Canvas by Delegates.notNull()
+    private var canvasDimensions: Pair<Int, Int> by Delegates.notNull()
 
     private fun hour() =
             if (enable24Hour) calendar.get(HOUR_24)
@@ -120,15 +120,13 @@ public class Clock(context: Context) : PreferenceDelegate {
 
     public fun getPaint(): Paint = paint
 
-    public fun getX(): Float =
-            (canvas.getWidth() * (positionX / 100.0)).toFloat()
+    public fun getX(): Float = (canvasDimensions.first * (positionX / 100.0)).toFloat()
 
-    public fun getY(): Float =
-            ((canvas.getHeight() - (paint.descent() + paint.ascent()) / 2)
-                    * ((100 - positionY) / 100.0)).toFloat()
+    public fun getY(): Float = ((canvasDimensions.second - (paint.descent() + paint.ascent()) / 2)
+            * ((100 - positionY) / 100.0)).toFloat()
 
-    public fun updateCanvas(canvas: Canvas) {
-        this.canvas = canvas
+    public fun updateDimensions(dimens: Pair<Int, Int>) {
+        canvasDimensions = dimens
     }
 
     public fun getContext(): Context = context

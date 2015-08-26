@@ -35,8 +35,6 @@ public class Background(clock: Clock) : PreferenceDelegate {
 
     private var overlay: BitmapDrawable by Delegates.notNull()
 
-    private fun rgbEnabled() = colorMode == 0
-
     init { initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(clock.getContext())) }
 
     private fun initializeFromPrefs(prefs: SharedPreferences) {
@@ -66,9 +64,12 @@ public class Background(clock: Clock) : PreferenceDelegate {
 
     public fun getColor(): Int = if (rgbEnabled()) getRGBColor() else getHSBColor()
 
+    private fun rgbEnabled() = colorMode == 0
     private fun getRGBColor() = clock.getColor()
     private fun getHSBColor() = colorFromHSB(clock.getHue(), saturation, brightness)
     private fun colorFromHSB(vararg i: Float) = Color.HSVToColor(floatArrayOf(i[0], i[1], i[2]))
+
+    public fun getBackgroundOverlay(): BitmapDrawable = overlay
 
     private fun getOverlayId(i: Int) = when (i) {
         0 -> R.drawable.overlay_dots
@@ -91,7 +92,5 @@ public class Background(clock: Clock) : PreferenceDelegate {
         overlay.setAlpha(opacity)
         overlay.setBounds(0, 0, getScreenWidth(context), getScreenHeight(context))
     }
-
-    public fun getBackgroundOverlay(): BitmapDrawable = overlay
 
 }

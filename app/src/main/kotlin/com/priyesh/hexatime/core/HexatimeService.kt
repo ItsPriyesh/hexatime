@@ -112,7 +112,8 @@ public class HexatimeService : WallpaperService() {
             if (enableBackgroundOverlay) background.getBackgroundOverlay().draw(canvas)
 
             if (shouldDrawClock()) {
-                clock.updateCanvas(canvas)
+                clock.updateDimensions(Pair(canvas.getWidth(), canvas.getHeight()))
+                clock.updateCalendar()
                 canvas.drawText(clock.getTime(), clock.getX(), clock.getY(), clock.getPaint())
             }
 

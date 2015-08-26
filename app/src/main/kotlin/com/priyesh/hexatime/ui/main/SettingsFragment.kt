@@ -85,10 +85,7 @@ public class SettingsFragment : PreferenceFragment() {
     }
 
     private fun onPreferenceClick(key: String, onClick: () -> Unit) {
-        findPreference(key) setOnPreferenceClickListener {
-            onClick()
-            true
-        }
+        findPreference(key) setOnPreferenceClickListener { onClick(); true }
     }
 
 }
