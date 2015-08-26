@@ -68,11 +68,7 @@ public class Background(clock: Clock) : PreferenceDelegate {
 
     private fun getRGBColor() = clock.getColor()
     private fun getHSBColor() = colorFromHSB(clock.getHue(), saturation, brightness)
-
-    private fun colorFromHSB(vararg i: Float): Int {
-        log("H:${i[0]} S:${i[1]} L:${i[2]}")
-        return Color.HSVToColor(floatArrayOf(i[0], i[1], i[2]))
-    }
+    private fun colorFromHSB(vararg i: Float) = Color.HSVToColor(floatArrayOf(i[0], i[1], i[2]))
 
     private fun getOverlayId(i: Int) = when (i) {
         0 -> R.drawable.overlay_dots
