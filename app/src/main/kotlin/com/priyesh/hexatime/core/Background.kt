@@ -77,6 +77,8 @@ public class Background(clock: Clock) : PreferenceDelegate {
     private fun getOverlayId(i: Int) = when (i) {
         0 -> R.drawable.overlay_dots
         1 -> R.drawable.overlay_hex
+        2 -> R.drawable.overlay_circles
+        3 -> R.drawable.overlay_grid
         else -> R.drawable.overlay_dots
     }
 
