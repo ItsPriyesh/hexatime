@@ -96,8 +96,7 @@ public class Clock(context: Context) : PreferenceDelegate {
     }
 
     private fun getSecondOfDay() = calendar.get(Calendar.HOUR_OF_DAY) * 3600 +
-            calendar.get(Calendar.MINUTE) * 60 +
-            calendar.get(Calendar.SECOND)
+            calendar.get(Calendar.MINUTE) * 60 + calendar.get(Calendar.SECOND)
 
     public fun getColor(): Int = Color.parseColor(getHexString())
     public fun getHue(): Float = getSecondOfDay() / 240f

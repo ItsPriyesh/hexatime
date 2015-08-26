@@ -30,3 +30,6 @@ public val KEY_CLOCK_POSITION_Y: String = "clock_position_y"
 public val KEY_COLOR_MODE: String = "color_mode"
 public val KEY_BACKGROUND_SATURATION: String = "background_saturation"
 public val KEY_BACKGROUND_BRIGHTNESS: String = "background_brightness"
+
+public val KEY_ENABLE_BACKGROUND_OVERLAY: String = "enable_background_overlay"
+public val KEY_BACKGROUND_OVERLAY: String = "background_overlay"

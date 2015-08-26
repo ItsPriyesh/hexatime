@@ -27,6 +27,7 @@ import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
 import com.priyesh.hexatime.EngineIntermediate
 import com.priyesh.hexatime.KEY_CLOCK_VISIBILITY
+import com.priyesh.hexatime.KEY_ENABLE_BACKGROUND_OVERLAY
 import com.priyesh.hexatime.log
 import kotlin.properties.Delegates
 
@@ -51,6 +52,7 @@ public class HexatimeService : WallpaperService() {
         private var clock = Clock(getBaseContext())
         private var background = Background(clock)
         private var clockVisibility = 0
+        private var enableBackgroundOverlay = false
 
         private val ALWAYS_VISIBLE = 0
         private val HIDDEN_LOCK_SCREEN = 2
@@ -64,6 +66,7 @@ public class HexatimeService : WallpaperService() {
             clockDelegate = clock
             backgroundDelegate = background
             clockVisibility = prefs.getString(KEY_CLOCK_VISIBILITY, "0").toInt()
+            enableBackgroundOverlay = prefs.getBoolean(KEY_ENABLE_BACKGROUND_OVERLAY, false)
         }
 
         override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
@@ -72,6 +75,7 @@ public class HexatimeService : WallpaperService() {
 
             when (key) {
                 KEY_CLOCK_VISIBILITY -> clockVisibility = prefs.getString(key, "0").toInt()
+                KEY_ENABLE_BACKGROUND_OVERLAY -> enableBackgroundOverlay = prefs.getBoolean(key, false)
             }
         }
 
@@ -103,13 +107,15 @@ public class HexatimeService : WallpaperService() {
         }
 
         private fun draw(canvas: Canvas) {
-
             canvas.drawColor(background.getColor())
+
+            if (enableBackgroundOverlay) background.getBackgroundOverlay().draw(canvas)
 
             if (shouldDrawClock()) {
                 clock.updateCanvas(canvas)
                 canvas.drawText(clock.getTime(), clock.getX(), clock.getY(), clock.getPaint())
             }
+
         }
 
         private fun shouldDrawClock() = clockVisibility == ALWAYS_VISIBLE ||

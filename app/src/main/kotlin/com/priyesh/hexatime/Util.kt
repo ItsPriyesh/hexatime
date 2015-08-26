@@ -19,6 +19,7 @@ package com.priyesh.hexatime
 import android.content.Context
 import android.graphics.Color
 import android.util.Log
+import android.view.WindowManager
 
 public fun Context.getPixels(dpValue: Int): Float =
         dpValue * getResources().getDisplayMetrics().density + 0.5f
@@ -31,3 +32,7 @@ public fun darkenColor(color: Int, factor: Float): Int {
     hsv[2] *= factor
     return Color.HSVToColor(hsv);
 }
+
+public fun getScreenWidth(c: Context): Int = getDisplayMetrics(c).widthPixels
+public fun getScreenHeight(c: Context): Int = getDisplayMetrics(c).heightPixels
+private fun getDisplayMetrics(c: Context) = c.getResources().getDisplayMetrics()

@@ -45,8 +45,8 @@
         <com.priyesh.hexatime.ui.FontListPreference
             android:defaultValue="Lato"
             android:key="clock_font"
-            android:title="Font"
-            android:summary="Choose the clocks typeface" />
+            android:summary="Choose the clocks typeface"
+            android:title="Font" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Clock Size &amp; Position">
@@ -92,6 +92,21 @@
             android:title="Brightness" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="Background Overlays">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="enable_background_overlay"
+            android:summary="Displays pattern above colored background"
+            android:title="Enable image overlay" />
+        <ListPreference
+            android:key="background_overlay"
+            android:defaultValue="0"
+            android:dependency="enable_background_overlay"
+            android:entries="@array/background_overlay_entries"
+            android:entryValues="@array/background_overlay_values"
+            android:summary="Select the pattern to overlay"
+            android:title="Overlay pattern" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="About">
         <Preference
             android:key="version"

@@ -17,12 +17,14 @@
 package com.priyesh.hexatime.core
 
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Shader
+import android.graphics.drawable.BitmapDrawable
 import android.preference.PreferenceManager
-import com.priyesh.hexatime.KEY_BACKGROUND_BRIGHTNESS
-import com.priyesh.hexatime.KEY_BACKGROUND_SATURATION
-import com.priyesh.hexatime.KEY_COLOR_MODE
-import com.priyesh.hexatime.log
+import com.priyesh.hexatime.*
+import kotlin.properties.Delegates
 
 public class Background(clock: Clock) : PreferenceDelegate {
 
@@ -30,23 +32,27 @@ public class Background(clock: Clock) : PreferenceDelegate {
     private var colorMode = 0
     private var saturation: Float = 0.5f
     private var brightness: Float = 0.5f
+    private var overlay: BitmapDrawable by Delegates.notNull()
 
     private fun rgbEnabled() = colorMode == 0
 
     init { initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(clock.getContext())) }
 
     private fun initializeFromPrefs(prefs: SharedPreferences) {
-        val keys = arrayOf(KEY_COLOR_MODE, KEY_BACKGROUND_SATURATION, KEY_BACKGROUND_BRIGHTNESS)
+        val keys = arrayOf(KEY_COLOR_MODE, KEY_BACKGROUND_SATURATION,
+                KEY_BACKGROUND_BRIGHTNESS, KEY_BACKGROUND_OVERLAY)
         for (key in keys) onPreferenceChange(prefs, key)
     }
 
     override fun onPreferenceChange(prefs: SharedPreferences, key: String) {
         fun getSliderValue(key: String) = (prefs.getInt(key, 50) / 100.0).toFloat()
+        fun getInt(key: String) = prefs.getString(key, "0").toInt()
 
         when (key) {
-            KEY_COLOR_MODE -> colorMode = prefs.getString(KEY_COLOR_MODE, "0").toInt()
             KEY_BACKGROUND_SATURATION -> saturation = getSliderValue(KEY_BACKGROUND_SATURATION)
             KEY_BACKGROUND_BRIGHTNESS -> brightness = getSliderValue(KEY_BACKGROUND_BRIGHTNESS)
+            KEY_COLOR_MODE -> colorMode = getInt(KEY_COLOR_MODE)
+            KEY_BACKGROUND_OVERLAY -> updateOverlay(getInt(KEY_BACKGROUND_OVERLAY))
         }
     }
 
@@ -59,5 +65,23 @@ public class Background(clock: Clock) : PreferenceDelegate {
         log("H:${i[0]} S:${i[1]} L:${i[2]}")
         return Color.HSVToColor(floatArrayOf(i[0], i[1], i[2]))
     }
+
+    private fun getOverlayId(i: Int) = when (i) {
+        0 -> R.drawable.overlay_dots
+        1 -> R.drawable.overlay_hex
+        else -> R.drawable.overlay_dots
+    }
+
+    private fun updateOverlay(newValue: Int) {
+        val context = clock.getContext()
+        val res = context.getResources()
+        val bitmap = BitmapFactory.decodeResource(res, getOverlayId(newValue))
+        overlay = BitmapDrawable(res, bitmap)
+        overlay.setTileModeX(Shader.TileMode.REPEAT)
+        overlay.setTileModeY(Shader.TileMode.REPEAT)
+        overlay.setBounds(0, 0, getScreenWidth(context), getScreenHeight(context))
+    }
+
+    public fun getBackgroundOverlay(): BitmapDrawable = overlay
 
 }
