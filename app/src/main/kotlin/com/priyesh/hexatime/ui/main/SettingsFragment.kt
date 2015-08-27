@@ -16,6 +16,7 @@
 
 package com.priyesh.hexatime.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -24,10 +25,13 @@ import android.preference.PreferenceFragment
 import com.priyesh.hexatime.*
 import com.priyesh.hexatime.ui.preferences.ClockPositionDialog
 import com.priyesh.hexatime.ui.preferences.SliderPreference
+import de.psdev.licensesdialog.LicensesDialog
+import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20
+import de.psdev.licensesdialog.licenses.License
+import de.psdev.licensesdialog.model.Notice
+import de.psdev.licensesdialog.model.Notices
 
 public class SettingsFragment : PreferenceFragment() {
-
-    private val VERSION_STRING = "${BuildConfig.VERSION_NAME} - ${BuildConfig.BUILD_TYPE}"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,11 +85,51 @@ public class SettingsFragment : PreferenceFragment() {
             startActivity(intent)
         })
 
-        findPreference("version") setSummary(VERSION_STRING)
+        onPreferenceClick("licenses", {
+            val notices = Notices(); noticeList forEach { notices.addNotice(it) }
+            LicensesDialog.Builder(context).setNotices(notices).build().show()
+        })
+
+        findPreference("version") setSummary("${BuildConfig.VERSION_NAME} - ${BuildConfig.BUILD_TYPE}")
     }
 
     private fun onPreferenceClick(key: String, onClick: () -> Unit) {
         findPreference(key) setOnPreferenceClickListener { onClick(); true }
+    }
+
+    private val noticeList = arrayOf(
+            Notice("Android Support Library",
+                    "http://developer.android.com/tools/support-library/",
+                    "Copyright (C) 2011 The Android Open Source Project",
+                    ApacheSoftwareLicense20()),
+            Notice("SVG Android",
+                    "https://github.com/japgolly/svg-android",
+                    "Copyright 2011 Larva Labs LLC and Google, Inc.",
+                    ApacheSoftwareLicense20()),
+            Notice("Paisley (Background Overlay)",
+                    "http://subtlepatterns.com/paisley/",
+                    "Copyright 2013 Atle Mo - Subtle Patterns",
+                    CreativeCommonsAttributionShareAlike30()),
+            Notice("Sativa (Background Overlay)",
+                    "http://subtlepatterns.com/sativa/",
+                    "Copyright 2013 Atle Mo - Subtle Patterns",
+                    CreativeCommonsAttributionShareAlike30()),
+            Notice("Skulls (Background Overlay)",
+                    "http://subtlepatterns.com/skulls/",
+                    "Copyright 2013 Atle Mo - Subtle Patterns",
+                    CreativeCommonsAttributionShareAlike30()),
+            Notice("LicensesDialog",
+                    "http://psdev.de",
+                    "Copyright 2013 Philip Schiffer <admin@psdev.de>",
+                    ApacheSoftwareLicense20())
+    )
+
+    private class CreativeCommonsAttributionShareAlike30 : License() {
+        override fun getVersion() = "3.0"
+        override fun getName() = "Creative Commons Attribution-ShareAlike 3.0"
+        override fun getUrl() = "https://creativecommons.org/licenses/by-sa/3.0/us/"
+        override fun readFullTextFromResources(c: Context) = getContent(c, R.raw.cc_sharealike_full)
+        override fun readSummaryTextFromResources(c: Context) = getContent(c, R.raw.cc_sharealike_summary)
     }
 
 }
