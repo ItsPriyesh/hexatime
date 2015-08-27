@@ -124,5 +124,9 @@
             android:title="Open source licenses"
             android:summary="Details for open content used in this app"
             android:key="licenses" />
+        <Preference
+            android:title="Donate"
+            android:summary="Show some love"
+            android:key="donate" />
     </PreferenceCategory>
 </PreferenceScreen>

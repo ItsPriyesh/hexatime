@@ -77,13 +77,9 @@ public class SettingsFragment : PreferenceFragment() {
             displaySlider("Overlay scale", KEY_BACKGROUND_OVERLAY_SCALE, 50)
         })
 
-        onPreferenceClick("source", {
-            val intent = Intent()
-            intent setAction Intent.ACTION_VIEW
-            intent addCategory Intent.CATEGORY_BROWSABLE
-            intent setData Uri.parse("https://github.com/ItsPriyesh/HexaTime")
-            startActivity(intent)
-        })
+        onPreferenceClick("source", { openLink(string(R.string.url_source)) })
+
+        onPreferenceClick("donate", { openLink(string(R.string.url_donate)) })
 
         onPreferenceClick("licenses", {
             val notices = Notices(); noticeList forEach { notices.addNotice(it) }
@@ -91,6 +87,16 @@ public class SettingsFragment : PreferenceFragment() {
         })
 
         findPreference("version") setSummary("${BuildConfig.VERSION_NAME} - ${BuildConfig.BUILD_TYPE}")
+    }
+
+    private fun string(id: Int) = getActivity().getResources().getString(id)
+
+    private fun openLink(url: String) {
+        val intent = Intent()
+        intent setAction Intent.ACTION_VIEW
+        intent addCategory Intent.CATEGORY_BROWSABLE
+        intent setData Uri.parse(url)
+        startActivity(intent)
     }
 
     private fun onPreferenceClick(key: String, onClick: () -> Unit) {

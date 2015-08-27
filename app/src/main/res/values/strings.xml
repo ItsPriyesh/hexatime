@@ -1,11 +1,6 @@
 <resources>
     <string name="app_name">HexaTime</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="url_source">https://github.com/ItsPriyesh/HexaTime</string>
+    <string name="url_donate" formatted="false">https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=XR9WBFXGZ9G5E&amp;lc=CA&amp;item_name=Priyesh%20Patel&amp;currency_code=CAD&amp;bn=PP%2dDonationsBF%3aEmergency%2dButtom%2ejpg%3aNonHosted</string>
 </resources>
