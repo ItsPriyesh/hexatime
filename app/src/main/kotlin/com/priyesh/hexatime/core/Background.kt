@@ -76,6 +76,9 @@ public class Background(clock: Clock) : PreferenceDelegate {
         1 -> R.drawable.overlay_hex
         2 -> R.drawable.overlay_circles
         3 -> R.drawable.overlay_grid
+        4 -> R.drawable.overlay_paisley
+        5 -> R.drawable.overlay_sativa
+        6 -> R.drawable.overlay_skulls
         else -> R.drawable.overlay_dots
     }
 
