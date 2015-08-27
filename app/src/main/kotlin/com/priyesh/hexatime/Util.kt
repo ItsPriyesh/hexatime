@@ -19,6 +19,7 @@ package com.priyesh.hexatime
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
+import android.os.Build
 import android.util.Log
 import android.view.WindowManager
 
@@ -43,3 +44,5 @@ private fun getScreenSize(c: Context): Point {
     display.getRealSize(point)
     return point
 }
+
+public fun isLollipop(): Boolean = Build.VERSION.SDK_INT >= 21

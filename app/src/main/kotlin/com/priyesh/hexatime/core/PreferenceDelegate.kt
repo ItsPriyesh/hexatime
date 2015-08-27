@@ -22,4 +22,5 @@ interface PreferenceDelegate {
 
     fun onPreferenceChange(prefs: SharedPreferences, key: String)
 
+    fun initializeFromPrefs(prefs: SharedPreferences)
 }

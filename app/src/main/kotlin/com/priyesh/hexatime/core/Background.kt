@@ -37,7 +37,7 @@ public class Background(clock: Clock) : PreferenceDelegate {
 
     init { initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(clock.getContext())) }
 
-    private fun initializeFromPrefs(prefs: SharedPreferences) {
+    override fun initializeFromPrefs(prefs: SharedPreferences) {
         val keys = arrayOf(KEY_COLOR_MODE, KEY_BACKGROUND_SATURATION,
                 KEY_BACKGROUND_BRIGHTNESS, KEY_BACKGROUND_OVERLAY,
                 KEY_BACKGROUND_OVERLAY_OPACITY, KEY_BACKGROUND_OVERLAY_SCALE)
