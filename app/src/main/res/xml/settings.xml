@@ -129,4 +129,5 @@
             android:summary="Show some love"
             android:key="donate" />
     </PreferenceCategory>
+
 </PreferenceScreen>

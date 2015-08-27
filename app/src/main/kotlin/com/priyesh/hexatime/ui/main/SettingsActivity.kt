@@ -18,10 +18,10 @@ package com.priyesh.hexatime.ui.main
 
 import android.content.SharedPreferences
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -36,47 +36,50 @@ import kotlin.properties.Delegates
 
 public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
+    val toolbar: Toolbar by Delegates.lazy { findViewById(R.id.toolbar) as Toolbar }
     val clock: Clock by Delegates.lazy { Clock(this) }
     val background: Background by Delegates.lazy { Background(clock) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super<AppCompatActivity>.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        setSupportActionBar(toolbar)
 
         PreferenceManager.getDefaultSharedPreferences(getBaseContext())
                 .registerOnSharedPreferenceChangeListener(this)
-
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
 
         getFragmentManager().beginTransaction()
                 .add(R.id.container, SettingsFragment())
                 .commit()
 
-        val handler = Handler()
+        val handler = Handler(Looper.getMainLooper())
         var colorOld = getResources().getColor(R.color.primary)
         val updateToolbar = object : Runnable {
             override fun run(): Unit {
                 clock.updateCalendar()
 
-                val colorStart = colorOld
-                val colorEnd = background.getColor()
-                colorOld = colorEnd
+                val start = colorOld
+                val end = background.getColor()
+                colorOld = end
 
-                val drawableStart = ColorDrawable(colorStart)
-                val drawableEnd = ColorDrawable(colorEnd)
-
-                val transition = TransitionDrawable(arrayOf(drawableStart, drawableEnd))
-                toolbar.setBackground(transition)
-                transition.startTransition(300)
-
-                val statusBarColor = darkenColor(background.getColor(), 0.8f)
-                if (isLollipop()) getWindow().setStatusBarColor(statusBarColor)
+                updateToolbarColor(start, end)
+                if (isLollipop()) updateStatusBarColor()
 
                 handler.postDelayed(this, 1000)
             }
         }
         handler.postDelayed(updateToolbar, 1000)
+    }
+
+    private fun updateToolbarColor(start: Int, end: Int) {
+        val transition = TransitionDrawable(arrayOf(ColorDrawable(start), ColorDrawable(end)))
+        toolbar.setBackground(transition)
+        transition.startTransition(300)
+    }
+
+    private fun updateStatusBarColor() {
+        val statusBarColor = darkenColor(background.getColor(), 0.8f)
+        getWindow().setStatusBarColor(statusBarColor)
     }
 
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
