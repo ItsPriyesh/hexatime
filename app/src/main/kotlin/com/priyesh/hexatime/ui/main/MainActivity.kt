@@ -92,7 +92,8 @@ public class MainActivity : AppCompatActivity() {
         val logoAlpha = ObjectAnimator.ofFloat(logoView, View.ALPHA, 1f)
                 .setDuration(22 percentOf setOneDuration)
 
-        val logoTranslation = ObjectAnimator.ofFloat(logoView, View.TRANSLATION_Y, -logoView.getHeight().toFloat())
+        val logoTranslation = ObjectAnimator.ofFloat(logoView, View.TRANSLATION_Y,
+                -(activateButton.getHeight().toFloat() + getPixels(32)))
                 .setDuration(22 percentOf setOneDuration)
 
         val activateAlpha = ObjectAnimator.ofFloat(activateButton, View.ALPHA, 1f)
