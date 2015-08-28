@@ -39,6 +39,7 @@ import com.priyesh.hexatime.KEY_FIRST_RUN
 import com.priyesh.hexatime.R
 import com.priyesh.hexatime.core.HexatimeService
 import com.priyesh.hexatime.getPixels
+import com.priyesh.hexatime.isLollipop
 import kotlin.properties.Delegates
 
 public class MainActivity : AppCompatActivity() {
@@ -136,12 +137,16 @@ public class MainActivity : AppCompatActivity() {
         setTwo.start()
     }
 
-    private fun getLogoDrawable(): Drawable
+    private fun getLogoDrawable() = if (isLollipop()) fromVectorDrawable() else fromSVGAndroid()
+
+    private fun fromSVGAndroid(): Drawable
             = SVGBuilder()
             .readFromResource(getResources(), R.raw.hexatime)
             .setWhiteMode(true)
             .build()
             .getDrawable()
+
+    private fun fromVectorDrawable(): Drawable = getDrawable(R.drawable.hexatime_vector)
 
     private fun activate() {
         val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)

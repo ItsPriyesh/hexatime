@@ -55,6 +55,8 @@
         android:id="@id/logo_view"
         android:layout_centerInParent="true"
         android:alpha="0"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </RelativeLayout>
