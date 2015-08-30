@@ -19,6 +19,7 @@ package com.priyesh.hexatime.ui.main
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.WallpaperManager
+import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Typeface
@@ -35,11 +36,8 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import com.larvalabs.svgandroid.SVGBuilder
-import com.priyesh.hexatime.KEY_FIRST_RUN
-import com.priyesh.hexatime.R
+import com.priyesh.hexatime.*
 import com.priyesh.hexatime.core.HexatimeService
-import com.priyesh.hexatime.getPixels
-import com.priyesh.hexatime.isLollipop
 import kotlin.properties.Delegates
 
 public class MainActivity : AppCompatActivity() {
@@ -152,8 +150,16 @@ public class MainActivity : AppCompatActivity() {
         val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
         intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
                 ComponentName(this, HexatimeService().javaClass))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
-        startActivity(intent)
+        try { startActivity(intent) } catch (e: ActivityNotFoundException) {
+            val intent2 = Intent(WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+            try { startActivity(intent2) } catch (e: ActivityNotFoundException) {
+                toast("Unable to launch wallpaper chooser", this);
+            }
+        }
     }
 
     private fun openSettings() {

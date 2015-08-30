@@ -22,6 +22,7 @@ import android.graphics.Point
 import android.os.Build
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Toast
 
 public fun Context.getPixels(dpValue: Int): Float =
         dpValue * getResources().getDisplayMetrics().density + 0.5f
@@ -46,3 +47,5 @@ private fun getScreenSize(c: Context): Point {
 }
 
 public fun isLollipop(): Boolean = Build.VERSION.SDK_INT >= 21
+
+public fun toast(s: String, c: Context): Unit = Toast.makeText(c, s, Toast.LENGTH_SHORT).show()
