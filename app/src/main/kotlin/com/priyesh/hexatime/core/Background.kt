@@ -56,7 +56,7 @@ public class Background(clock: Clock) : PreferenceDelegate {
             KEY_BACKGROUND_OVERLAY, KEY_BACKGROUND_OVERLAY_OPACITY, KEY_BACKGROUND_OVERLAY_SCALE -> {
                 val overlayRef = getInt(KEY_BACKGROUND_OVERLAY)
                 val opacity = (getSliderValue(KEY_BACKGROUND_OVERLAY_OPACITY, 10) * 255).toInt()
-                val scale = getSliderValue(KEY_BACKGROUND_OVERLAY_SCALE, 50)
+                val scale = Math.max(getSliderValue(KEY_BACKGROUND_OVERLAY_SCALE, 50), 0.1f)
                 updateOverlay(overlayRef, opacity, scale)
             }
         }
