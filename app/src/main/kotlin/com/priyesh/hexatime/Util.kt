@@ -46,6 +46,6 @@ private fun getScreenSize(c: Context): Point {
     return point
 }
 
-public fun isLollipop(): Boolean = Build.VERSION.SDK_INT >= 21
+public fun api(api: Int): Boolean = Build.VERSION.SDK_INT >= api
 
 public fun toast(s: String, c: Context): Unit = Toast.makeText(c, s, Toast.LENGTH_SHORT).show()

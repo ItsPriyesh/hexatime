@@ -135,7 +135,7 @@ public class MainActivity : AppCompatActivity() {
         setTwo.start()
     }
 
-    private fun getLogoDrawable() = if (isLollipop()) fromVectorDrawable() else fromSVGAndroid()
+    private fun getLogoDrawable() = if (api(21)) fromVectorDrawable() else fromSVGAndroid()
 
     private fun fromSVGAndroid(): Drawable
             = SVGBuilder()

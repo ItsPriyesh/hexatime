@@ -31,7 +31,7 @@ import com.priyesh.hexatime.R
 import com.priyesh.hexatime.core.Background
 import com.priyesh.hexatime.core.Clock
 import com.priyesh.hexatime.darkenColor
-import com.priyesh.hexatime.isLollipop
+import com.priyesh.hexatime.api
 import kotlin.properties.Delegates
 
 public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
@@ -63,7 +63,7 @@ public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedP
                 colorOld = end
 
                 updateToolbarColor(start, end)
-                if (isLollipop()) updateStatusBarColor()
+                if (api(21)) updateStatusBarColor()
 
                 handler.postDelayed(this, 1000)
             }
@@ -73,7 +73,7 @@ public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedP
 
     private fun updateToolbarColor(start: Int, end: Int) {
         val transition = TransitionDrawable(arrayOf(ColorDrawable(start), ColorDrawable(end)))
-        toolbar.setBackground(transition)
+        if (api(16)) toolbar.setBackground(transition) else toolbar.setBackgroundDrawable(transition);
         transition.startTransition(300)
     }
 
