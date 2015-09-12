@@ -92,7 +92,7 @@ public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedP
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.getItemId() == R.id.action_done) finishAffinity()
+        if (item.getItemId() == R.id.action_done) finish()
         return super<AppCompatActivity>.onOptionsItemSelected(item)
     }
 }
