@@ -33,6 +33,9 @@ public class Background(clock: Clock) : PreferenceDelegate {
     private var saturation: Float = 0.5f
     private var brightness: Float = 0.5f
 
+    private var customColorEnabled = false
+    private var customColor = Color.parseColor("#333333")
+
     private var overlay: BitmapDrawable by Delegates.notNull()
 
     init { initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(clock.getContext())) }
@@ -40,7 +43,8 @@ public class Background(clock: Clock) : PreferenceDelegate {
     override fun initializeFromPrefs(prefs: SharedPreferences) {
         val keys = arrayOf(KEY_COLOR_MODE, KEY_BACKGROUND_SATURATION,
                 KEY_BACKGROUND_BRIGHTNESS, KEY_BACKGROUND_OVERLAY,
-                KEY_BACKGROUND_OVERLAY_OPACITY, KEY_BACKGROUND_OVERLAY_SCALE)
+                KEY_BACKGROUND_OVERLAY_OPACITY, KEY_BACKGROUND_OVERLAY_SCALE,
+                KEY_ENABLE_CUSTOM_COLOR, KEY_CUSTOM_COLOR)
 
         for (key in keys) onPreferenceChange(prefs, key)
     }
@@ -53,6 +57,8 @@ public class Background(clock: Clock) : PreferenceDelegate {
             KEY_BACKGROUND_SATURATION -> saturation = getSliderValue(KEY_BACKGROUND_SATURATION, 50)
             KEY_BACKGROUND_BRIGHTNESS -> brightness = getSliderValue(KEY_BACKGROUND_BRIGHTNESS, 50)
             KEY_COLOR_MODE -> colorMode = getInt(KEY_COLOR_MODE)
+            KEY_ENABLE_CUSTOM_COLOR -> customColorEnabled = prefs.getBoolean(KEY_ENABLE_CUSTOM_COLOR, false)
+            KEY_CUSTOM_COLOR -> customColor = prefs.getInt(KEY_CUSTOM_COLOR, customColor)
             KEY_BACKGROUND_OVERLAY, KEY_BACKGROUND_OVERLAY_OPACITY, KEY_BACKGROUND_OVERLAY_SCALE -> {
                 val overlayRef = getInt(KEY_BACKGROUND_OVERLAY)
                 val opacity = (getSliderValue(KEY_BACKGROUND_OVERLAY_OPACITY, 10) * 255).toInt()
@@ -62,7 +68,8 @@ public class Background(clock: Clock) : PreferenceDelegate {
         }
     }
 
-    public fun getColor(): Int = if (rgbEnabled()) getRGBColor() else getHSBColor()
+    public fun getColor(): Int = if (customColorEnabled) customColor
+            else (if (rgbEnabled()) getRGBColor() else getHSBColor())
 
     private fun rgbEnabled() = colorMode == 0
     private fun getRGBColor() = clock.getColor()
