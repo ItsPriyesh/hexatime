@@ -84,6 +84,16 @@
             android:key="background_brightness"
             android:summary="Set the brightness level"
             android:title="Brightness" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:title="Enable custom color"
+            android:summary="Set a custom fixed color as the background"
+            android:key="enable_custom_color" />
+        <Preference
+            android:dependency="enable_custom_color"
+            android:key="custom_color"
+            android:title="Set custom color"
+            android:summary="Manually set background color"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Background Overlays">

@@ -20,10 +20,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.preference.ListPreference
 import android.preference.PreferenceFragment
+import android.preference.PreferenceManager
 import com.priyesh.hexatime.*
 import com.priyesh.hexatime.ui.preferences.ClockPositionDialog
+import com.priyesh.hexatime.ui.preferences.ColorPickerDialog
 import com.priyesh.hexatime.ui.preferences.SliderPreference
 import de.psdev.licensesdialog.LicensesDialog
 import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20
@@ -38,6 +39,7 @@ public class SettingsFragment : PreferenceFragment() {
         addPreferencesFromResource(R.xml.settings)
 
         val context = getActivity()
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
         val saturation = findPreference(KEY_BACKGROUND_SATURATION)
         val brightness = findPreference(KEY_BACKGROUND_BRIGHTNESS)
@@ -47,15 +49,28 @@ public class SettingsFragment : PreferenceFragment() {
             brightness setEnabled hslEnabled
         }
 
-        val colorMode = findPreference(KEY_COLOR_MODE) as ListPreference
-        updateHSBPrefs(colorMode.getValue() equals "1")
+        val colorMode = prefs.getString(KEY_COLOR_MODE, "0")
+        updateHSBPrefs(colorMode equals "1")
 
-        findPreference(KEY_COLOR_MODE) setOnPreferenceChangeListener { preference, newValue ->
+        onPreferenceChange(KEY_COLOR_MODE, { newValue ->
             updateHSBPrefs(newValue as String equals "1")
-            true
+        })
+
+        fun updateCustomColorPref(customEnabled: Boolean): Unit {
+            findPreference(KEY_COLOR_MODE).setEnabled(!customEnabled)
+            updateHSBPrefs(!customEnabled)
         }
 
-        onPreferenceClick("clock_position", { ClockPositionDialog(context).create().show() })
+        val customColorEnabled = prefs.getBoolean(KEY_ENABLE_CUSTOM_COLOR, false)
+        updateCustomColorPref(customColorEnabled)
+
+        onPreferenceChange(KEY_ENABLE_CUSTOM_COLOR, { newValue ->
+            updateCustomColorPref(newValue as Boolean)
+        })
+
+        onPreferenceClick("clock_position", { ClockPositionDialog(context).display() })
+
+        onPreferenceClick(KEY_CUSTOM_COLOR, { ColorPickerDialog(context).display() })
 
         fun displaySlider(title: String, key: String, def: Int): Unit {
             SliderPreference(title, key, def, context).display()
@@ -101,6 +116,12 @@ public class SettingsFragment : PreferenceFragment() {
 
     private fun onPreferenceClick(key: String, onClick: () -> Unit) {
         findPreference(key) setOnPreferenceClickListener { onClick(); true }
+    }
+
+    private fun onPreferenceChange(key: String, onChange: (newValue: Any) -> Unit) {
+        findPreference(key) setOnPreferenceChangeListener { pref, newValue ->
+            onChange(newValue); true
+        }
     }
 
     private val noticeList = arrayOf(

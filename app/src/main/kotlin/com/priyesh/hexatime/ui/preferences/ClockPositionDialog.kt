@@ -57,4 +57,7 @@ public class ClockPositionDialog(context: Context) : AlertDialog.Builder(context
     private fun SeekBar.center() {
         setProgress(getMax() / 2)
     }
+
+    public fun display(): Unit =
+            create().show()
 }
