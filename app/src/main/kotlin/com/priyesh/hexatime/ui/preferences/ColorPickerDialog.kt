@@ -60,6 +60,7 @@ public class ColorPickerDialog(context: Context) : AlertDialog.Builder(context),
         val g = Color.green(colorFromPrefs)
         val b = Color.blue(colorFromPrefs)
 
+        colorView.setBackgroundColor(colorFromPrefs)
         listOf(sliderR to r, sliderG to g, sliderB to b) forEach {
             val slider = it.first
             val value = it.second
