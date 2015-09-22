@@ -16,6 +16,7 @@
 
 package com.priyesh.hexatime.ui.main
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.TransitionDrawable
@@ -28,10 +29,10 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.priyesh.hexatime.R
+import com.priyesh.hexatime.api
 import com.priyesh.hexatime.core.Background
 import com.priyesh.hexatime.core.Clock
 import com.priyesh.hexatime.darkenColor
-import com.priyesh.hexatime.api
 import kotlin.properties.Delegates
 
 public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
@@ -82,6 +83,13 @@ public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedP
         getWindow().setStatusBarColor(statusBarColor)
     }
 
+    private fun goHome() {
+        val home = Intent(Intent.ACTION_MAIN)
+        home.addCategory(Intent.CATEGORY_HOME)
+        home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(home)
+    }
+
     override fun onSharedPreferenceChanged(prefs: SharedPreferences, key: String) {
         background.onPreferenceChange(prefs, key)
     }
@@ -92,7 +100,7 @@ public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedP
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.getItemId() == R.id.action_done) finish()
+        if (item.getItemId() == R.id.action_done) goHome()
         return super<AppCompatActivity>.onOptionsItemSelected(item)
     }
 }
