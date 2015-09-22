@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.priyesh.hexatime"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 10
         versionName "2.2"
     }
