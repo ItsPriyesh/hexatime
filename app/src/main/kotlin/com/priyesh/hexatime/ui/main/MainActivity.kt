@@ -152,13 +152,17 @@ public class MainActivity : AppCompatActivity() {
                 ComponentName(this, HexatimeService().javaClass))
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
-        try { startActivity(intent) } catch (e: ActivityNotFoundException) {
+        try {
+            startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
             val intent2 = Intent(WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
             try { startActivity(intent2) } catch (e: ActivityNotFoundException) {
                 toast("Unable to launch wallpaper chooser", this);
             }
+        } catch (e: NoSuchFieldError) {
+            toast("WallpaperManager is missing", this);
         }
     }
 
