@@ -1,6 +1,6 @@
 HexaTime
 ========
-HexaTime is an open source, Android live wallpaper that sets your device's background to the color corresponding to the current time.
+A live wallpaper that sets your Android device's background to the current time's color representation.
 
 ![Screenshot](art/screenie_wallpaper.png)
 
