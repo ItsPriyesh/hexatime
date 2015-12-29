@@ -78,8 +78,8 @@ public class MainActivity : AppCompatActivity() {
         } else return false
     }
 
+    infix fun Int.percentOf(l: Long): Long = ((this / 100.0) * l).toLong()
     private fun animateIn() {
-        fun Int.percentOf(l: Long): Long = ((this / 100.0) * l).toLong()
 
         val firstRun = firstRun()
         val setOneDuration: Long = if (firstRun) 1850 else 50 percentOf 1850
