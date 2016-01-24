@@ -40,8 +40,8 @@ public class ClockPositionDialog(context: Context) : AlertDialog.Builder(context
         sliderX = view.findViewById(R.id.horizontal_seekbar) as SeekBar
         sliderY = view.findViewById(R.id.vertical_seekbar) as SeekBar
 
-        sliderX.setProgress(prefs.getInt(KEY_CLOCK_POSITION_X, 50))
-        sliderY.setProgress(prefs.getInt(KEY_CLOCK_POSITION_Y, 50))
+        sliderX.progress = prefs.getInt(KEY_CLOCK_POSITION_X, 50)
+        sliderY.progress = prefs.getInt(KEY_CLOCK_POSITION_Y, 50)
 
         view.findViewById(R.id.center_horizontal).setOnClickListener({ sliderX.center() })
         view.findViewById(R.id.center_vertical).setOnClickListener({ sliderY.center() })
@@ -49,15 +49,14 @@ public class ClockPositionDialog(context: Context) : AlertDialog.Builder(context
         setTitle("Clock position")
         setNegativeButton("Cancel", { dialog, id -> dialog.dismiss() })
         setPositiveButton("OK", { dialog, ide ->
-            prefs.edit().putInt(KEY_CLOCK_POSITION_X, sliderX.getProgress()).commit()
-            prefs.edit().putInt(KEY_CLOCK_POSITION_Y, sliderY.getProgress()).commit()
+            prefs.edit().putInt(KEY_CLOCK_POSITION_X, sliderX.progress).commit()
+            prefs.edit().putInt(KEY_CLOCK_POSITION_Y, sliderY.progress).commit()
         })
     }
 
     private fun SeekBar.center() {
-        setProgress(getMax() / 2)
+        progress = max / 2
     }
 
-    public fun display(): Unit =
-            create().show()
+    public fun display(): Unit = create().show()
 }

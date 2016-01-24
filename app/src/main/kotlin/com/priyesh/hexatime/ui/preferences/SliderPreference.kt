@@ -40,7 +40,7 @@ public class SliderPreference(val title: String, val key: String, val def: Int, 
 
         val currentProgress = prefs.getInt(key, def)
         updateProgressLabel(currentProgress)
-        slider.setProgress(currentProgress)
+        slider.progress = currentProgress
 
         slider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -54,12 +54,12 @@ public class SliderPreference(val title: String, val key: String, val def: Int, 
         setTitle(title)
         setNegativeButton("Cancel", { dialog, id -> dialog.dismiss() })
         setPositiveButton("OK", { dialog, ide ->
-            prefs.edit().putInt(key, slider.getProgress()).commit()
+            prefs.edit().putInt(key, slider.progress).commit()
         })
     }
 
     private fun updateProgressLabel(progress: Int): Unit {
-        progressLabel.setText("${progress}%")
+        progressLabel.text = "$progress%"
     }
 
     public fun display(): Unit {

@@ -49,7 +49,7 @@ public class HexatimeService : WallpaperService() {
 
         private var visible = false
         private var canvas: Canvas? = null
-        private var clock = Clock(getBaseContext())
+        private var clock = Clock(baseContext)
         private var background = Background(clock)
         private var clockVisibility = 0
         private var enableBackgroundOverlay = false
@@ -58,11 +58,10 @@ public class HexatimeService : WallpaperService() {
         private val HIDDEN_LOCK_SCREEN = 2
 
         init {
-            PreferenceManager
-                    .getDefaultSharedPreferences(getBaseContext())
+            PreferenceManager.getDefaultSharedPreferences(baseContext)
                     .registerOnSharedPreferenceChangeListener(this)
 
-            val prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext())
+            val prefs = PreferenceManager.getDefaultSharedPreferences(baseContext)
             clockDelegate = clock
             backgroundDelegate = background
             clockVisibility = prefs.getString(KEY_CLOCK_VISIBILITY, "0").toInt()
@@ -86,13 +85,13 @@ public class HexatimeService : WallpaperService() {
         }
 
         override fun onSurfaceDestroyed(holder: SurfaceHolder) {
-            super<EngineIntermediate>.onSurfaceDestroyed(holder)
+            super.onSurfaceDestroyed(holder)
             this.visible = false
             handler.removeCallbacks(updater)
         }
 
         private fun draw() {
-            var surfaceHolder = getSurfaceHolder()
+            var surfaceHolder = surfaceHolder
             try {
                 canvas = surfaceHolder.lockCanvas()
                 val canvasVal: Canvas? = canvas
@@ -112,11 +111,10 @@ public class HexatimeService : WallpaperService() {
             if (enableBackgroundOverlay) background.getBackgroundOverlay().draw(canvas)
 
             if (shouldDrawClock()) {
-                clock.updateDimensions(Pair(canvas.getWidth(), canvas.getHeight()))
+                clock.updateDimensions(Pair(canvas.width, canvas.height))
                 clock.updateCalendar()
                 canvas.drawText(clock.getTime(), clock.getX(), clock.getY(), clock.getPaint())
             }
-
         }
 
         private fun shouldDrawClock() = clockVisibility == ALWAYS_VISIBLE ||

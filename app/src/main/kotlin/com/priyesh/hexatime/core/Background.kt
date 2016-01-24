@@ -91,15 +91,15 @@ public class Background(clock: Clock) : PreferenceDelegate {
 
     private fun updateOverlay(overlayRef: Int, opacity: Int, scale: Float) {
         val context = clock.getContext()
-        val res = context.getResources()
+        val res = context.resources
         val bitmap = BitmapFactory.decodeResource(res, getOverlayId(overlayRef))
-        val bitmapScaled = Bitmap.createScaledBitmap(bitmap, (bitmap.getWidth() * scale).toInt(),
-                (bitmap.getHeight() * scale).toInt(), false);
+        val bitmapScaled = Bitmap.createScaledBitmap(bitmap, (bitmap.width * scale).toInt(),
+                (bitmap.height * scale).toInt(), false);
 
         overlay = BitmapDrawable(res, bitmapScaled)
-        overlay.setTileModeX(Shader.TileMode.REPEAT)
-        overlay.setTileModeY(Shader.TileMode.REPEAT)
-        overlay.setAlpha(opacity)
+        overlay.tileModeX = Shader.TileMode.REPEAT
+        overlay.tileModeY = Shader.TileMode.REPEAT
+        overlay.alpha = opacity
         overlay.setBounds(0, 0, getScreenWidth(context), getScreenHeight(context))
     }
 

@@ -34,17 +34,17 @@ public class ColorPickerDialog(context: Context) : AlertDialog.Builder(context),
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
     private val view = LayoutInflater.from(context).inflate(R.layout.color_picker_dialog, null)
 
-    private fun findView<T>(id: Int) = view.findViewById(id) as T
+    private fun <T> findView(id: Int) = view.findViewById(id) as T
 
-    private val colorView by Delegates.lazy { findView<View>(R.id.color_view) }
+    private val colorView by lazy { findView<View>(R.id.color_view) }
 
-    private val sliderR by Delegates.lazy { findView<SeekBar>(R.id.seekbar_red) }
-    private val sliderG by Delegates.lazy { findView<SeekBar>(R.id.seekbar_green) }
-    private val sliderB by Delegates.lazy { findView<SeekBar>(R.id.seekbar_blue) }
+    private val sliderR by lazy { findView<SeekBar>(R.id.seekbar_red) }
+    private val sliderG by lazy { findView<SeekBar>(R.id.seekbar_green) }
+    private val sliderB by lazy { findView<SeekBar>(R.id.seekbar_blue) }
 
-    private val progressLabelR by Delegates.lazy { findView<TextView>(R.id.progress_label_red) }
-    private val progressLabelG by Delegates.lazy { findView<TextView>(R.id.progress_label_green) }
-    private val progressLabelB by Delegates.lazy { findView<TextView>(R.id.progress_label_blue) }
+    private val progressLabelR by lazy { findView<TextView>(R.id.progress_label_red) }
+    private val progressLabelG by lazy { findView<TextView>(R.id.progress_label_green) }
+    private val progressLabelB by lazy { findView<TextView>(R.id.progress_label_blue) }
 
     private val slidersToProgress: Map<SeekBar, TextView> = mapOf(
             sliderR to progressLabelR,
@@ -61,12 +61,12 @@ public class ColorPickerDialog(context: Context) : AlertDialog.Builder(context),
         val b = Color.blue(colorFromPrefs)
 
         colorView.setBackgroundColor(colorFromPrefs)
-        listOf(sliderR to r, sliderG to g, sliderB to b) forEach {
+        listOf(sliderR to r, sliderG to g, sliderB to b).forEach {
             val slider = it.first
             val value = it.second
 
-            slidersToProgress.get(slider)?.setText(value.toString())
-            slider.setProgress(value)
+            slidersToProgress[slider]?.text = value.toString()
+            slider.progress = value
             slider.setOnSeekBarChangeListener(this)
         }
 
@@ -81,16 +81,14 @@ public class ColorPickerDialog(context: Context) : AlertDialog.Builder(context),
     override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        slidersToProgress.get(seekBar)?.setText(progress.toString())
+        slidersToProgress.get(seekBar)?.text = progress.toString()
         updateColorView()
     }
 
     private fun updateColorView(): Unit = colorView.setBackgroundColor(getCurrentColor())
 
     private fun getCurrentColor(): Int = Color.rgb(
-            sliderR.getProgress(),
-            sliderG.getProgress(),
-            sliderB.getProgress())
+            sliderR.progress, sliderG.progress, sliderB.progress)
 
     public fun display(): Unit = create().show()
 }

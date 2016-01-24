@@ -62,7 +62,7 @@ public class MainActivity : AppCompatActivity() {
         activateButton.setOnClickListener { activate() }
         settingsButton.setOnClickListener { openSettings() }
 
-        activateButton.setTypeface(Typeface.createFromAsset(getAssets(), "Lato.ttf"))
+        activateButton.typeface = Typeface.createFromAsset(assets, "Lato.ttf")
 
         logoView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         logoView.setImageDrawable(getLogoDrawable())
@@ -92,28 +92,28 @@ public class MainActivity : AppCompatActivity() {
                 .setDuration(22 percentOf setOneDuration)
 
         val logoTranslation = ObjectAnimator.ofFloat(logoView, View.TRANSLATION_Y,
-                -(activateButton.getHeight().toFloat() + getPixels(32)))
+                -(activateButton.height.toFloat() + getPixels(32)))
                 .setDuration(22 percentOf setOneDuration)
 
         val activateAlpha = ObjectAnimator.ofFloat(activateButton, View.ALPHA, 1f)
                 .setDuration(14 percentOf setOneDuration)
 
         val activateTranslation = ObjectAnimator.ofFloat(activateButton, View.TRANSLATION_Y,
-                logoView.getHeight().toFloat() - activateButton.getHeight().toFloat())
+                logoView.height.toFloat() - activateButton.height.toFloat())
                 .setDuration(15 percentOf setOneDuration)
 
         val settingsAlpha = ObjectAnimator.ofFloat(settingsButton, View.ALPHA, 1f)
                 .setDuration(40 percentOf setTwoDuration)
 
         val settingsTranslation = ObjectAnimator.ofFloat(settingsButton, View.TRANSLATION_Y,
-                logoView.getHeight().toFloat() + getPixels(24))
+                logoView.height.toFloat() + getPixels(24))
                 .setDuration(setTwoDuration)
 
         val settingsRotation = ObjectAnimator.ofFloat(settingsButton, View.ROTATION, 180f)
                 .setDuration(setTwoDuration)
 
         val setOne = AnimatorSet()
-        setOne.setInterpolator(AccelerateDecelerateInterpolator())
+        setOne.interpolator = AccelerateDecelerateInterpolator()
         setOne.playSequentially(
                 backgroundAlpha,
                 logoAlpha,
@@ -123,8 +123,8 @@ public class MainActivity : AppCompatActivity() {
         )
 
         val setTwo = AnimatorSet()
-        setTwo.setInterpolator(FastOutSlowInInterpolator())
-        setTwo.setStartDelay(setOneDuration)
+        setTwo.interpolator = FastOutSlowInInterpolator()
+        setTwo.startDelay = setOneDuration
         setTwo.playTogether(
                 settingsAlpha,
                 settingsTranslation,
@@ -139,10 +139,10 @@ public class MainActivity : AppCompatActivity() {
 
     private fun fromSVGAndroid(): Drawable
             = SVGBuilder()
-            .readFromResource(getResources(), R.raw.hexatime)
+            .readFromResource(resources, R.raw.hexatime)
             .setWhiteMode(true)
             .build()
-            .getDrawable()
+            .drawable
 
     private fun fromVectorDrawable(): Drawable = getDrawable(R.drawable.hexatime_vector)
 

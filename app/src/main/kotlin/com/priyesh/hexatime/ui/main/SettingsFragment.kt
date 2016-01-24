@@ -38,26 +38,26 @@ public class SettingsFragment : PreferenceFragment() {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.settings)
 
-        val context = getActivity()
+        val context = activity
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
         val saturation = findPreference(KEY_BACKGROUND_SATURATION)
         val brightness = findPreference(KEY_BACKGROUND_BRIGHTNESS)
 
         fun updateHSBPrefs(hslEnabled: Boolean): Unit {
-            saturation setEnabled hslEnabled
-            brightness setEnabled hslEnabled
+            saturation.isEnabled = hslEnabled
+            brightness.isEnabled = hslEnabled
         }
 
         val colorMode = prefs.getString(KEY_COLOR_MODE, "0")
-        updateHSBPrefs(colorMode equals "1")
+        updateHSBPrefs(colorMode.equals("1"))
 
         onPreferenceChange(KEY_COLOR_MODE, { newValue ->
-            updateHSBPrefs(newValue as String equals "1")
+            updateHSBPrefs((newValue as String).equals("1"))
         })
 
         fun updateCustomColorPref(customEnabled: Boolean): Unit {
-            findPreference(KEY_COLOR_MODE).setEnabled(!customEnabled)
+            findPreference(KEY_COLOR_MODE).isEnabled = !customEnabled
             updateHSBPrefs(!customEnabled)
         }
 
@@ -97,29 +97,29 @@ public class SettingsFragment : PreferenceFragment() {
         onPreferenceClick("donate", { openLink(string(R.string.url_donate)) })
 
         onPreferenceClick("licenses", {
-            val notices = Notices(); noticeList forEach { notices.addNotice(it) }
+            val notices = Notices(); noticeList.forEach { notices.addNotice(it) }
             LicensesDialog.Builder(context).setNotices(notices).build().show()
         })
 
-        findPreference("version") setSummary("${BuildConfig.VERSION_NAME} - ${BuildConfig.BUILD_TYPE}")
+        findPreference("version").summary = "${BuildConfig.VERSION_NAME} - ${BuildConfig.BUILD_TYPE}"
     }
 
-    private fun string(id: Int) = getActivity().getResources().getString(id)
+    private fun string(id: Int) = activity.resources.getString(id)
 
     private fun openLink(url: String) {
         val intent = Intent()
-        intent setAction Intent.ACTION_VIEW
-        intent addCategory Intent.CATEGORY_BROWSABLE
-        intent setData Uri.parse(url)
+        intent.setAction(Intent.ACTION_VIEW)
+        intent.addCategory(Intent.CATEGORY_BROWSABLE)
+        intent.setData(Uri.parse(url))
         startActivity(intent)
     }
 
     private fun onPreferenceClick(key: String, onClick: () -> Unit) {
-        findPreference(key) setOnPreferenceClickListener { onClick(); true }
+        findPreference(key).setOnPreferenceClickListener { onClick(); true }
     }
 
     private fun onPreferenceChange(key: String, onChange: (newValue: Any) -> Unit) {
-        findPreference(key) setOnPreferenceChangeListener { pref, newValue ->
+        findPreference(key).setOnPreferenceChangeListener { pref, newValue ->
             onChange(newValue); true
         }
     }

@@ -24,6 +24,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.preference.PreferenceManager
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -37,24 +38,24 @@ import kotlin.properties.Delegates
 
 public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
-    val toolbar: Toolbar by Delegates.lazy { findViewById(R.id.toolbar) as Toolbar }
-    val clock: Clock by Delegates.lazy { Clock(this) }
-    val background: Background by Delegates.lazy { Background(clock) }
+    val toolbar: Toolbar by lazy { findViewById(R.id.toolbar) as Toolbar }
+    val clock: Clock by lazy { Clock(this) }
+    val background: Background by lazy { Background(clock) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super<AppCompatActivity>.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         setSupportActionBar(toolbar)
 
-        PreferenceManager.getDefaultSharedPreferences(getBaseContext())
+        PreferenceManager.getDefaultSharedPreferences(baseContext)
                 .registerOnSharedPreferenceChangeListener(this)
 
-        getFragmentManager().beginTransaction()
+        fragmentManager.beginTransaction()
                 .add(R.id.container, SettingsFragment())
                 .commit()
 
         val handler = Handler(Looper.getMainLooper())
-        var colorOld = getResources().getColor(R.color.primary)
+        var colorOld = ContextCompat.getColor(this, R.color.primary)
         val updateToolbar = object : Runnable {
             override fun run(): Unit {
                 clock.updateCalendar()
@@ -74,13 +75,13 @@ public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedP
 
     private fun updateToolbarColor(start: Int, end: Int) {
         val transition = TransitionDrawable(arrayOf(ColorDrawable(start), ColorDrawable(end)))
-        if (api(16)) toolbar.setBackground(transition) else toolbar.setBackgroundDrawable(transition);
+        if (api(16)) toolbar.background = transition else toolbar.setBackgroundDrawable(transition);
         transition.startTransition(300)
     }
 
     private fun updateStatusBarColor() {
         val statusBarColor = darkenColor(background.getColor(), 0.8f)
-        getWindow().setStatusBarColor(statusBarColor)
+        window.statusBarColor = statusBarColor
     }
 
     private fun goHome() {
@@ -95,7 +96,7 @@ public class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedP
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        getMenuInflater().inflate(R.menu.menu_settings, menu)
+        menuInflater.inflate(R.menu.menu_settings, menu)
         return true
     }
 

@@ -44,9 +44,9 @@ public class FontListPreference : ListPreference, AdapterView.OnItemClickListene
     constructor(context: Context) : super(context) { }
 
     override fun onCreateDialogView(): View {
-        val assets = getContext().getAssets()
+        val assets = context.assets
         val fonts = arrayOf("Lato", "Roboto", "Advent Pro")
-        val spannables = Array<Spannable>(fonts.size(), { i ->
+        val spannables = Array<Spannable>(fonts.size, { i ->
             val spannable = SpannableString(fonts[i])
             spannable.setSpan(CustomTypefaceSpan("sans-serif",
                     Typeface.createFromAsset(assets, "${fonts[i]}.ttf")), 0,
@@ -54,27 +54,27 @@ public class FontListPreference : ListPreference, AdapterView.OnItemClickListene
             spannable
         })
 
-        setEntries(spannables)
-        setEntryValues(fonts)
+        entries = spannables
+        entryValues = fonts
 
-        val view = View.inflate(getContext(), R.layout.font_list_preference, null)
+        val view = View.inflate(context, R.layout.font_list_preference, null)
         val list = view.findViewById(android.R.id.list) as ListView
-        val adapter = ArrayAdapter(getContext(), android.R.layout.simple_list_item_single_choice, getEntries())
-        list.setAdapter(adapter)
-        list.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE)
-        list.setItemChecked(findIndexOfValue(getValue()), true)
-        list.setOnItemClickListener(this)
+        val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_single_choice, entries)
+        list.adapter = adapter
+        list.choiceMode = AbsListView.CHOICE_MODE_SINGLE
+        list.setItemChecked(findIndexOfValue(value), true)
+        list.onItemClickListener = this
 
         return view
     }
 
     override fun onPrepareDialogBuilder(builder: AlertDialog.Builder): Unit {
-        if (getEntries() == null || getEntryValues() == null) {
-            super<ListPreference>.onPrepareDialogBuilder(builder)
+        if (entries == null || entryValues == null) {
+            super.onPrepareDialogBuilder(builder)
             return
         }
 
-        entryIndexNum = findIndexOfValue(getValue())
+        entryIndexNum = findIndexOfValue(value)
         builder.setTitle(null)
         builder.setPositiveButton(null, null)
         builder.setNegativeButton(null, null)
@@ -82,15 +82,15 @@ public class FontListPreference : ListPreference, AdapterView.OnItemClickListene
 
     override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long): Unit {
         entryIndexNum = position
-        onClick(getDialog(), DialogInterface.BUTTON_POSITIVE)
-        getDialog().dismiss()
+        onClick(dialog, DialogInterface.BUTTON_POSITIVE)
+        dialog.dismiss()
     }
 
     override fun onDialogClosed(positiveResult: Boolean): Unit {
-        super<ListPreference>.onDialogClosed(positiveResult)
+        super.onDialogClosed(positiveResult)
 
-        if (positiveResult && entryIndexNum >= 0 && getEntryValues() != null) {
-            val value = getEntryValues()[entryIndexNum].toString()
+        if (positiveResult && entryIndexNum >= 0 && entryValues != null) {
+            val value = entryValues[entryIndexNum].toString()
             if (callChangeListener(value)) {
                 setValue(value)
             }

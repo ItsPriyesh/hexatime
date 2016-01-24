@@ -24,8 +24,7 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 
-public fun Context.getPixels(dpValue: Int): Float =
-        dpValue * getResources().getDisplayMetrics().density + 0.5f
+public fun Context.getPixels(dpValue: Int): Float = dpValue * resources.displayMetrics.density + 0.5f
 
 public fun log(message: String): Int = if (BuildConfig.DEBUG) Log.d("HexaTime", message) else 0
 

@@ -68,9 +68,9 @@ public class Clock(context: Context) : PreferenceDelegate {
     }
 
     init {
-        paint.setAntiAlias(true)
-        paint.setTextAlign(Paint.Align.CENTER)
-        paint.setColor(Color.WHITE)
+        paint.isAntiAlias = true
+        paint.textAlign = Paint.Align.CENTER
+        paint.color = Color.WHITE
 
         initializeFromPrefs(PreferenceManager.getDefaultSharedPreferences(context))
     }
@@ -89,7 +89,7 @@ public class Clock(context: Context) : PreferenceDelegate {
             KEY_ENABLE_NUMBER_SIGN -> enableNumberSign = prefs.getBoolean(key, true)
             KEY_CLOCK_DIVIDER -> dividerStyle = prefs.getString(key, "0").toInt()
             KEY_ENABLE_HEX_FORMAT -> enableHexFormat = prefs.getBoolean(key, false)
-            KEY_CLOCK_SIZE -> paint.setTextSize(context.getPixels(prefs.getString(key, "50").toInt()))
+            KEY_CLOCK_SIZE -> paint.textSize = context.getPixels(prefs.getString(key, "50").toInt())
             KEY_CLOCK_POSITION_X -> positionX = prefs.getInt(key, 50)
             KEY_CLOCK_POSITION_Y -> positionY = prefs.getInt(key, 50)
             KEY_CLOCK_FONT -> paint.setTypeface(createFont(prefs.getString(key, "Lato")))
@@ -113,7 +113,7 @@ public class Clock(context: Context) : PreferenceDelegate {
 
     private fun convertToHex(num: Int): String = Integer.toHexString(formatTwoDigit(num).toInt())
     private fun formatTwoDigit(num: Int): String = java.lang.String.format("%02d", num)
-    private fun createFont(name: String) = Typeface.createFromAsset(context.getAssets(), "${name}.ttf")
+    private fun createFont(name: String) = Typeface.createFromAsset(context.assets, "$name.ttf")
 
     public fun updateCalendar() {
         calendar = Calendar.getInstance()
