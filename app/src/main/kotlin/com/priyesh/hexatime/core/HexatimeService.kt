@@ -20,15 +20,12 @@ import android.app.KeyguardManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Canvas
-import android.graphics.Color
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
-import com.priyesh.hexatime.EngineIntermediate
 import com.priyesh.hexatime.KEY_CLOCK_VISIBILITY
 import com.priyesh.hexatime.KEY_ENABLE_BACKGROUND_OVERLAY
-import com.priyesh.hexatime.log
 import kotlin.properties.Delegates
 
 public class HexatimeService : WallpaperService() {
