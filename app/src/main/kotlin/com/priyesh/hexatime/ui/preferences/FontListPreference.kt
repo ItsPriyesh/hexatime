@@ -50,7 +50,7 @@ public class FontListPreference : ListPreference, AdapterView.OnItemClickListene
             val spannable = SpannableString(fonts[i])
             spannable.setSpan(CustomTypefaceSpan("sans-serif",
                     Typeface.createFromAsset(assets, "${fonts[i]}.ttf")), 0,
-                    fonts[i].length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    fonts[i].length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             spannable
         })
 

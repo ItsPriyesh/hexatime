@@ -36,7 +36,7 @@ public class HexatimeService : WallpaperService() {
     override fun onCreateEngine(): WallpaperService.Engine = HexatimeEngine()
 
     private inner class HexatimeEngine :
-            EngineIntermediate(this),
+            WallpaperService.Engine(),
             SharedPreferences.OnSharedPreferenceChangeListener {
 
         private final val handler = Handler()
